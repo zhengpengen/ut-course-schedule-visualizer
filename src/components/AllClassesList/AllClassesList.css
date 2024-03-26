@@ -1,0 +1,29 @@
+.all-classes-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    width: 25%; /* Adjust width  */
+  }
+  
+  .title-box {
+    text-align: center;
+    padding: 10px;
+    background-color: #ffffff;
+    /* Rounded Top Corners but not bottom corners */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: 0;
+    width: 100%;
+    border: 1px solid black;
+  }
+  
+  .cards-container {
+    flex-grow: 1;
+    overflow-y: scroll;
+    height: 70vh;
+    background-color: #f8f9fa;
+    border: 1px solid black;
+    width: 100%;
+  }
+  
