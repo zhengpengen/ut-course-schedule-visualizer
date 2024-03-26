@@ -1,0 +1,57 @@
+.group-card {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+  }
+  
+  .group-header {
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    cursor: pointer;
+  }
+  
+  .group-name-input,
+  .class-count-input {
+    padding: 5px;
+  }
+
+  .group-name-input {
+    font-size: 1em;
+  }
+
+  .italic {
+    font-style: italic;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .group-body {
+    background-color: #dedede;
+    height: 70vh; /* Fixed height */
+    overflow-y: auto;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+  }
+  
+  .group-footer {
+    background-color: #4399ff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 10px;
+    text-align: left;
+    color: white;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+  .class-count-input {
+    width: 30px; 
+  }
