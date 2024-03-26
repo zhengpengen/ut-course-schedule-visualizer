@@ -21,7 +21,7 @@
   .cards-container {
     flex-grow: 1;
     overflow-y: scroll;
-    height: 70vh;
+    height: 70vh; /* Adjusts length of cards container */
     background-color: #f8f9fa;
     border: 1px solid black;
     width: 100%;
