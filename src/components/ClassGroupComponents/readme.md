@@ -2,3 +2,4 @@
 ##### ClassGroup: The "main" so to speak
 ##### GroupCard: The user will use one or more of these to classify classes and choose ones that they absolutely would want.
 ##### AddCard: This is the component that the user will click to add a new GroupCard. 
+##### HelpScreen: This is the help screen componenet that pops up when you press the question mark button. 

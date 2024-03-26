@@ -2,11 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70vh; /* Assuming this matches the GroupComponent's height */
+    height: 50vh; /* Assuming this matches the GroupComponent's height */
     border-radius: 10px; /* Matching the rounded corners */
     background-color: #dedede; /* Same background as the GroupComponent */
-    margin: 10px; /* Adjust as needed */
+    margin-right: 20px; /* Adjust as needed */
     width: 10vh;
+    flex: 0 0 auto; /* Prevent horizontal squishing */
   }
   
   .plus-sign {
