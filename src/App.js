@@ -1,7 +1,5 @@
 import './App.css';
-import CourseCard from './components/CourseCard/CourseCard';
 import React, {useState} from 'react';
-import ExampleData from './ExampleData';
 
 
 function App() {
