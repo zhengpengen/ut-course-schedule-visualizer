@@ -1,0 +1,33 @@
+.card {
+    width: 20%; /* Adjust the width of the card */
+    height: 50%; /* Adjust the height of the card */
+    margin: 10px;
+  }
+
+  .course-card-header {
+    text-align: center;
+  }
+    
+  .section-info {
+    margin-right: 7px;
+  }
+
+  .dropdown-button {
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin: 0;
+    padding: 5px; 
+  }
+  
+  .course-info {
+    flex-grow: 1;
+    text-align: center;
+  }
+
+
+  .list-group-item {
+    font-size: 0.65rem; /* Adjust this if dropdown text is too small */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
