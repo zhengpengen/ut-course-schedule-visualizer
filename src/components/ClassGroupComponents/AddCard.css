@@ -6,11 +6,11 @@
     border-radius: 10px; /* Matching the rounded corners */
     background-color: #dedede; /* Same background as the GroupComponent */
     margin: 10px; /* Adjust as needed */
-    width: 30%;
+    width: 10vh;
   }
   
   .plus-sign {
     font-size: 64px; /* Large plus sign */
-    color: lightgrey;
+    color: black;
   }
   

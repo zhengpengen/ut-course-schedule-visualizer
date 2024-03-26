@@ -1,0 +1,38 @@
+.class-group {
+  }
+  
+  .header {
+    font-weight: bold;
+    background-color: white; /* Header background */
+  }
+  
+  .main-content {
+    display: flex;
+    align-items: center;
+    overflow-x:scroll;
+    background-color: #ffa152; /* Content background */
+    height: 80vh;
+  }
+  
+  .generate-btn {
+    background-color: #bf5700;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .help-btn {
+    right: 10px;
+    top: calc(100% + 5px);
+  }
+  
+  .add-card-wrapper {
+    flex: 0 0 auto; /* Prevent squishing */
+    cursor: pointer;
+  }
+  
+  .add-card:hover, .delete-btn:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+  }
+  
