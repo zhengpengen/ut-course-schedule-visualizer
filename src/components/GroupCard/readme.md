@@ -1,0 +1,1 @@
+This is the component that is seen within the Class Groups section. It will be used to generate combinations of classes to take.
