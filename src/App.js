@@ -1,14 +1,12 @@
-import './App.css';
-import React, {useState} from 'react';
-import ClassGroup from './components/ClassGroupComponents/ClassGroup';
-import AllClassesList from './components/AllClassesList/AllClassesList'
+import "./App.css";
+import React, { useState, Component } from "react";
+import DragAndDrop from "./components/DragAndDrop/DragAndDrop";
 
 function App() {
   return (
-    <div className='container'>
+    <div className="container">
       good morning bois
-      <ClassGroup />
-      <AllClassesList />
+      <DragAndDrop />
     </div>
   );
 }
