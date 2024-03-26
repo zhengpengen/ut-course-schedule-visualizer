@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import ClassGroup from "../ClassGroupComponents/ClassGroup.js";
 import AllClassesList from "../AllClassesList/AllClassesList.js";
 
