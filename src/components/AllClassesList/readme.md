@@ -1,0 +1,1 @@
+This is a UI component that hosts the classes that have been added as classes of interest by the user.
