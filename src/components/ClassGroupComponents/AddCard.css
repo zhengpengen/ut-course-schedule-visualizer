@@ -1,0 +1,16 @@
+.add-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh; /* Assuming this matches the GroupComponent's height */
+    border-radius: 10px; /* Matching the rounded corners */
+    background-color: #dedede; /* Same background as the GroupComponent */
+    margin: 10px; /* Adjust as needed */
+    width: 30%;
+  }
+  
+  .plus-sign {
+    font-size: 64px; /* Large plus sign */
+    color: lightgrey;
+  }
+  
