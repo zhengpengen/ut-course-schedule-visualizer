@@ -1,82 +1,41 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import ClassGroup from "../ClassGroupComponents/ClassGroup.js";
 import AllClassesList from "../AllClassesList/AllClassesList.js";
+import "./DragAndDrop.css";
 
-class DragAndDrop extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      allClassesList: [
-        {
-          classID: 1,
-          className: "Math",
-        },
-        {
-          classID: 2,
-          className: "Science",
-        },
-        {
-          classID: 3,
-          className: "History",
-        },
-      ],
-      classGroups: [],
-      draggedClass: {},
-    };
-  }
+const DragAndDrop = () => {
+  const [groupCards, setGroupCards] = useState([]);
 
-  onDrag = (event, courseCard) => {
-    event.preventDefault();
-    this.setState({
-      draggedClass: courseCard,
-    });
-  };
+  // const draggables = document.querySelectorAll(".course-card");
+  // const droppables = document.querySelectorAll(".group-card");
 
-  onDropToClassGroup = () => {
-    const { classGroups, draggedClass, allClassesList } = this.state;
-    if (draggedClass.classID) {
-      const updatedAllClassesList = allClassesList.filter(
-        (course) => course.classID !== draggedClass.classID
-      );
-      this.setState({
-        classGroups: [...classGroups, draggedClass],
-        allClassesList: updatedAllClassesList,
-        draggedClass: {},
-      });
-    }
-  };
+  // draggables.forEach((course) => {
+  //   course.addEventListener("dragstart", () => {
+  //     course.classList.add("is-dragging");
+  //     console.log("courseName is ", groupCards.map());
+  //   });
+  //   course.addEventListener("dragend", () => {
+  //     course.classList.remove("is-dragging");
+  //   });
+  // });
 
-  onDropToDifferentClassGroup = () => {
-    const { classGroups, draggedClass, allClassesList } = this.state;
-    if (draggedClass.classID) {
-      const updatedClassGroups = classGroups.filter(
-        (course) => course.classID !== draggedClass.classID
-      );
-      this.setState({
-        allClassesList: [...allClassesList, draggedClass],
-        classGroups: updatedClassGroups,
-        draggedClass: {},
-      });
-    }
-  };
+  // droppables.forEach((group) => {
+  //   group.addEventListener("dragend", (e) => {
+  //     e.preventDefault();
+  //     const belowCourse = insertAboveTask(group, e.clientY);
+  //   });
+  // });
 
-  render() {
-    const { allClassesList, classGroups } = this.state;
-    return (
-      <div className="DragAndDrop">
-        <ClassGroup
-          classGroups={classGroups}
-          onDrag={this.onDrag}
-          onDropToDifferentClassGroup={this.onDropToDifferentClassGroup}
-        />
-        <AllClassesList
-          allClasses={allClassesList}
-          onDrag={this.onDrag}
-          onDropToClassGroup={this.onDropToClassGroup}
-        />
+  return (
+    <div className="row">
+      <div className="col-2">
+        <AllClassesList />
       </div>
-    );
-  }
-}
+      <div className="col-10">
+        <ClassGroup groupCards={groupCards} setGroupCards={setGroupCards} />
+      </div>
+    </div>
+  );
+};
 
 export default DragAndDrop;

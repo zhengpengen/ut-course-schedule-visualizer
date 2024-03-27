@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, Component } from "react";
+import React from "react";
 import DragAndDrop from "./components/DragAndDrop/DragAndDrop";
 
 function App() {
