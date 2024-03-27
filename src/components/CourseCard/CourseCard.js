@@ -35,7 +35,7 @@ const CourseCard = ({ courses }) => {
   };
 
   return (
-    <div classname="course-card" draggable="true">
+    <div className="course-card" draggable="true">
       {courses.map((course, index) => (
         <div
           key={index}

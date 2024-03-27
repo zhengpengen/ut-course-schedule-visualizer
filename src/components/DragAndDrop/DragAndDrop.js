@@ -3,29 +3,7 @@ import ClassGroup from "../ClassGroupComponents/ClassGroup.js";
 import AllClassesList from "../AllClassesList/AllClassesList.js";
 import "./DragAndDrop.css";
 
-const DragAndDrop = () => {
-  const [groupCards, setGroupCards] = useState([]);
-
-  // const draggables = document.querySelectorAll(".course-card");
-  // const droppables = document.querySelectorAll(".group-card");
-
-  // draggables.forEach((course) => {
-  //   course.addEventListener("dragstart", () => {
-  //     course.classList.add("is-dragging");
-  //     console.log("courseName is ", groupCards.map());
-  //   });
-  //   course.addEventListener("dragend", () => {
-  //     course.classList.remove("is-dragging");
-  //   });
-  // });
-
-  // droppables.forEach((group) => {
-  //   group.addEventListener("dragend", (e) => {
-  //     e.preventDefault();
-  //     const belowCourse = insertAboveTask(group, e.clientY);
-  //   });
-  // });
-
+const DragAndDrop = ( {groupCards, setGroupCards}) => {
   return (
     <div className="row">
       <div className="col-2">
@@ -39,3 +17,52 @@ const DragAndDrop = () => {
 };
 
 export default DragAndDrop;
+
+// const draggables = document.querySelectorAll(".course-card");
+  // const droppables = document.querySelectorAll(".group-card");
+
+  // droppables.forEach((group) => {
+  //   group.addEventListener("dragover", (e) => {
+  //     e.preventDefault();
+  //     const bottomClass = insertAboveClass(group, e.clientY);
+  //     const curClass = document.querySelector(".is-dragging");
+  //     if (!curClass) {
+  //       group.appendChild(curClass);
+  //     } else {
+  //       group.insertBefore(curClass, bottomClass);
+  //     }
+  //   });
+  // });
+
+  // droppables.forEach((group) => {
+  //   group.addEventListener("dragend", (e) => {
+  //     e.preventDefault();
+  //     const bottomClass = insertAboveClass(group, e.clientY);
+  //     const curClass = document.querySelector(".is-dragging");
+
+  //     if (!bottomClass) {
+  //       group.appendChild(curClass);
+  //     } else {
+  //       group.insertBefore(curClass, bottomClass);
+  //     }
+  //   });
+  // });
+
+  // const insertAboveClass = (zone, mouseY) => {
+  //   const els = zone.querySelectorAll(".course-card:not(.is-dragging)"); // Change ".task" to ".course-card"
+
+  //   let closestTask = null;
+  //   let closestOffset = Number.NEGATIVE_INFINITY;
+
+  //   els.forEach((task) => {
+  //     const { top } = task.getBoundingClientRect();
+  //     const offset = mouseY - top;
+
+  //     if (offset < 0 && offset > closestOffset) {
+  //       closestOffset = offset;
+  //       closestTask = task;
+  //     }
+  //   });
+
+  //   return closestTask;
+  // };

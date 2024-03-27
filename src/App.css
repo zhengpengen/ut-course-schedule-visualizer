@@ -1,0 +1,6 @@
+.box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: yellow;
+  grid-column-gap: 20px;
+}

@@ -7,6 +7,9 @@ const GroupCard = ({ groupNumber, onDelete, onCountChange }) => {
   const [groupName, setGroupName] = useState(`Group ${groupNumber}`);
   const [isEditing, setIsEditing] = useState(false);
   const [classCount, setClassCount] = useState("");
+  const [coursesList, setCourseList] = useState([]);
+
+  // setCourseList([...coursesList, newCourse]); // appends course that just got dropped DOWN!!!!!!!!!!!!!!!!!!!!!!!???
 
   const handleGroupNameChange = (e) => {
     setGroupName(e.target.value);
@@ -61,12 +64,7 @@ const GroupCard = ({ groupNumber, onDelete, onCountChange }) => {
           </span>
         )}
       </div>
-      <div className="group-body">
-        {/* CourseCards will be dropped here */}
-        {ExampleData.map((course, index) => (
-          <CourseCard key={index} courses={[course]} />
-        ))}
-      </div>
+      <div className="group-body">{/* CourseCards will be dropped here */}</div>
       <div className="group-delete">
         <button onClick={onDelete} className="delete-btn">
           Delete Group

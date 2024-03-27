@@ -14,10 +14,10 @@ const ClassGroup = ({ groupCards, setGroupCards }) => {
     let newGroup = {
       // initializes a dictionary of classes
       id: nextId,
-      classes: [],
+      classes: [], // AT THE MOMENT, THERE IS NO FUNCTION USESTATE UPDATING THE CLASSES DICTIONARY
     };
 
-    setGroupCards([...groupCards, newGroup]); // appends groups
+    setGroupCards([...groupCards, newGroup]); // THIS APPENDS GROUPS WHEN A NEW ONE IS ADDED
     setNextId(nextId + 1); // Increment the nextId for the next card
   };
 
