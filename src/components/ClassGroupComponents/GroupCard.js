@@ -18,6 +18,8 @@ const GroupCard = ({
   const [classCount, setClassCount] = useState("");
   const [groupClasses, setGroupClasses] = useState([]);
 
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+
   useEffect(() => {
     const group = groupCards.find((group) => group.id === groupNumber);
     if (group) {
@@ -62,25 +64,42 @@ const GroupCard = ({
   const handleDrop = (event) => {
     event.preventDefault();
     const course = JSON.parse(event.dataTransfer.getData("text/plain")); // Remove the dropped course from unassigned_classes
-    const updatedUnassignedClasses = unassigned_classes.filter(
-      (c) => c.course_number !== course[0].course_number
-    );
+    const new_coords = { x: event.clientX, y: event.clientY };
 
-    setUnassignedClass(updatedUnassignedClasses); // Update groupClasses with the dropped course
+    if (new_coords.x - coords.x > 15) {
+      const updatedUnassignedClasses = unassigned_classes.filter(
+        (c) => c.course_number !== course[0].course_number
+      );
 
-    setGroupClasses([...groupClasses, course]); // Update the groupCards state with the updated classes
+      setUnassignedClass(updatedUnassignedClasses); // Update groupClasses with the dropped course
 
-    const updatedGroupCards = groupCards.map((group) => {
-      if (group.id === groupNumber) {
-        return {
-          ...group,
-          classes: [...group.classes, course],
-        };
-      }
-      return group;
-    });
-    setGroupCards(updatedGroupCards);
+      setGroupClasses([...groupClasses, course]); // Update the groupCards state with the updated classes
+
+      const updatedGroupCards = groupCards.map((group) => {
+        if (group.id === groupNumber) {
+          return {
+            ...group,
+            classes: [...group.classes, course],
+          };
+        }
+        return group;
+      });
+      setGroupCards(updatedGroupCards);
+    } else {
+      const index = groupCards[groupNumber].classes.findIndex(
+        (item) => item.course_name === course.course_name
+        //handle dragging and splicing items
+      );
+
+
+    }
   };
+
+  // const handleDrop = (event) => {
+  //   event.preventDefault();
+  //   const course = JSON.parse(event.dataTransfer.getData("text/plain")); // Remove the dropped course from unassigned_classes
+  //   const
+  // };
 
   return (
     <div className="group-card" onDragOver={handleDragOver} onDrop={handleDrop}>
@@ -109,7 +128,7 @@ const GroupCard = ({
       <div className="group-body">
         {/* Render the CourseCards for the dropped courses */}
         {groupClasses.map((course, index) => (
-          <CourseCard key={index} courses={course} />
+          <CourseCard key={index} courses={course} setCoords={setCoords} />
         ))}
       </div>{" "}
       <div className="group-delete">

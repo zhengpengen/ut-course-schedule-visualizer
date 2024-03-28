@@ -13,7 +13,7 @@ const AllClassesList = ({
         <div className="title-box">Unassigned Classes</div>
         <div className="cards-container">
           {unassigned_classes.map((course, index) => (
-            <CourseCard key={index} courses={[course]} />
+            <CourseCard key={index} courses={[course]} setCoords={null} />
           ))}
         </div>
       </div>

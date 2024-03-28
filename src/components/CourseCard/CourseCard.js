@@ -16,12 +16,16 @@ const colors = [
   "#ffaaaa",
 ];
 
-const CourseCard = ({ courses }) => {
+const CourseCard = ({ courses, setCoords }) => {
   const [selectedSection, setSelectedSection] = useState(null);
   const [courseColors, setCourseColors] = useState({});
 
-  const handleDragStart = (event) => {
+  const handleDragStart = (event, index) => {
     event.dataTransfer.setData("text/plain", JSON.stringify(courses));
+
+    if (setCoords != null) {
+      setCoords({ x: event.clientX, y: event.clientY });
+    }
   };
 
   useEffect(() => {
