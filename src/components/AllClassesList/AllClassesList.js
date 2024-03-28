@@ -6,7 +6,6 @@ const AllClassesList = ({
   unassigned_classes,
   setUnassignedClass,
   onDragOver,
-  // onDrop,
 }) => {
   return (
     <div className="all-classes-list">

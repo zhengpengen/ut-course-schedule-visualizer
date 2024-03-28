@@ -29,7 +29,7 @@ const ClassGroup = ({
   };
 
   const deleteGroupCard = (id) => {
-    setGroupCards(groupCards.filter((cardId) => cardId !== id));
+    setGroupCards(groupCards.filter((group) => group.id !== id));
     const newCounts = { ...groupCounts };
     delete newCounts[id];
     setGroupCounts(newCounts);
@@ -77,13 +77,12 @@ const ClassGroup = ({
               groupNumber={groupCard.id}
               // key={id}
               // groupNumber={id}
-              onDelete={() => deleteGroupCard(id)}
+              onDelete={() => deleteGroupCard(groupCard.id)}
               onCountChange={(count) => updateGroupCount(id, count)}
               groupCards={groupCards}
               setGroupCards={setGroupCards}
               unassigned_classes={unassigned_classes}
-              setUnassignedClas
-              s={setUnassignedClass}
+              setUnassignedClass={setUnassignedClass}
               onDragOver={onDragOver}
               // onDrop={onDrop}
             />

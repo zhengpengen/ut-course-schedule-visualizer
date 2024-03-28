@@ -59,27 +59,17 @@ const GroupCard = ({
     event.preventDefault();
   };
 
-  // const handleDrop = (event) => {
-  //   console.log("DROPPED");
-  //   event.preventDefault();
-  //   const course = JSON.parse(event.dataTransfer.getData("text/plain"));
-
-  //   let index = groupCards.findIndex((item) => item.id === groupNumber);
-  //   let u_classes = groupCards[index].classes;
-  //   u_classes = [...u_classes, course];
-
-  //   let u_cards = [...groupCards];
-  //   u_cards[index].classes = u_classes;
-
-  //   console.log("what is u_cards: ", u_cards);
-
-  //   setGroupCards(u_cards);
-  // };
-
   const handleDrop = (event) => {
     event.preventDefault();
-    const course = JSON.parse(event.dataTransfer.getData("text/plain")); // Update groupClasses with the dropped course
+    const course = JSON.parse(event.dataTransfer.getData("text/plain")); // Remove the dropped course from unassigned_classes
+    const updatedUnassignedClasses = unassigned_classes.filter(
+      (c) => c.course_number !== course[0].course_number
+    );
+
+    setUnassignedClass(updatedUnassignedClasses); // Update groupClasses with the dropped course
+
     setGroupClasses([...groupClasses, course]); // Update the groupCards state with the updated classes
+
     const updatedGroupCards = groupCards.map((group) => {
       if (group.id === groupNumber) {
         return {
