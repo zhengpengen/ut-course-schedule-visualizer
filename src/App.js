@@ -1,21 +1,36 @@
-import "./App.css";
-import React, { useState } from "react";
+import './App.css';
+import React, {useState} from 'react';
+import ClassGroup from './components/ClassGroupComponents/ClassGroup';
+import AllClassesList from './components/AllClassesList/AllClassesList'
 import DragAndDrop from "./components/DragAndDrop/DragAndDrop";
 import ExampleData from "./ExampleData";
+import Schedules from './Schedules';
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 function App() {
   const [groupCards, setGroupCards] = useState([]); // LIFTING STATE HERE SO WE CAN ACCESS THE GLOBAL ARRAY
   const [unassigned_classes, setUnassignedClass] = useState(ExampleData);
 
   return (
-    <div className="container row">
-      <DragAndDrop
-        groupCards={groupCards}
-        setGroupCards={setGroupCards}
-        unassigned_classes={unassigned_classes}
-        setUnassignedClass={setUnassignedClass}
-      />
-    </div>
+    <Router>
+      <div className='container row'>
+        <Switch>
+          <Route exact path='/'>
+            <DragAndDrop
+              groupCards={groupCards}
+              setGroupCards={setGroupCards}
+              unassigned_classes={unassigned_classes}
+              setUnassignedClass={setUnassignedClass}
+            />
+          </Route>
+          <Route path='/schedules'>
+            <Schedules />
+          </Route>
+        </Switch>
+        
+      </div>
+    </Router>
+    
   );
 }
 

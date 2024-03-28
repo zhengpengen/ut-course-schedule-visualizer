@@ -98,11 +98,11 @@ const ClassGroup = ({
           <button className="btn generate-btn">Generate My Schedule</button>
         </div>
       </div>
-      {showHelpScreen && (
+      {/* {showHelpScreen && (
         <div className="overlay" onClick={handleClickOutside}>
           <HelpScreen ref={helpScreenRef} />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
