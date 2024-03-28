@@ -18,7 +18,7 @@ function App() {
       <div className='container row'>
         <Switch>
           {/* the main page */}
-          <Route exact path='/'>
+          <Route exact path='/ut-course-schedule-visualizer'>
             <DragAndDrop
               groupCards={groupCards}
               setGroupCards={setGroupCards}
@@ -28,11 +28,11 @@ function App() {
           </Route>
           {/* the schedules page
           <GeneratedSchedules /> */}
-          <Route exact path='/schedules'>
+          <Route exact path='/ut-course-schedule-visualizer/schedules'>
             <GeneratedSchedules />
           </Route>
           {/* the help page */}
-          <Route exact path='/help'>
+          <Route exact path='/ut-course-schedule-visualizer/help'>
             <Help />
           </Route>
         </Switch>
