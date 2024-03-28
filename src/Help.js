@@ -1,6 +1,6 @@
 import BackButton from './components/BackButton/BackButton'
 
-const Schedules = () => {
+const Help = () => {
     return(
         <div>
             <BackButton/>
@@ -11,4 +11,4 @@ const Schedules = () => {
     );
 }
 
-export default Schedules;
+export default Help;

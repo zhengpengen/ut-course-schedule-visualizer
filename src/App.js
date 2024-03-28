@@ -26,10 +26,10 @@ function App() {
               setUnassignedClass={setUnassignedClass}
             />
           </Route>
-          {/* the schedules page */}
-          <GeneratedSchedules />
-          <Route exact  path='/schedules'>
-            <Schedules />
+          {/* the schedules page
+          <GeneratedSchedules /> */}
+          <Route exact path='/schedules'>
+            <GeneratedSchedules />
           </Route>
           {/* the help page */}
           <Route exact path='/help'>
