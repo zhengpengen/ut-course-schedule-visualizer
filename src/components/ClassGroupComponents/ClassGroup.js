@@ -2,7 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import GroupCard from "./GroupCard";
 import AddCard from "./AddCard";
 import HelpScreen from "./HelpScreen";
+import { Link } from 'react-router-dom';
 import "./ClassGroup.css";
+
 
 const ClassGroup = ({
   groupCards,
@@ -92,10 +94,14 @@ const ClassGroup = ({
           </div>
         </div>
         <div className="footer d-flex justify-content-center align-items-center">
-          <button className="btn help-btn" onClick={toggleHelpScreen}>
-            ?
-          </button>
-          <button className="btn generate-btn">Generate My Schedule</button>
+          <Link to='/help'>
+            <button className="btn help-btn" onClick={toggleHelpScreen}>
+              ?
+            </button>
+          </Link>
+          <Link to='/schedules'>
+            <button className="btn generate-btn">Generate My Schedule</button>
+          </Link>
         </div>
       </div>
       {/* {showHelpScreen && (

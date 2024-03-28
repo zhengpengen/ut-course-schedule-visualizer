@@ -5,6 +5,7 @@ import AllClassesList from './components/AllClassesList/AllClassesList'
 import DragAndDrop from "./components/DragAndDrop/DragAndDrop";
 import ExampleData from "./ExampleData";
 import Schedules from './Schedules';
+import Help from './Help'
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     <Router>
       <div className='container row'>
         <Switch>
+          {/* the main page */}
           <Route exact path='/'>
             <DragAndDrop
               groupCards={groupCards}
@@ -23,8 +25,13 @@ function App() {
               setUnassignedClass={setUnassignedClass}
             />
           </Route>
-          <Route path='/schedules'>
+          {/* the schedules page */}
+          <Route exact  path='/schedules'>
             <Schedules />
+          </Route>
+          {/* the help page */}
+          <Route exact path='/help'>
+            <Help />
           </Route>
         </Switch>
         
