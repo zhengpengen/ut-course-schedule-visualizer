@@ -94,11 +94,11 @@ const ClassGroup = ({
           </div>
         </div>
         <div className="footer d-flex justify-content-center align-items-center">
-          <Link to='/help'>
+          {/* <Link to='/help'>
             <button className="btn help-btn" onClick={toggleHelpScreen}>
               ?
             </button>
-          </Link>
+          </Link> */}
           <Link to='/schedules'>
             <button className="btn generate-btn">Generate My Schedule</button>
           </Link>

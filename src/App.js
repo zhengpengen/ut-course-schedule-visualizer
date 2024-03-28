@@ -7,6 +7,7 @@ import ExampleData from "./ExampleData";
 import Schedules from './Schedules';
 import Help from './Help'
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import GeneratedSchedules from './components/SchedulePageComponents/GeneratedSchedules';
 
 function App() {
   const [groupCards, setGroupCards] = useState([]); // LIFTING STATE HERE SO WE CAN ACCESS THE GLOBAL ARRAY
@@ -26,6 +27,7 @@ function App() {
             />
           </Route>
           {/* the schedules page */}
+          <GeneratedSchedules />
           <Route exact  path='/schedules'>
             <Schedules />
           </Route>

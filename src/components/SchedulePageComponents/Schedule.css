@@ -1,0 +1,12 @@
+.schedule-container .row {
+    display: flex;
+    width: 100%;
+  }
+  
+  .schedule-container .col {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
