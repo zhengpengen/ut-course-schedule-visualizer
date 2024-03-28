@@ -60,15 +60,15 @@ const ClassGroup = () => {
           </div>
         </div>
         <div className="footer d-flex justify-content-center align-items-center">
-          <button className="btn help-btn" onClick={toggleHelpScreen}>?</button>
+          {/* <button className="btn help-btn" onClick={toggleHelpScreen}>?</button> */}
           <button className="btn generate-btn">Generate My Schedule</button>
         </div>
       </div>
-      {showHelpScreen && (
+      {/* {showHelpScreen && (
         <div className="overlay" onClick={handleClickOutside}>
           <HelpScreen ref={helpScreenRef} />
         </div>
-      )}
+      )} */}
     </div>
   );  
 };
