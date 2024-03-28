@@ -1,16 +1,22 @@
 import React from "react";
 import CourseCard from "../CourseCard/CourseCard";
-import ExampleData from "../../ExampleData";
 import "./AllClassesList.css";
 
-const AllClassesList = () => {
+const AllClassesList = ({
+  unassigned_classes,
+  setUnassignedClass,
+  onDragOver,
+  // onDrop,
+}) => {
   return (
     <div className="all-classes-list">
-      <div className="title-box">Unassigned Classes</div>
-      <div className="cards-container">
-        {ExampleData.map((course, index) => (
-          <CourseCard key={index} courses={[course]} />
-        ))}
+      <div className="unassigned col">
+        <div className="title-box">Unassigned Classes</div>
+        <div className="cards-container">
+          {unassigned_classes.map((course, index) => (
+            <CourseCard key={index} courses={[course]} />
+          ))}
+        </div>
       </div>
     </div>
   );

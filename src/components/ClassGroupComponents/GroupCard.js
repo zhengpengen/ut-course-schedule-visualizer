@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./GroupCard.css";
-import ExampleData from "../../ExampleData";
 import CourseCard from "../CourseCard/CourseCard";
 
-const GroupCard = ({ groupNumber, onDelete, onCountChange }) => {
+const GroupCard = ({
+  groupNumber,
+  onDelete,
+  onCountChange,
+  groupCards,
+  setGroupCards,
+  unassigned_classes,
+  setUnassignedClass,
+  onDragOver,
+  onDrop,
+}) => {
   const [groupName, setGroupName] = useState(`Group ${groupNumber}`);
   const [isEditing, setIsEditing] = useState(false);
   const [classCount, setClassCount] = useState("");
-  const [coursesList, setCourseList] = useState([]);
+  const [groupClasses, setGroupClasses] = useState([]);
 
-  // setCourseList([...coursesList, newCourse]); // appends course that just got dropped DOWN!!!!!!!!!!!!!!!!!!!!!!!???
+  useEffect(() => {
+    const group = groupCards.find((group) => group.id === groupNumber);
+    if (group) {
+      setGroupClasses(group.classes);
+    }
+  }, [groupCards, groupNumber]);
 
   const handleGroupNameChange = (e) => {
     setGroupName(e.target.value);
@@ -40,8 +54,46 @@ const GroupCard = ({ groupNumber, onDelete, onCountChange }) => {
     }
   };
 
+  const handleDragOver = (event) => {
+    console.log("DRAGGED OVER!!");
+    event.preventDefault();
+  };
+
+  // const handleDrop = (event) => {
+  //   console.log("DROPPED");
+  //   event.preventDefault();
+  //   const course = JSON.parse(event.dataTransfer.getData("text/plain"));
+
+  //   let index = groupCards.findIndex((item) => item.id === groupNumber);
+  //   let u_classes = groupCards[index].classes;
+  //   u_classes = [...u_classes, course];
+
+  //   let u_cards = [...groupCards];
+  //   u_cards[index].classes = u_classes;
+
+  //   console.log("what is u_cards: ", u_cards);
+
+  //   setGroupCards(u_cards);
+  // };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const course = JSON.parse(event.dataTransfer.getData("text/plain")); // Update groupClasses with the dropped course
+    setGroupClasses([...groupClasses, course]); // Update the groupCards state with the updated classes
+    const updatedGroupCards = groupCards.map((group) => {
+      if (group.id === groupNumber) {
+        return {
+          ...group,
+          classes: [...group.classes, course],
+        };
+      }
+      return group;
+    });
+    setGroupCards(updatedGroupCards);
+  };
+
   return (
-    <div className="group-card">
+    <div className="group-card" onDragOver={handleDragOver} onDrop={handleDrop}>
       <div className="group-header" onClick={handleGroupNameClick}>
         {isEditing ? (
           <input
@@ -64,7 +116,12 @@ const GroupCard = ({ groupNumber, onDelete, onCountChange }) => {
           </span>
         )}
       </div>
-      <div className="group-body">{/* CourseCards will be dropped here */}</div>
+      <div className="group-body">
+        {/* Render the CourseCards for the dropped courses */}
+        {groupClasses.map((course, index) => (
+          <CourseCard key={index} courses={course} />
+        ))}
+      </div>{" "}
       <div className="group-delete">
         <button onClick={onDelete} className="delete-btn">
           Delete Group

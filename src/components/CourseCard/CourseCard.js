@@ -20,6 +20,10 @@ const CourseCard = ({ courses }) => {
   const [selectedSection, setSelectedSection] = useState(null);
   const [courseColors, setCourseColors] = useState({});
 
+  const handleDragStart = (event) => {
+    event.dataTransfer.setData("text/plain", JSON.stringify(courses));
+  };
+
   useEffect(() => {
     /* Ensure color doesn't change when dropdown clicked */
     const initialColors = {};
@@ -35,7 +39,7 @@ const CourseCard = ({ courses }) => {
   };
 
   return (
-    <div className="course-card" draggable="true">
+    <div className="course-card" draggable="true" onDragStart={handleDragStart}>
       {courses.map((course, index) => (
         <div
           key={index}

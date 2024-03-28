@@ -4,7 +4,14 @@ import AddCard from "./AddCard";
 import HelpScreen from "./HelpScreen";
 import "./ClassGroup.css";
 
-const ClassGroup = ({ groupCards, setGroupCards }) => {
+const ClassGroup = ({
+  groupCards,
+  setGroupCards,
+  unassigned_classes,
+  setUnassignedClass,
+  onDragOver,
+  // onDrop,
+}) => {
   const [groupCounts, setGroupCounts] = useState({});
   const [nextId, setNextId] = useState(1);
   const [showHelpScreen, setShowHelpScreen] = useState(false);
@@ -64,12 +71,21 @@ const ClassGroup = ({ groupCards, setGroupCards }) => {
       <div className="content-wrapper">
         <div className="header rounded-top text-center bold">Class Groups</div>
         <div className="main-content d-flex align-items-center">
-          {groupCards.map((id) => (
+          {groupCards.map((groupCard, id) => (
             <GroupCard
               key={id}
-              groupNumber={id}
+              groupNumber={groupCard.id}
+              // key={id}
+              // groupNumber={id}
               onDelete={() => deleteGroupCard(id)}
               onCountChange={(count) => updateGroupCount(id, count)}
+              groupCards={groupCards}
+              setGroupCards={setGroupCards}
+              unassigned_classes={unassigned_classes}
+              setUnassignedClas
+              s={setUnassignedClass}
+              onDragOver={onDragOver}
+              // onDrop={onDrop}
             />
           ))}
           <div onClick={addGroupCard} className="add-card-wrapper ms-auto">
