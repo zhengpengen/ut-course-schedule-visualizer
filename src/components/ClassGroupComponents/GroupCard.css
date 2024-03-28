@@ -1,7 +1,9 @@
-.group-card {
+  .group-card {
     display: flex;
     flex-direction: column;
     width: 30%;
+    padding: 20px;
+    flex: 0 0 auto;
   }
   
   .group-header {
@@ -35,11 +37,28 @@
 
   .group-body {
     background-color: #dedede;
-    height: 70vh; /* Fixed height */
+    height: 60vh; /* Fixed height */
     overflow-y: auto;
     border-right: 1px solid black;
     border-left: 1px solid black;
   }
+
+  .group-delete {
+    width: 100%;
+    text-align: center; /* Center the button text */
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+  }
+  
+  .delete-btn {
+    width: 100%;
+    padding: 10px 0; /* Increase padding for better clickability */
+    border: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+  }
+  
   
   .group-footer {
     background-color: #4399ff;
@@ -54,4 +73,4 @@
   }
   .class-count-input {
     width: 30px; 
-  }
+  }  

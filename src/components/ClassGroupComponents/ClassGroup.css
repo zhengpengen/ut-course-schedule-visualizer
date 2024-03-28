@@ -1,0 +1,58 @@
+  .class-group {
+    border: 1px solid black;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .content-wrapper.blur {
+    filter: blur(4px);
+  }
+  
+  .header {
+    font-weight: bold;
+    background-color: white; /* Header background */
+  }
+  
+  .main-content {
+    display: flex;
+    align-items: center;
+    overflow-x:scroll;
+    background-color: #ffa152; /* Content background */
+    height: 80vh;
+    scrollbar-width: auto;
+  }
+  .footer {
+    background-color: #ffa152; /* Content background */ 
+  }
+  .generate-btn {
+    background-color: #bf5700;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 10px;
+  }
+  
+  .help-btn {
+    width: 30px;
+    height: 30px;
+    line-height: 30px; /* This helps center the '?' vertically */
+    text-align: center; /* Center the '?' horizontally */
+    border-radius: 50%; /* Make it circular */
+    background-color: grey; /* Set the background color */
+    color: white; /* Set the text color */
+    position: relative; /* Adjusted to position within the footer */
+    margin-right: auto; /* Pushes the button to the left */
+    margin-left: 10px; /* Spacing from the left edge of the footer */
+    cursor: pointer;
+  }  
+  
+  .add-card-wrapper {
+    flex: 0 0 auto; /* Prevent squishing */
+    cursor: pointer;
+  }
+  
+  .add-card:hover, .delete-btn:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+  }
+  
