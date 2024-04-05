@@ -40,12 +40,12 @@ const ClassGroup = ({
   const updateGroupCount = (id, count) => {
     const newCounts = { ...groupCounts, [id]: count };
     setGroupCounts(newCounts);
-    console.log(`Group ${id} count updated to: ${count}`);
-    console.log("Current group counts:", newCounts);
+    // console.log(`Group ${id} count updated to: ${count}`);
+    // console.log("Current group counts:", newCounts);
   };
 
   useEffect(() => {
-    console.log("groupCards course cards:", groupCards);
+    // console.log("groupCards course cards:", groupCards);
   }, [groupCards]); // Run this effect whenever groupCards changes [PRINTING GROUP CONTENT HERE but it's printing ID instead]
 
   const toggleHelpScreen = () => {

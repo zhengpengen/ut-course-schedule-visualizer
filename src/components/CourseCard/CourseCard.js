@@ -16,17 +16,10 @@ const colors = [
   "#ffaaaa",
 ];
 
-const CourseCard = ({ courses, setCoords }) => {
+const CourseCard = ({ courses}) => {
   const [selectedSection, setSelectedSection] = useState(null);
   const [courseColors, setCourseColors] = useState({});
 
-  const handleDragStart = (event, index) => {
-    event.dataTransfer.setData("text/plain", JSON.stringify(courses));
-
-    if (setCoords != null) {
-      setCoords({ x: event.clientX, y: event.clientY });
-    }
-  };
 
   useEffect(() => {
     /* Ensure color doesn't change when dropdown clicked */
@@ -43,7 +36,7 @@ const CourseCard = ({ courses, setCoords }) => {
   };
 
   return (
-    <div className="course-card" draggable="true" onDragStart={handleDragStart}>
+    <div className="course-card">
       {courses.map((course, index) => (
         <div
           key={index}
