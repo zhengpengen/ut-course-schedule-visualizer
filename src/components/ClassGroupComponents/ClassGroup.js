@@ -11,8 +11,8 @@ const ClassGroup = ({
   setGroupCards,
   unassigned_classes,
   setUnassignedClass,
-  onDragOver,
-  // onDrop,
+  allClasses,
+  setAllClasses
 }) => {
   const [groupCounts, setGroupCounts] = useState({});
   const [nextId, setNextId] = useState(1);
@@ -85,8 +85,6 @@ const ClassGroup = ({
               setGroupCards={setGroupCards}
               unassigned_classes={unassigned_classes}
               setUnassignedClass={setUnassignedClass}
-              onDragOver={onDragOver}
-              // onDrop={onDrop}
             />
           ))}
           <div onClick={addGroupCard} className="add-card-wrapper ms-auto">
@@ -105,11 +103,6 @@ const ClassGroup = ({
           </Link>
         </div>
       </div>
-      {/* {showHelpScreen && (
-        <div className="overlay" onClick={handleClickOutside}>
-          <HelpScreen ref={helpScreenRef} />
-        </div>
-      )} */}
     </div>
   );
 };

@@ -38,7 +38,8 @@
   .group-body {
     background-color: #dedede;
     height: 60vh; /* Fixed height */
-    overflow-y: auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
     border-right: 1px solid black;
     border-left: 1px solid black;
   }

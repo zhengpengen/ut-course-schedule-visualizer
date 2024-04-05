@@ -12,6 +12,7 @@ import GeneratedSchedules from './components/SchedulePageComponents/GeneratedSch
 function App() {
   const [groupCards, setGroupCards] = useState([]); // LIFTING STATE HERE SO WE CAN ACCESS THE GLOBAL ARRAY
   const [unassigned_classes, setUnassignedClass] = useState(ExampleData);
+  const [allClasses, setAllClasses] = useState([...unassigned_classes, ...groupCards]);
 
   return (
     <Router>
@@ -24,6 +25,8 @@ function App() {
               setGroupCards={setGroupCards}
               unassigned_classes={unassigned_classes}
               setUnassignedClass={setUnassignedClass}
+              allClasses={allClasses}
+              setAllClasses={setAllClasses}
             />
           </Route>
           {/* the schedules page

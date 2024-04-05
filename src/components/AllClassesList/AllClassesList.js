@@ -4,8 +4,12 @@ import "./AllClassesList.css";
 import {Draggable, Droppable} from "@hello-pangea/dnd";
 
 const AllClassesList = ({
+  groupCards,
+  setGroupCards,
   unassigned_classes,
-  setUnassignedClass
+  setUnassignedClass,
+  allClasses,
+  setAllClasses
 }) => {
 
 
@@ -14,7 +18,7 @@ const AllClassesList = ({
       <div className="unassigned col">
         <div className="title-box">Unassigned Classes</div>
         <div className="cards-container">
-          <Droppable droppableId="droppable">
+          <Droppable type="CourseCard" droppableId="all-classes">
           {(provided, snapshot) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {unassigned_classes.map((course, index) => (
@@ -22,10 +26,13 @@ const AllClassesList = ({
                   {(provided, snapshot) => (
                     <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                       <CourseCard key={index} courses={[course]} />
+                      {provided.placeholder}
                     </div>
                   )}
                 </Draggable>
-            ))}
+              ))}
+
+              {provided.placeholder}
             </div>
           )}
           </Droppable>

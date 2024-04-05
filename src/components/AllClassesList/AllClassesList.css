@@ -22,7 +22,8 @@
 
 .cards-container {
   flex-grow: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   height: 70vh; /* Adjusts length of cards container */
   background-color: #dedede;
   border-right: 1px solid black;

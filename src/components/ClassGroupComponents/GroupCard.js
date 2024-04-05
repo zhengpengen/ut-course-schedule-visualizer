@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./GroupCard.css";
 import CourseCard from "../CourseCard/CourseCard";
-import {Droppable} from "react-beautiful-dnd";
+import {Draggable, Droppable} from "@hello-pangea/dnd";
 
 const GroupCard = ({
   groupNumber,
@@ -10,7 +10,9 @@ const GroupCard = ({
   groupCards,
   setGroupCards,
   unassigned_classes,
-  setUnassignedClass
+  setUnassignedClass,
+  allClasses,
+  setAllClasses
 }) => {
   const [groupName, setGroupName] = useState(`Group ${groupNumber}`);
   const [isEditing, setIsEditing] = useState(false);
@@ -78,17 +80,41 @@ const GroupCard = ({
         )}
       </div>
       <div className="group-body">
-        <Droppable droppableId="droppable">
-          {/* Render the CourseCards for the dropped courses */}
+        
+        {/* <Droppable type="CourseCard" droppableId={`drop_group_card ${groupNumber}`}>
           {(provided, snapshot) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {groupClasses.map((course, index) => (
-                <CourseCard key={index} courses={course} />
+                <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
+                  {(provided, snapshot) => (
+                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                      <CourseCard key={index} courses={course}/>
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Draggable>
               ))}
+              {provided.placeholder}
             </div>
           )}
-        </Droppable>
-      </div>{" "}
+        </Droppable> */}
+       
+        {/* <Droppable droppableId={`drop_group_card ${groupNumber}`} isDropDisabled={false}>
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {groupClasses.map((course, index) => (
+                <CourseCard key={index} courses={course}/>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable> */}
+
+        {groupClasses.map((course, index) => (
+          <CourseCard key={index} courses={course}/>
+        ))}
+      </div>
+
       <div className="group-delete">
         <button onClick={onDelete} className="delete-btn">
           Delete Group
