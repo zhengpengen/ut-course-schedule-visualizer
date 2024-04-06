@@ -79,40 +79,42 @@ const GroupCard = ({
           </span>
         )}
       </div>
-      <div className="group-body">
+      <div>
         
-        {/* <Droppable type="CourseCard" droppableId={`drop_group_card ${groupNumber}`}>
-          {(provided, snapshot) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {groupClasses.map((course, index) => (
-                <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
-                  {(provided, snapshot) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                      <CourseCard key={index} courses={course}/>
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable> */}
+        <Droppable droppableId={`drop_group_card_${groupNumber}`} isDropDisabled={false}>
+            {(provided, snapshot) => (
+              <div className="group-body">
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  <p>im not cryiing you are</p>
+                  {groupClasses.map((course, index) => (
+                    <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
+                      {(provided, snapshot) => (
+                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                          <CourseCard key={index} courses={[course]}/>
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+
+                  {provided.placeholder}
+                </div>
+              </div>
+            )}
+        </Droppable>
        
         {/* <Droppable droppableId={`drop_group_card ${groupNumber}`} isDropDisabled={false}>
           {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
+            <div {...provided.droppableProps} ref={provided.innerRef}>
               {groupClasses.map((course, index) => (
-                <CourseCard key={index} courses={course}/>
+                <CourseCard key={course.course_name} courses={course}/>
               ))}
+              <div><p> hi hi </p></div>
+              <h1>Hello Hello Helloooo </h1>
               {provided.placeholder}
             </div>
           )}
         </Droppable> */}
-
-        {groupClasses.map((course, index) => (
-          <CourseCard key={index} courses={course}/>
-        ))}
       </div>
 
       <div className="group-delete">

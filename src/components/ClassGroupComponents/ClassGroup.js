@@ -4,6 +4,7 @@ import AddCard from "./AddCard";
 import HelpScreen from "./HelpScreen";
 import { Link } from 'react-router-dom';
 import "./ClassGroup.css";
+import {Droppable} from "@hello-pangea/dnd"
 
 
 const ClassGroup = ({
@@ -104,6 +105,18 @@ const ClassGroup = ({
         </div>
       </div>
     </div>
+    // <Droppable droppableId="droppable_praying">
+    //   {(provided) => (
+    //     <div {...provided.droppableProps} ref={provided.innerRef}>
+    //       <div className={`class-group ${showHelpScreen ? "blur" : ""}`}>
+    //         <div className="content-wrapper">
+    //           <div className="header rounded-top text-center bold">Class Groups</div>
+    //         </div>
+    //       </div>
+    //       {provided.placeholder}
+    //     </div>
+    //   )}
+    // </Droppable>
   );
 };
 

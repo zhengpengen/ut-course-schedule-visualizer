@@ -18,7 +18,7 @@ const AllClassesList = ({
       <div className="unassigned col">
         <div className="title-box">Unassigned Classes</div>
         <div className="cards-container">
-          <Droppable type="CourseCard" droppableId="all-classes">
+          <Droppable droppableId="all-classes">
           {(provided, snapshot) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {unassigned_classes.map((course, index) => (
