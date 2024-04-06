@@ -1,9 +1,5 @@
 function schedule_generator(classesArr) {
-  return (
-    <div>
-
-    </div>
-  )
+  return <>setup</>;
 }
 
-export default schedule_generator
+export default schedule_generator;
