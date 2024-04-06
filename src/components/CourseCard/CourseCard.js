@@ -31,6 +31,7 @@ const CourseCard = ({ courses}) => {
     setCourseColors(initialColors);
   }, [courses]);
 
+
   const toggleSection = (id) => {
     setSelectedSection(selectedSection === id ? null : id);
   };
