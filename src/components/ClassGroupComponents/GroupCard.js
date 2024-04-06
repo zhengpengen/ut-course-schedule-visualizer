@@ -79,41 +79,26 @@ const GroupCard = ({
           </span>
         )}
       </div>
-      <div className="group-body">
+      <div>
         <Droppable droppableId={`drop_group_card_${groupNumber}`} isDropDisabled={false}>
             {(provided, snapshot) => (
-              <div>
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <p>im not cryiing you are</p>
-                  {groupClasses.map((course, index) => (
-                    <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
-                      {(provided, snapshot) => (
-                        <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                          <CourseCard key={index} courses={[course]}/>
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-
-                  {provided.placeholder}
+                  <div className="group-body">
+                    {groupClasses.map((course, index) => (
+                      <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
+                        {(provided, snapshot) => (
+                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <CourseCard key={index} courses={[course]}/>
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
                 </div>
-              </div>
             )}
         </Droppable>
-       
-        {/* <Droppable droppableId={`drop_group_card ${groupNumber}`} isDropDisabled={false}>
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {groupClasses.map((course, index) => (
-                <CourseCard key={course.course_name} courses={course}/>
-              ))}
-              <div><p> hi hi </p></div>
-              <h1>Hello Hello Helloooo </h1>
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable> */}
       </div>
 
       <div className="group-delete">
