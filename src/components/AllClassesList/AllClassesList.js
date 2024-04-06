@@ -21,6 +21,7 @@ const AllClassesList = ({
           <Droppable droppableId="all-classes">
           {(provided, snapshot) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
+              <p>im not cryiing you are</p>
               {unassigned_classes.map((course, index) => (
                 <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
                   {(provided, snapshot) => (

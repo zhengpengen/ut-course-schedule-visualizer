@@ -79,11 +79,10 @@ const GroupCard = ({
           </span>
         )}
       </div>
-      <div>
-        
+      <div className="group-body">
         <Droppable droppableId={`drop_group_card_${groupNumber}`} isDropDisabled={false}>
             {(provided, snapshot) => (
-              <div className="group-body">
+              <div>
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   <p>im not cryiing you are</p>
                   {groupClasses.map((course, index) => (
