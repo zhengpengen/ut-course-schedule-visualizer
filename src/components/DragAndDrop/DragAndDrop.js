@@ -8,9 +8,7 @@ const DragAndDrop = ({
   groupCards,
   setGroupCards,
   unassigned_classes,
-  setUnassignedClass,
-  allClasses,
-  setAllClasses
+  setUnassignedClass
 }) => {
 
   const handleDragEnd = (result) => {
@@ -100,8 +98,6 @@ const DragAndDrop = ({
             setGroupCards={setGroupCards}
             unassigned_classes={unassigned_classes}
             setUnassignedClass={setUnassignedClass}
-            allClasses={allClasses}
-            setAllClasses={setAllClasses}
           />
         </div>
         <div className="col-10">
@@ -110,19 +106,7 @@ const DragAndDrop = ({
             setGroupCards={setGroupCards}
             unassigned_classes={unassigned_classes}
             setUnassignedClass={setUnassignedClass}
-            allClasses={allClasses}
-            setAllClasses={setAllClasses}
           />
-
-          {/* <Droppable droppableId="yayyaya" isDropDisabled={false}>
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-                <h1>Hello! Hello Hello Hello Hello Hello Hallelujah Fucking Jesus Christ Please Work I don't know what I'm saying</h1>
-                <h1>Hello </h1>
-              {provided.placeholder}
-            </div>
-          )}
-          </Droppable> */}
           
         </div>
       </div>

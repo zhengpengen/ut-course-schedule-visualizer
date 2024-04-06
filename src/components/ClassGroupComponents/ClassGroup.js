@@ -11,9 +11,7 @@ const ClassGroup = ({
   groupCards,
   setGroupCards,
   unassigned_classes,
-  setUnassignedClass,
-  allClasses,
-  setAllClasses
+  setUnassignedClass
 }) => {
   const [groupCounts, setGroupCounts] = useState({});
   const [nextId, setNextId] = useState(1);
@@ -24,10 +22,10 @@ const ClassGroup = ({
     let newGroup = {
       // initializes a dictionary of classes
       id: nextId,
-      classes: [], // AT THE MOMENT, THERE IS NO FUNCTION USESTATE UPDATING THE CLASSES DICTIONARY
+      classes: [],
     };
 
-    setGroupCards([...groupCards, newGroup]); // THIS APPENDS GROUPS WHEN A NEW ONE IS ADDED
+    setGroupCards([...groupCards, newGroup]); 
     setNextId(nextId + 1); // Increment the nextId for the next card
   };
 
@@ -44,10 +42,6 @@ const ClassGroup = ({
     // console.log(`Group ${id} count updated to: ${count}`);
     // console.log("Current group counts:", newCounts);
   };
-
-  useEffect(() => {
-    // console.log("groupCards course cards:", groupCards);
-  }, [groupCards]); // Run this effect whenever groupCards changes [PRINTING GROUP CONTENT HERE but it's printing ID instead]
 
   const toggleHelpScreen = () => {
     setShowHelpScreen(!showHelpScreen);
@@ -78,8 +72,6 @@ const ClassGroup = ({
             <GroupCard
               key={id}
               groupNumber={groupCard.id}
-              // key={id}
-              // groupNumber={id}
               onDelete={() => deleteGroupCard(groupCard.id)}
               onCountChange={(count) => updateGroupCount(id, count)}
               groupCards={groupCards}
@@ -105,18 +97,6 @@ const ClassGroup = ({
         </div>
       </div>
     </div>
-    // <Droppable droppableId="droppable_praying">
-    //   {(provided) => (
-    //     <div {...provided.droppableProps} ref={provided.innerRef}>
-    //       <div className={`class-group ${showHelpScreen ? "blur" : ""}`}>
-    //         <div className="content-wrapper">
-    //           <div className="header rounded-top text-center bold">Class Groups</div>
-    //         </div>
-    //       </div>
-    //       {provided.placeholder}
-    //     </div>
-    //   )}
-    // </Droppable>
   );
 };
 

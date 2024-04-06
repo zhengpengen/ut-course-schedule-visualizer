@@ -265,7 +265,7 @@ const ExampleData = [
   {
     course_major: 'M ',
     course_number: '361',
-    course_name: 'Thry Of Func Of Cmplx Variable',
+    course_name: 'Theory Of Func Of Complx Variable',
     sections:[
       {
         id: 54005,

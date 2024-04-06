@@ -7,9 +7,7 @@ const AllClassesList = ({
   groupCards,
   setGroupCards,
   unassigned_classes,
-  setUnassignedClass,
-  allClasses,
-  setAllClasses
+  setUnassignedClass
 }) => {
 
 
