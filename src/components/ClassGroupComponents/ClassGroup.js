@@ -30,7 +30,13 @@ const ClassGroup = ({
   };
 
   const deleteGroupCard = (id) => {
+    let group = groupCards.find(group => group.id === id);
+    let reassign = group.classes;
+    console.log("reassign: ", reassign);
+    let new_unassigned = [...unassignedClasses, ...reassign];
+
     setGroupCards(groupCards.filter((group) => group.id !== id));
+    setUnassignedClass(new_unassigned);
     const newCounts = { ...groupCounts };
     delete newCounts[id];
     setGroupCounts(newCounts);
