@@ -7,7 +7,7 @@ import { DragDropContext} from "@hello-pangea/dnd";
 const DragAndDrop = ({
   groupCards,
   setGroupCards,
-  unassigned_classes,
+  unassignedClasses,
   setUnassignedClass
 }) => {
 
@@ -26,7 +26,7 @@ const DragAndDrop = ({
     if(source.droppableId === destination.droppableId){
 
       if(source.droppableId === "all-classes"){
-        let new_list = [...unassigned_classes];
+        let new_list = [...unassignedClasses];
         let [removed] = new_list.splice(result.source.index, 1);
         new_list.splice(result.destination.index, 0, removed);
         setUnassignedClass(new_list);
@@ -49,7 +49,7 @@ const DragAndDrop = ({
     //removing classes from the all classes list
     if(source.droppableId === "all-classes"){
       console.log("removing from all classes");
-      let new_list = [...unassigned_classes];
+      let new_list = [...unassignedClasses];
       [class_removed] = new_list.splice(source.index, 1);
       setUnassignedClass(new_list);
       console.log("1 ", new_list);
@@ -70,7 +70,7 @@ const DragAndDrop = ({
 
     if(destination.droppableId === "all-classes"){
       console.log("adding to all classes");
-      let new_list = [...unassigned_classes];
+      let new_list = [...unassignedClasses];
       new_list.splice(destination.index, 0, class_removed);
       setUnassignedClass(new_list);
       console.log("3 ", new_list);
@@ -96,7 +96,7 @@ const DragAndDrop = ({
           <AllClassesList
             groupCards={groupCards}
             setGroupCards={setGroupCards}
-            unassigned_classes={unassigned_classes}
+            unassignedClasses={unassignedClasses}
             setUnassignedClass={setUnassignedClass}
           />
         </div>
@@ -104,7 +104,7 @@ const DragAndDrop = ({
           <ClassGroup
             groupCards={groupCards}
             setGroupCards={setGroupCards}
-            unassigned_classes={unassigned_classes}
+            unassignedClasses={unassignedClasses}
             setUnassignedClass={setUnassignedClass}
           />
           

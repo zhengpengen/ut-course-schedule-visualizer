@@ -6,7 +6,7 @@ import {Draggable, Droppable} from "@hello-pangea/dnd";
 const AllClassesList = ({
   groupCards,
   setGroupCards,
-  unassigned_classes,
+  unassignedClasses,
   setUnassignedClass
 }) => {
 
@@ -20,7 +20,7 @@ const AllClassesList = ({
           {(provided, snapshot) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               <div className="cards-container">
-                {unassigned_classes.map((course, index) => (
+                {unassignedClasses.map((course, index) => (
                   <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
                     {(provided, snapshot) => (
                       <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>

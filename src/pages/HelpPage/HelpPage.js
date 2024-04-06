@@ -1,6 +1,6 @@
-import BackButton from './components/BackButton/BackButton'
+import BackButton from '../../components/BackButton/BackButton'
 
-const Help = () => {
+const HelpPage = () => {
     return(
         <div>
             <BackButton/>
@@ -11,4 +11,4 @@ const Help = () => {
     );
 }
 
-export default Help;
+export default HelpPage;

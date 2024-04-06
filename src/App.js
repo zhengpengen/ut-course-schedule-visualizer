@@ -1,19 +1,15 @@
 import './App.css';
 import React, {useState} from 'react';
-import ClassGroup from './components/ClassGroupComponents/ClassGroup';
-import AllClassesList from './components/AllClassesList/AllClassesList'
-import DragAndDrop from "./components/DragAndDrop/DragAndDrop";
 import ExampleData from "./ExampleData";
-import Schedules from './Schedules';
-import Help from './Help'
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
-import GeneratedSchedules from './components/SchedulePageComponents/GeneratedSchedules';
+import GeneratedSchedulesPage from './pages/GeneratedSchedulesPage/GeneratedSchedulesPage';
+import GroupingPage from './pages/GroupingPage/GroupingPage';
+import HelpPage from './pages/HelpPage/HelpPage'
 
 function App() {
   const [groupCards, setGroupCards] = useState([]); // LIFTING STATE HERE SO WE CAN ACCESS THE GLOBAL ARRAY
-  const [unassigned_classes, setUnassignedClass] = useState(ExampleData);
-  // const [groupCards, setGroupCards] = useState([...unassigned_classes]);
-  const [allClasses, setAllClasses] = useState([...unassigned_classes, ...groupCards]);
+  const [unassignedClasses, setUnassignedClass] = useState(ExampleData);
+  const [allClasses, setAllClasses] = useState([...unassignedClasses, ...groupCards]);
 
   return (
     <Router>
@@ -21,23 +17,24 @@ function App() {
         <Switch>
           {/* the main page */}
           <Route exact path='/ut-course-schedule-visualizer'>
-            <DragAndDrop
+            <GroupingPage 
               groupCards={groupCards}
               setGroupCards={setGroupCards}
-              unassigned_classes={unassigned_classes}
+              unassignedClasses={unassignedClasses}
               setUnassignedClass={setUnassignedClass}
               allClasses={allClasses}
               setAllClasses={setAllClasses}
             />
           </Route>
-          {/* the schedules page
-          <GeneratedSchedules /> */}
+          
+          {/* the schedules page*/}
           <Route exact path='/ut-course-schedule-visualizer/schedules'>
-            <GeneratedSchedules />
+            <GeneratedSchedulesPage />
           </Route>
+
           {/* the help page */}
           <Route exact path='/ut-course-schedule-visualizer/help'>
-            <Help />
+            <HelpPage />
           </Route>
         </Switch>
         

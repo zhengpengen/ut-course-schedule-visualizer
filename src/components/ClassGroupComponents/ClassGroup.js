@@ -10,7 +10,7 @@ import {Droppable} from "@hello-pangea/dnd"
 const ClassGroup = ({
   groupCards,
   setGroupCards,
-  unassigned_classes,
+  unassignedClasses,
   setUnassignedClass
 }) => {
   const [groupCounts, setGroupCounts] = useState({});
@@ -76,7 +76,7 @@ const ClassGroup = ({
               onCountChange={(count) => updateGroupCount(id, count)}
               groupCards={groupCards}
               setGroupCards={setGroupCards}
-              unassigned_classes={unassigned_classes}
+              unassigned_classes={unassignedClasses}
               setUnassignedClass={setUnassignedClass}
             />
           ))}
