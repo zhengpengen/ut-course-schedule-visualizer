@@ -29,11 +29,18 @@ function schedule_generator() {
 
   const GroupCounts = [1, 2, 1];
 
+  // Permutate to allow each group to add a class first
+  for (let i = 0; i < GroupCards.length; i++) {
+    // Move the first element of GroupCards to the end
+    const firstElement = GroupCards.shift();
+    GroupCards.push(firstElement);
 
-
-  const selectedClasses = addClassesFromGroups(GroupCards, GroupCounts);
+    // Call addClassesFromGroups with the updated GroupCards configuration
+    const selectedClasses = addClassesFromGroups(GroupCards, GroupCounts);
+    allSchedules.push(selectedClasses);
+  }
   // selectedClasses.map(section => section.time_and_locations[0].start_time)
-  return selectedClasses;
+  return allSchedules;
 }
 
 function addClassesFromGroups(GroupCards, GroupCounts) {
