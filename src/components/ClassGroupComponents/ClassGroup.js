@@ -30,7 +30,14 @@ const ClassGroup = ({
   };
 
   const deleteGroupCard = (id) => {
+    //add the cards from the deleted group to the unassigned classes
+    let group = groupCards.find(group => group.id === id);
+    let reassign = group.classes;
+    let new_unassigned = [...unassignedClasses, ...reassign];
+
+    //update the groups
     setGroupCards(groupCards.filter((group) => group.id !== id));
+    setUnassignedClass(new_unassigned);
     const newCounts = { ...groupCounts };
     delete newCounts[id];
     setGroupCounts(newCounts);
@@ -76,7 +83,7 @@ const ClassGroup = ({
               onCountChange={(count) => updateGroupCount(id, count)}
               groupCards={groupCards}
               setGroupCards={setGroupCards}
-              unassigned_classes={unassignedClasses}
+              unassignedClasses={unassignedClasses}
               setUnassignedClass={setUnassignedClass}
             />
           ))}

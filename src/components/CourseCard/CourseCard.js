@@ -16,7 +16,7 @@ const colors = [
   "#ffaaaa",
 ];
 
-const CourseCard = ({ courses}) => {
+const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedClasses, setUnassignedClass}) => {
   const [selectedSection, setSelectedSection] = useState(null);
   const [courseColors, setCourseColors] = useState({});
 
@@ -35,6 +35,31 @@ const CourseCard = ({ courses}) => {
   const toggleSection = (id) => {
     setSelectedSection(selectedSection === id ? null : id);
   };
+
+  const handleCheckbox = (course, section) => {
+    console.log("course is: ", course);
+    console.log("section is: ", section);
+
+    //in unassigned-classes
+    if(group_id == -1){
+      let new_classes = [...unassignedClasses];
+      let curr_class = new_classes.find(course_class => course_class.course_name === course.course_name);
+      let new_section = curr_class.sections.find(sect => sect.id === section.id);
+      new_section.checked = !section.checked;
+
+      setUnassignedClass(new_classes);
+    }
+    //in a group
+    else{
+      let new_groupCards = [...groupCards];
+      let group = new_groupCards.find(group => group.id === group_id);
+      let curr_class = group.classes.find(curr_class => curr_class.course_name === course.course_name);
+      let new_section = curr_class.sections.find(sect => sect.id === section.id);
+      new_section.checked = !section.checked;
+
+      setGroupCards(new_groupCards);
+    }
+  }
 
   return (
     <div className="course-card">
@@ -82,7 +107,7 @@ const CourseCard = ({ courses}) => {
                         </div>
                       ))}
                     </div>
-                    <input type="checkbox" className="form-check-input" />
+                    <input type="checkbox" className="form-check-input" checked={section.checked} onChange={() => handleCheckbox(course, section)}/>
                   </li>
                 ))}
               </ul>

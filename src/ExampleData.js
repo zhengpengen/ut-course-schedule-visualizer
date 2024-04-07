@@ -11,7 +11,8 @@
       start_time: string,
       end_time: string,
       location: string
-    } []
+    } [],
+    checked: bool
   } []np
 }
 */
@@ -38,7 +39,8 @@ const ExampleData = [
             end_time:'14:00',
             location:'GAR 3.116',
           }
-        ]
+        ],
+        checked: true
       },
       {
         id: 50400,
@@ -56,7 +58,8 @@ const ExampleData = [
             end_time:'15:00',
             location:'SZB 3.508',
           }
-        ]
+        ],
+        checked: true
       },
       {
         id: 50405,
@@ -74,7 +77,8 @@ const ExampleData = [
             end_time:'11:00',
             location:'UTC 1.116',
           }
-        ]
+        ], 
+        checked: true
       },
       {
         id: 50410,
@@ -92,7 +96,8 @@ const ExampleData = [
             end_time:'14:00',
             location:'SZB 3.508',
           }
-        ]
+        ],
+        checked: true
       },
       {
         id: 50415,
@@ -110,7 +115,8 @@ const ExampleData = [
             end_time:'13:00',
             location:'CBA 4.330',
           }
-        ]
+        ],
+        checked: true
       },
       {
         id: 50420,
@@ -128,7 +134,8 @@ const ExampleData = [
             end_time:'14:00',
             location:'CBA 4.344',
           }
-        ]
+        ],
+        checked: true
       },
     ]
   },
@@ -147,7 +154,8 @@ const ExampleData = [
             end_time:'15:30',
             location:'GDC 4.302',
           }
-        ]
+        ],
+        checked: true
       }
     ]
   },
@@ -166,7 +174,8 @@ const ExampleData = [
             end_time:'15:30',
             location:'RLP 0.112',
           }
-        ]
+        ],
+        checked: true
       }
     ]
   },{
@@ -184,7 +193,8 @@ const ExampleData = [
             end_time:'14:00',
             location:'GDC 5.302',
           }
-        ]
+        ],
+        checked: true
       }
     ]
   },
@@ -203,7 +213,8 @@ const ExampleData = [
             end_time:'14:00',
             location:'PMA 4.102',
           }
-        ]
+        ],
+        checked: true
       },
       {
         id: 53915,
@@ -215,7 +226,8 @@ const ExampleData = [
             end_time:'14:00',
             location:'PHR 2.108',
           }
-        ]
+        ],
+        checked: true
       },
       {
         id: 53920,
@@ -227,7 +239,8 @@ const ExampleData = [
             end_time:'15:30',
             location:'EER 1.510',
           }
-        ]
+        ],
+        checked: true
       },
       {
         id: 53925,
@@ -239,7 +252,8 @@ const ExampleData = [
             end_time:'17:00',
             location:'EER 1.510',
           }
-        ]
+        ],
+        checked: true
       },
     ]
   },
@@ -258,7 +272,8 @@ const ExampleData = [
             end_time:'14:00',
             location:'PMA 5.116',
           }
-        ]
+        ],
+        checked: true
       }
     ]
   },
@@ -277,7 +292,8 @@ const ExampleData = [
             end_time:'11:00',
             location:'PMA 5.118',
           }
-        ]
+        ],
+        checked: true
       }
     ]
   },
@@ -296,7 +312,8 @@ const ExampleData = [
             end_time:'',
             location:'Internet',
           }
-        ]
+        ],
+        checked: true
       }
     ]
   },
@@ -315,7 +332,8 @@ const ExampleData = [
             end_time:'',
             location:'Internet',
           }
-        ]
+        ],
+        checked: true
       },
       {
         id: 37185,
@@ -327,7 +345,8 @@ const ExampleData = [
             end_time:'16:00',
             location:'Internet',
           }
-        ]
+        ],
+        checked: true
       }
     ]
   },
@@ -346,7 +365,8 @@ const ExampleData = [
             end_time:'12:00',
             location:'MRH 4.116',
           }
-        ]
+        ],
+        checked: true
       }
     ]
   }

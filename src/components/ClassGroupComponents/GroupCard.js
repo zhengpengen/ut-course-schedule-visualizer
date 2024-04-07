@@ -9,7 +9,7 @@ const GroupCard = ({
   onCountChange,
   groupCards,
   setGroupCards,
-  unassigned_classes,
+  unassignedClasses,
   setUnassignedClass,
   allClasses,
   setAllClasses
@@ -88,7 +88,7 @@ const GroupCard = ({
                       <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
                         {(provided, snapshot) => (
                           <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            <CourseCard key={index} courses={[course]}/>
+                            <CourseCard key={index} courses={[course]} group_id={groupNumber} groupCards={groupCards} setGroupCards={setGroupCards} unassignedClasses={unassignedClasses} setUnassignedClass={setUnassignedClass}/>
                             {provided.placeholder}
                           </div>
                         )}

@@ -24,7 +24,7 @@ const AllClassesList = ({
                   <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
                     {(provided, snapshot) => (
                       <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                        <CourseCard key={index} courses={[course]} />
+                        <CourseCard key={index} courses={[course]} group_id={-1} groupCards={groupCards} setGroupCards={groupCards} unassignedClasses={unassignedClasses} setUnassignedClass={setUnassignedClass}/>
                         {provided.placeholder}
                       </div>
                     )}
