@@ -29,6 +29,8 @@ function schedule_generator() {
 
   const GroupCounts = [1, 2, 1];
 
+
+
   const selectedClasses = addClassesFromGroups(GroupCards, GroupCounts);
   // selectedClasses.map(section => section.time_and_locations[0].start_time)
   return selectedClasses;
@@ -41,41 +43,33 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
   GroupCards.forEach((group, groupIndex) => {
     let addedCount = 0;
 
-    // console.log(`Group ${groupIndex + 1} sections:`);
-    // console.log(group); // Log the sections within the current group
+    group.forEach((classObj) => {
+      // Iterate over each class object in the group
+      classObj.sections.forEach((section) => {
+        // Iterate over each section of the class
+        if (
+          addedCount < GroupCounts[groupIndex] &&
+          !selectedCourses.has(section.id)
+        ) {
+          let overlap = false;
+          selectedClasses.forEach((selectedSection) => {
+            if (checkOverlap(section, selectedSection)) {
+              overlap = true;
+            }
+          });
 
-    group.forEach((section) => {
-      // Check if this course has already been selected
-      console.log(GroupCounts[groupIndex], addedCount, section);
-      console.log(
-        addedCount < GroupCounts[groupIndex],
-        !selectedCourses.has(section.id)
-      );
-      console.log("AHHHH WHY", selectedClasses, selectedCourses, section.id);
-      if (
-        addedCount < GroupCounts[groupIndex] &&
-        !selectedCourses.has(section.id)
-      ) {
-        // Check for overlap with already selected classes
-        let overlap = false;
-        selectedClasses.forEach((selectedSection) => {
-          console.log("MADE IT HERE");
-          if (checkOverlap(section, selectedSection)) {
-            overlap = true;
+          if (!overlap) {
+            selectedClasses.push(section);
+            selectedCourses.add(section.id);
+            addedCount++;
           }
-        });
-
-        if (!overlap) {
-          selectedClasses.push(section);
-          selectedCourses.add(section.id); // Add the course to selected courses
-          addedCount++;
         }
-      }
+      });
     });
 
     console.log(`Added ${addedCount} classes from Group ${groupIndex + 1}`);
   });
-
+  console.log(selectedClasses);
   return selectedClasses;
 }
 
@@ -89,7 +83,6 @@ function checkOverlap(section1, section2) {
         const start2 = new Date(`2000-01-01T${timeLoc2.start_time}`);
         const end2 = new Date(`2000-01-01T${timeLoc2.end_time}`);
         if (!(end1 <= start2 || end2 <= start1)) {
-          console.log(start1, end1, start2, end2);
           return true; // There's overlap
         }
       }
