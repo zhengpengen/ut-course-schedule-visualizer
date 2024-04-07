@@ -43,6 +43,51 @@ function schedule_generator() {
   return allSchedules;
 }
 
+// function addClassesFromGroups(GroupCards, GroupCounts) {
+//   const selectedClasses = [];
+//   const selectedCourses = new Set();
+
+//   const allZero = GroupCounts.every((count) => count === 0);
+
+//   // GroupCards.forEach((group, groupIndex) => {
+//   let groupIndex = 0;
+//   while (groupIndex < GroupCards.length) {
+//     let addedCount = 0;
+
+//     GroupCards[groupIndex].forEach((classObj) => {
+//       // Iterate over each class object in the group
+//       classObj.sections.forEach((section) => {
+//         // Iterate over each section of the class
+//         if (
+//           addedCount < GroupCounts[groupIndex] &&
+//           !selectedCourses.has(section.id)
+//         ) {
+//           let overlap = false;
+//           selectedClasses.forEach((selectedSection) => {
+//             if (checkOverlap(section, selectedSection)) {
+//               overlap = true;
+//             }
+//           });
+
+//           if (!overlap) {
+//             selectedClasses.push(section);
+//             selectedCourses.add(section.id);
+//             addedCount++;
+//             groupIndex++;
+//           }
+//         }
+//       });
+//     });
+//     groupIndex++;
+//     console.log(`Added ${addedCount} classes from Group ${groupIndex + 1}`);
+//     if (GroupCounts.every((count) => count === 0)) {
+//       groupIndex = 0;
+//     }
+//   }
+
+//   console.log(selectedClasses);
+//   return selectedClasses;
+// }
 function addClassesFromGroups(GroupCards, GroupCounts) {
   const selectedClasses = [];
   const selectedCourses = new Set();
