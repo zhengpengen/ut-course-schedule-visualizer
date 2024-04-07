@@ -28,6 +28,7 @@ function App() {
               allClasses={allClasses}
               setAllClasses={setAllClasses}
             />
+            
           </Route>
 
           {/* the schedules page*/}
