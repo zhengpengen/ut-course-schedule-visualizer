@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./GroupCard.css";
 import CourseCard from "../CourseCard/CourseCard";
-import {Draggable, Droppable} from "@hello-pangea/dnd";
+import { Draggable, Droppable } from "@hello-pangea/dnd";
 
 const GroupCard = ({
   groupNumber,
@@ -9,14 +9,16 @@ const GroupCard = ({
   onCountChange,
   groupCards,
   setGroupCards,
-  unassigned_classes,
+  unassignedClasses,
   setUnassignedClass,
+  classCount,
+  setClassCount,
   allClasses,
-  setAllClasses
+  setAllClasses,
 }) => {
   const [groupName, setGroupName] = useState(`Group ${groupNumber}`);
   const [isEditing, setIsEditing] = useState(false);
-  const [classCount, setClassCount] = useState("");
+  // const [classCount, setClassCount] = useState("");
   const [groupClasses, setGroupClasses] = useState([]);
 
   useEffect(() => {
@@ -80,24 +82,43 @@ const GroupCard = ({
         )}
       </div>
       <div>
-        <Droppable droppableId={`drop_group_card_${groupNumber}`} isDropDisabled={false}>
-            {(provided, snapshot) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <div className="group-body">
-                    {groupClasses.map((course, index) => (
-                      <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
-                        {(provided, snapshot) => (
-                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            <CourseCard key={index} courses={[course]}/>
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                </div>
-            )}
+        <Droppable
+          droppableId={`drop_group_card_${groupNumber}`}
+          isDropDisabled={false}
+        >
+          {(provided, snapshot) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              <div className="group-body">
+                {groupClasses.map((course, index) => (
+                  <Draggable
+                    key={course.course_name}
+                    draggableId={course.course_name}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <CourseCard
+                          key={index}
+                          courses={[course]}
+                          group_id={groupNumber}
+                          groupCards={groupCards}
+                          setGroupCards={setGroupCards}
+                          unassignedClasses={unassignedClasses}
+                          setUnassignedClass={setUnassignedClass}
+                        />
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            </div>
+          )}
         </Droppable>
       </div>
 

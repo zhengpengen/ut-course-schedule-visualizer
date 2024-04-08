@@ -2,21 +2,22 @@ import React, { useState, useRef, useEffect } from "react";
 import GroupCard from "./GroupCard";
 import AddCard from "./AddCard";
 import HelpScreen from "./HelpScreen";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./ClassGroup.css";
-import {Droppable} from "@hello-pangea/dnd"
-
+import { Droppable } from "@hello-pangea/dnd";
+import schedule_generator from "../scheduleGenerator/scheduleGenerator";
 
 const ClassGroup = ({
   groupCards,
   setGroupCards,
   unassignedClasses,
-  setUnassignedClass
+  setUnassignedClass,
 }) => {
   const [groupCounts, setGroupCounts] = useState({});
   const [nextId, setNextId] = useState(1);
   const [showHelpScreen, setShowHelpScreen] = useState(false);
   const helpScreenRef = useRef(null);
+  const [classCount, setClassCount] = useState(""); // lifting state so classCount can be passed into schedulerGenerator
 
   const addGroupCard = () => {
     let newGroup = {
@@ -25,12 +26,19 @@ const ClassGroup = ({
       classes: [],
     };
 
-    setGroupCards([...groupCards, newGroup]); 
+    setGroupCards([...groupCards, newGroup]);
     setNextId(nextId + 1); // Increment the nextId for the next card
   };
 
   const deleteGroupCard = (id) => {
+    //add the cards from the deleted group to the unassigned classes
+    let group = groupCards.find((group) => group.id === id);
+    let reassign = group.classes;
+    let new_unassigned = [...unassignedClasses, ...reassign];
+
+    //update the groups
     setGroupCards(groupCards.filter((group) => group.id !== id));
+    setUnassignedClass(new_unassigned);
     const newCounts = { ...groupCounts };
     delete newCounts[id];
     setGroupCounts(newCounts);
@@ -39,8 +47,8 @@ const ClassGroup = ({
   const updateGroupCount = (id, count) => {
     const newCounts = { ...groupCounts, [id]: count };
     setGroupCounts(newCounts);
-    // console.log(`Group ${id} count updated to: ${count}`);
-    // console.log("Current group counts:", newCounts);
+    console.log(`Group ${id} count updated to: ${count}`);
+    console.log("Current group counts:", newCounts);
   };
 
   const toggleHelpScreen = () => {
@@ -63,6 +71,12 @@ const ClassGroup = ({
     };
   }, []);
 
+  const handleGenSchedule = () => {
+    const scheduleOutput = schedule_generator(); // Call the schedule_generator function
+    // console.log(scheduleOutput); // Print out the output
+    console.log(scheduleOutput.map((section) => section));
+  };
+
   return (
     <div className={`class-group ${showHelpScreen ? "blur" : ""}`}>
       <div className="content-wrapper">
@@ -76,7 +90,9 @@ const ClassGroup = ({
               onCountChange={(count) => updateGroupCount(id, count)}
               groupCards={groupCards}
               setGroupCards={setGroupCards}
-              unassigned_classes={unassignedClasses}
+              classCount={classCount}
+              setClassCount={setClassCount}
+              unassignedClasses={unassignedClasses}
               setUnassignedClass={setUnassignedClass}
             />
           ))}
@@ -85,14 +101,14 @@ const ClassGroup = ({
           </div>
         </div>
         <div className="footer d-flex justify-content-center align-items-center">
-          <Link to='/ut-course-schedule-visualizer/help'>
+          <Link to="/ut-course-schedule-visualizer/help">
             {/* <button className="btn help-btn" onClick={toggleHelpScreen}> */}
-            <button className="btn help-btn">
-              ?
-            </button>
+            <button className="btn help-btn">?</button>
           </Link>
-          <Link to='/ut-course-schedule-visualizer/schedules'>
-            <button className="btn generate-btn">Generate My Schedule</button>
+          <Link to="/ut-course-schedule-visualizer/schedules">
+            <button className="btn generate-btn" onClick={handleGenSchedule}>
+              Generate My Schedule
+            </button>{" "}
           </Link>
         </div>
       </div>
