@@ -90,7 +90,11 @@ const ClassGroup = ({
   }, []);
 
   const handleGenSchedule = () => {
-    const scheduleOutput = schedule_generator(); // Call the schedule_generator function
+    // console.log(groupCounts);
+
+    // const groupCountsArray = Object.values(groupCounts);
+    // console.log(groupCountsArray);
+    const scheduleOutput = schedule_generator(groupCards, groupCounts); // Call the schedule_generator function
     // console.log(scheduleOutput); // Print out the output
     console.log(scheduleOutput.map((section) => section));
   };

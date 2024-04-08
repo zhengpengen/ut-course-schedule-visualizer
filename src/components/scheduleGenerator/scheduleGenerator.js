@@ -1,5 +1,7 @@
 // import ExampleData from "../../ExampleData";
 
+import { computeHeadingLevel } from "@testing-library/react";
+
 // function schedule_generator() {
 //   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 //   const times = [
@@ -98,9 +100,7 @@
 
 /* original schedule_generator */
 
-import ExampleData from "../../ExampleData";
-
-export function schedule_generator() {
+export function schedule_generator(groupCardsList, groupCountsList) {
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const times = [
     "8:00",
@@ -119,22 +119,24 @@ export function schedule_generator() {
   ];
 
   const allSchedules = [];
+  const groupCardsandCounts = [];
+  groupCountsList = [];
+  // hardcoded groupCounts for now
+  for (let i = 0; i < groupCardsList.length; i++) {
+    groupCountsList.push(2);
+  }
+  console.log(groupCountsList);
 
-  const GroupCards = [
-    [ExampleData[0], ExampleData[1]],
-    [ExampleData[2], ExampleData[3]],
-    [ExampleData[4], ExampleData[5]],
-  ];
+  // 2D array of groupCards and groupCounts to keep them tgt when permutating
+  for (let i = 0; i < groupCardsList.length; i++) {
+    groupCardsandCounts.push([groupCardsList[i], groupCountsList[i]]);
+  }
+  const groupPermutations = permute(groupCardsandCounts);
+  console.log("the groupPermutations is", groupPermutations);
 
-  const GroupCounts = [1, 2, 1];
-
-  // Permutate to allow each group to add a class first
-  for (let i = 0; i < GroupCards.length; i++) {
-    // Move the first element of GroupCards to the end
-    const firstElement = GroupCards.shift();
-    GroupCards.push(firstElement);
-
-    // Call addClassesFromGroups with the updated GroupCards configuration
+  for (let i = 0; i < groupPermutations.length; i++) {
+    const GroupCards = groupPermutations[i].map((groupcards) => groupcards[0]);
+    const GroupCounts = groupPermutations[i].map((groupcount) => groupcount[1]);
     const selectedClasses = addClassesFromGroups(GroupCards, GroupCounts);
     allSchedules.push(selectedClasses);
   }
@@ -142,6 +144,93 @@ export function schedule_generator() {
   console.log(allSchedules);
   return allSchedules;
 }
+
+function permute(arr) {
+  const result = [];
+
+  function generatePermutations(current, remaining) {
+    if (remaining.length === 0) {
+      result.push(current);
+      return;
+    }
+
+    for (let i = 0; i < remaining.length; i++) {
+      const next = current.concat([remaining[i]]);
+      const remainingCopy = [
+        ...remaining.slice(0, i),
+        ...remaining.slice(i + 1),
+      ];
+      generatePermutations(next, remainingCopy);
+    }
+  }
+
+  generatePermutations([], arr);
+  return result;
+}
+
+function addClassesFromGroups(GroupCards, GroupCounts) {
+  const selectedClasses = [];
+  const selectedCourses = new Set();
+
+  // Iterate over each group card
+  GroupCards.forEach((groupCard, groupIndex) => {
+    let addedCount = 0;
+
+    // Ensure groupCard is iterable
+    if (!Array.isArray(GroupCards)) {
+      console.error("groupCard is not an array:", GroupCards);
+      return; // Skip iteration or handle error accordingly
+    }
+
+    // Iterate over each class object in the group
+    groupCard.classes.forEach((classObj) => {
+      classObj.sections.forEach((section) => {
+        // Check if section meets criteria
+        if (
+          addedCount < GroupCounts[groupIndex] &&
+          !selectedCourses.has(section.id)
+        ) {
+          let overlap = false;
+          selectedClasses.forEach((selectedSection) => {
+            if (checkOverlap(section, selectedSection)) {
+              overlap = true;
+            }
+          });
+          if (!overlap) {
+            selectedClasses.push(section);
+            selectedCourses.add(section.id);
+            addedCount++;
+          }
+        }
+      });
+    });
+
+    console.log(`Added ${addedCount} classes from Group ${groupIndex + 1}`);
+  });
+  console.log(selectedClasses);
+
+  return selectedClasses;
+}
+
+function checkOverlap(section1, section2) {
+  // Check if there's any overlap in timings
+  for (const timeLoc1 of section1.time_and_locations) {
+    for (const timeLoc2 of section2.time_and_locations) {
+      if (timeLoc1.weekday.some((day) => timeLoc2.weekday.includes(day))) {
+        const start1 = new Date(`2000-01-01T${timeLoc1.start_time}`);
+        const end1 = new Date(`2000-01-01T${timeLoc1.end_time}`);
+        const start2 = new Date(`2000-01-01T${timeLoc2.start_time}`);
+        const end2 = new Date(`2000-01-01T${timeLoc2.end_time}`);
+        if (!(end1 <= start2 || end2 <= start1)) {
+          return true; // There's overlap
+        }
+      }
+    }
+  }
+  return false; // No overlap
+}
+
+export default schedule_generator;
 
 /* work in progress */
 
@@ -190,62 +279,6 @@ export function schedule_generator() {
 //   console.log(selectedClasses);
 //   return selectedClasses;
 // }
-function addClassesFromGroups(GroupCards, GroupCounts) {
-  const selectedClasses = [];
-  const selectedCourses = new Set();
-
-  GroupCards.forEach((group, groupIndex) => {
-    let addedCount = 0;
-
-    group.forEach((classObj) => {
-      // Iterate over each class object in the group
-      classObj.sections.forEach((section) => {
-        // Iterate over each section of the class
-        if (
-          addedCount < GroupCounts[groupIndex] &&
-          !selectedCourses.has(section.id)
-        ) {
-          let overlap = false;
-          selectedClasses.forEach((selectedSection) => {
-            if (checkOverlap(section, selectedSection)) {
-              overlap = true;
-            }
-          });
-
-          if (!overlap) {
-            selectedClasses.push(section);
-            selectedCourses.add(section.id);
-            addedCount++;
-          }
-        }
-      });
-    });
-
-    console.log(`Added ${addedCount} classes from Group ${groupIndex + 1}`);
-  });
-  // console.log(selectedClasses);
-  return selectedClasses;
-}
-
-function checkOverlap(section1, section2) {
-  // Check if there's any overlap in timings
-  for (const timeLoc1 of section1.time_and_locations) {
-    for (const timeLoc2 of section2.time_and_locations) {
-      if (timeLoc1.weekday.some((day) => timeLoc2.weekday.includes(day))) {
-        const start1 = new Date(`2000-01-01T${timeLoc1.start_time}`);
-        const end1 = new Date(`2000-01-01T${timeLoc1.end_time}`);
-        const start2 = new Date(`2000-01-01T${timeLoc2.start_time}`);
-        const end2 = new Date(`2000-01-01T${timeLoc2.end_time}`);
-        if (!(end1 <= start2 || end2 <= start1)) {
-          return true; // There's overlap
-        }
-      }
-    }
-  }
-  return false; // No overlap
-}
-
-export default schedule_generator;
 
 // The code below can print one schedule
 // function schedule_generator() {

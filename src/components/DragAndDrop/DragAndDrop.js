@@ -61,7 +61,7 @@ const DragAndDrop = ({
       let new_list = [...unassignedClasses];
       [class_removed] = new_list.splice(source.index, 1);
       setUnassignedClass(new_list);
-      console.log("1 ", new_list);
+      // console.log("1 ", new_list);
     }
     //removing class from one of the groups
     else {

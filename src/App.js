@@ -11,10 +11,6 @@ function App() {
   const [groupCounts, setGroupCounts] = useState({});
   const [groupNames, setGroupNames] = useState({});
   const [unassignedClasses, setUnassignedClass] = useState(ExampleData);
-  const [allClasses, setAllClasses] = useState([
-    ...unassignedClasses,
-    ...groupCards,
-  ]);
   const [nextId, setNextId] = useState(1);
 
   return (
