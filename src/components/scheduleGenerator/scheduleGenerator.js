@@ -129,7 +129,10 @@ export function schedule_generator(groupCardsList, groupCountsDict) {
 
   // 2D array of groupCards and groupCounts to keep them tgt when permutating
   for (let i = 0; i < groupCardsList.length; i++) {
-    groupCardsandCounts.push([groupCardsList[i], groupCountsDict[groupCardsList[i].id]]);
+    groupCardsandCounts.push([
+      groupCardsList[i],
+      groupCountsDict[groupCardsList[i].id],
+    ]);
   }
   const groupPermutations = permute(groupCardsandCounts);
   console.log("the groupPermutations is", groupPermutations);
@@ -138,7 +141,12 @@ export function schedule_generator(groupCardsList, groupCountsDict) {
     const GroupCards = groupPermutations[i].map((groupcards) => groupcards[0]);
     const GroupCounts = groupPermutations[i].map((groupcount) => groupcount[1]);
     const selectedClasses = addClassesFromGroups(GroupCards, GroupCounts);
-    allSchedules.push(selectedClasses);
+    let containsArray = allSchedules.some((arr) =>
+      hasSameSectionIDs(arr, selectedClasses)
+    );
+    if (!containsArray) {
+      allSchedules.push(selectedClasses);
+    }
   }
   // selectedClasses.map(section => section.time_and_locations[0].start_time)
   console.log(allSchedules);
@@ -165,6 +173,7 @@ function permute(arr) {
   }
 
   generatePermutations([], arr);
+  console.log("TOTAL NUMBER OF PERMUTATIONS IS ", result.length);
   return result;
 }
 
@@ -207,9 +216,25 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
 
     console.log(`Added ${addedCount} classes from Group ${groupIndex + 1}`);
   });
-  console.log(selectedClasses);
-
   return selectedClasses;
+}
+
+// Function to compare if two arrays contain the same set of section IDs
+function hasSameSectionIDs(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  const sectionIDs1 = arr1.map((section) => section.id).sort();
+  const sectionIDs2 = arr2.map((section) => section.id).sort();
+
+  for (let i = 0; i < sectionIDs1.length; i++) {
+    if (sectionIDs1[i] !== sectionIDs2[i]) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function checkOverlap(section1, section2) {
