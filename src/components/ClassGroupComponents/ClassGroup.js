@@ -21,9 +21,13 @@ const ClassGroup = ({
   nextId,
   setNextId
 }) => {
-  // const [nextId, setNextId] = useState(1);
   const [showHelpScreen, setShowHelpScreen] = useState(false);
   const helpScreenRef = useRef(null);
+
+  const updateGroupCount = (id, count) => {
+    const newCounts = { ...groupCounts, [id]: count };
+    setGroupCounts(newCounts);
+  };
 
   const updateGroupNames = (id, name) => {
     const newNames = { ...groupNames, [id]: name };
@@ -33,6 +37,7 @@ const ClassGroup = ({
 
   const addGroupCard = () => {
     updateGroupNames(nextId, `Group ${nextId}`) 
+    updateGroupCount(nextId, 0)
     let newGroup = {
       // initializes a dictionary of classes
       id: nextId,
@@ -63,14 +68,6 @@ const ClassGroup = ({
     console.log(newCounts);
     console.log(newNames);
   };
-
-  const updateGroupCount = (id, count) => {
-    const newCounts = { ...groupCounts, [id]: count };
-    setGroupCounts(newCounts);
-    // console.log(`Group ${id} count updated to: ${count}`);
-    // console.log("Current group counts:", newCounts);
-  };
-
   
 
   const toggleHelpScreen = () => {

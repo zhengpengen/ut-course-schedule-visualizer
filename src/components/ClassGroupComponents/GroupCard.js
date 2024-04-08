@@ -14,16 +14,9 @@ const GroupCard = ({
   setGroupCards,
   unassignedClasses,
   setUnassignedClass,
-  // allClasses,
-  // setAllClasses
 }) => {
-  // const [groupName, setGroupName] = useState(`Group ${groupNumber}`);
   const [isEditing, setIsEditing] = useState(false);
-  // const [classCount, setClassCount] = useState(courseCount);
   const [groupClasses, setGroupClasses] = useState([]);
-
-  // console.log(groupName)
-  // console.log(groupNumber)
 
   useEffect(() => {
     const group = groupCards.find((group) => group.id === groupNumber);
@@ -54,11 +47,8 @@ const GroupCard = ({
     }
     else if (!value || isNaN(value)) {
       alert(`Please enter a number. '${value}' is not a number.`);
-      // setClassCount(0);
-      // onCountChange(value);
       changeCount(0)
     } else {
-      // setClassCount(value);
       changeCount(parseInt(value));
       console.log(
         `Group ${groupNumber} count updated to: ${value} inside of GroupCard`
