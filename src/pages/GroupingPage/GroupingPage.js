@@ -10,9 +10,12 @@ const GroupingPage = ({
 
     groupCounts,
     setGroupCounts,
-    
+
     groupNames,
-    setGroupNames
+    setGroupNames,
+
+    nextId,
+    setNextId
 }) => {
     return(
         <DragAndDrop
@@ -27,6 +30,9 @@ const GroupingPage = ({
 
             groupNames={groupNames}
             setGroupNames={setGroupNames}
+
+            nextId={nextId}
+            setNextId={setNextId}
         />
     );
 }

@@ -16,9 +16,12 @@ const ClassGroup = ({
   setGroupCounts,
 
   groupNames,
-  setGroupNames
+  setGroupNames,
+
+  nextId,
+  setNextId
 }) => {
-  const [nextId, setNextId] = useState(1);
+  // const [nextId, setNextId] = useState(1);
   const [showHelpScreen, setShowHelpScreen] = useState(false);
   const helpScreenRef = useRef(null);
 

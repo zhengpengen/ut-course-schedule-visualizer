@@ -15,7 +15,10 @@ const DragAndDrop = ({
   setGroupCounts,
 
   groupNames,
-  setGroupNames
+  setGroupNames,
+
+  nextId,
+  setNextId
 }) => {
 
   const handleDragEnd = (result) => {
@@ -118,9 +121,12 @@ const DragAndDrop = ({
             
             groupCounts={groupCounts}
             setGroupCounts={setGroupCounts}
-            
+
             groupNames={groupNames}
             setGroupNames={setGroupNames}
+
+            nextId={nextId}
+            setNextId={setNextId}
           />
           
         </div>

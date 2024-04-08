@@ -11,6 +11,7 @@ function App() {
   const [groupCounts, setGroupCounts] = useState({});
   const [groupNames, setGroupNames] = useState({});
   const [unassignedClasses, setUnassignedClass] = useState(ExampleData);
+  const [nextId, setNextId] = useState(1);
 
   return (
     <Router>
@@ -27,9 +28,12 @@ function App() {
 
               groupCounts={groupCounts}
               setGroupCounts={setGroupCounts}
-              
+
               groupNames={groupNames}
               setGroupNames={setGroupNames}
+
+              nextId={nextId}
+              setNextId={setNextId}
             />
           </Route>
           
