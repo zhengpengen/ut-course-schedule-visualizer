@@ -1,15 +1,38 @@
 import './GroupingPage.css';
 import DragAndDrop from '../../components/DragAndDrop/DragAndDrop';
 
-const GroupingPage = ({groupCards, setGroupCards, unassignedClasses, setUnassignedClass, allClasses, setAllClasses}) => {
+const GroupingPage = ({
+    groupCards, 
+    setGroupCards,
+
+    unassignedClasses, 
+    setUnassignedClass,
+
+    groupCounts,
+    setGroupCounts,
+
+    groupNames,
+    setGroupNames,
+
+    nextId,
+    setNextId
+}) => {
     return(
         <DragAndDrop
             groupCards={groupCards}
             setGroupCards={setGroupCards}
+
             unassignedClasses={unassignedClasses}
             setUnassignedClass={setUnassignedClass}
-            allClasses={allClasses}
-            setAllClasses={setAllClasses}
+
+            groupCounts={groupCounts}
+            setGroupCounts={setGroupCounts}
+
+            groupNames={groupNames}
+            setGroupNames={setGroupNames}
+
+            nextId={nextId}
+            setNextId={setNextId}
         />
     );
 }

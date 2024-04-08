@@ -6,19 +6,18 @@ import { Draggable, Droppable } from "@hello-pangea/dnd";
 const GroupCard = ({
   groupNumber,
   onDelete,
-  onCountChange,
+  groupNames,
+  setGroupName,
+  courseCount,
+  changeCount,
   groupCards,
   setGroupCards,
   unassignedClasses,
   setUnassignedClass,
-  classCount,
-  setClassCount,
   allClasses,
   setAllClasses,
 }) => {
-  const [groupName, setGroupName] = useState(`Group ${groupNumber}`);
   const [isEditing, setIsEditing] = useState(false);
-  // const [classCount, setClassCount] = useState("");
   const [groupClasses, setGroupClasses] = useState([]);
 
   useEffect(() => {
@@ -38,19 +37,20 @@ const GroupCard = ({
 
   const handleGroupNameBlur = () => {
     setIsEditing(false);
-    if (!groupName.trim()) {
+    if (!groupNames[groupNumber].trim()) {
       setGroupName(`Group ${groupNumber}`);
     }
   };
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-    if (!value || isNaN(value)) {
+    if (value === "") {
+      changeCount(0);
+    } else if (!value || isNaN(value)) {
       alert(`Please enter a number. '${value}' is not a number.`);
-      setClassCount("");
+      changeCount(0);
     } else {
-      setClassCount(value);
-      onCountChange(value);
+      changeCount(parseInt(value));
       console.log(
         `Group ${groupNumber} count updated to: ${value} inside of GroupCard`
       );
@@ -63,7 +63,7 @@ const GroupCard = ({
         {isEditing ? (
           <input
             type="text"
-            value={groupName}
+            value={groupNames[groupNumber]}
             onChange={handleGroupNameChange}
             onBlur={handleGroupNameBlur}
             autoFocus
@@ -71,13 +71,13 @@ const GroupCard = ({
           />
         ) : (
           <span
-            className={
-              groupName === `Group ${groupNumber}`
-                ? "group-name italic"
-                : "group-name bold"
-            }
+          // className={
+          //   groupName === `Group ${groupNumber}`
+          //     ? "group-name italic"
+          //     : "group-name bold"
+          // }
           >
-            {groupName}
+            {groupNames[groupNumber]}
           </span>
         )}
       </div>
@@ -131,7 +131,7 @@ const GroupCard = ({
         Number of Classes Considered:{" "}
         <input
           type="text"
-          value={classCount}
+          value={courseCount}
           onChange={handleInputChange}
           className="class-count-input"
         />

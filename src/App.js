@@ -8,11 +8,14 @@ import HelpPage from "./pages/HelpPage/HelpPage";
 
 function App() {
   const [groupCards, setGroupCards] = useState([]); // LIFTING STATE HERE SO WE CAN ACCESS THE GLOBAL ARRAY
+  const [groupCounts, setGroupCounts] = useState({});
+  const [groupNames, setGroupNames] = useState({});
   const [unassignedClasses, setUnassignedClass] = useState(ExampleData);
   const [allClasses, setAllClasses] = useState([
     ...unassignedClasses,
     ...groupCards,
   ]);
+  const [nextId, setNextId] = useState(1);
 
   return (
     <Router>
@@ -25,10 +28,13 @@ function App() {
               setGroupCards={setGroupCards}
               unassignedClasses={unassignedClasses}
               setUnassignedClass={setUnassignedClass}
-              allClasses={allClasses}
-              setAllClasses={setAllClasses}
+              groupCounts={groupCounts}
+              setGroupCounts={setGroupCounts}
+              groupNames={groupNames}
+              setGroupNames={setGroupNames}
+              nextId={nextId}
+              setNextId={setNextId}
             />
-            
           </Route>
 
           {/* the schedules page*/}

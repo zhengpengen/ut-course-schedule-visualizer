@@ -100,7 +100,7 @@
 
 import ExampleData from "../../ExampleData";
 
-function schedule_generator() {
+export function schedule_generator() {
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const times = [
     "8:00",

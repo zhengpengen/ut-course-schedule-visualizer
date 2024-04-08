@@ -1,25 +1,43 @@
 import React, { useState, useRef, useEffect } from "react";
 import GroupCard from "./GroupCard";
 import AddCard from "./AddCard";
-import HelpScreen from "./HelpScreen";
 import { Link } from "react-router-dom";
 import "./ClassGroup.css";
-import { Droppable } from "@hello-pangea/dnd";
-import schedule_generator from "../scheduleGenerator/scheduleGenerator";
+import { schedule_generator } from "../scheduleGenerator/scheduleGenerator.js";
 
 const ClassGroup = ({
   groupCards,
   setGroupCards,
+
   unassignedClasses,
   setUnassignedClass,
+
+  groupCounts,
+  setGroupCounts,
+
+  groupNames,
+  setGroupNames,
+
+  nextId,
+  setNextId,
 }) => {
-  const [groupCounts, setGroupCounts] = useState({});
-  const [nextId, setNextId] = useState(1);
   const [showHelpScreen, setShowHelpScreen] = useState(false);
   const helpScreenRef = useRef(null);
-  const [classCount, setClassCount] = useState(""); // lifting state so classCount can be passed into schedulerGenerator
+
+  const updateGroupCount = (id, count) => {
+    const newCounts = { ...groupCounts, [id]: count };
+    setGroupCounts(newCounts);
+  };
+
+  const updateGroupNames = (id, name) => {
+    const newNames = { ...groupNames, [id]: name };
+    console.log(newNames);
+    setGroupNames(newNames);
+  };
 
   const addGroupCard = () => {
+    updateGroupNames(nextId, `Group ${nextId}`);
+    updateGroupCount(nextId, 0);
     let newGroup = {
       // initializes a dictionary of classes
       id: nextId,
@@ -27,6 +45,7 @@ const ClassGroup = ({
     };
 
     setGroupCards([...groupCards, newGroup]);
+
     setNextId(nextId + 1); // Increment the nextId for the next card
   };
 
@@ -42,13 +61,12 @@ const ClassGroup = ({
     const newCounts = { ...groupCounts };
     delete newCounts[id];
     setGroupCounts(newCounts);
-  };
+    const newNames = { ...groupNames };
+    delete newNames[id];
+    setGroupNames(newNames);
 
-  const updateGroupCount = (id, count) => {
-    const newCounts = { ...groupCounts, [id]: count };
-    setGroupCounts(newCounts);
-    console.log(`Group ${id} count updated to: ${count}`);
-    console.log("Current group counts:", newCounts);
+    console.log(newCounts);
+    console.log(newNames);
   };
 
   const toggleHelpScreen = () => {
@@ -87,11 +105,12 @@ const ClassGroup = ({
               key={id}
               groupNumber={groupCard.id}
               onDelete={() => deleteGroupCard(groupCard.id)}
-              onCountChange={(count) => updateGroupCount(id, count)}
+              courseCount={groupCounts[groupCard.id]}
+              changeCount={(count) => updateGroupCount(groupCard.id, count)}
+              groupNames={groupNames}
+              setGroupName={(name) => updateGroupNames(groupCard.id, name)}
               groupCards={groupCards}
               setGroupCards={setGroupCards}
-              classCount={classCount}
-              setClassCount={setClassCount}
               unassignedClasses={unassignedClasses}
               setUnassignedClass={setUnassignedClass}
             />
