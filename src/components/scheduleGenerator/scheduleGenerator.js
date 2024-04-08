@@ -1,3 +1,103 @@
+// import ExampleData from "../../ExampleData";
+
+// function schedule_generator() {
+//   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+//   const times = [
+//     "8:00",
+//     "9:00",
+//     "10:00",
+//     "11:00",
+//     "12:00",
+//     "13:00",
+//     "14:00",
+//     "15:00",
+//     "16:00",
+//     "17:00",
+//     "18:00",
+//     "19:00",
+//     "20:00",
+//   ];
+
+//   const allSchedules = [];
+
+//   const GroupCards = [
+//     [ExampleData[0], ExampleData[1]],
+//     [ExampleData[2], ExampleData[3]],
+//     [ExampleData[4], ExampleData[5]],
+//   ];
+
+//   const GroupCounts = [1, 2, 1];
+
+//   const getCourseForCell = (day, time) => {
+//     for (let course of courses) {
+//       if (
+//         course.weekday.includes(day) &&
+//         time >= course.start_time &&
+//         time < course.end_time
+//       ) {
+//         return course;
+//       }
+//     }
+//     return null;
+//   };
+
+//   // Permutate to allow each group to add a class first
+//   for (let i = 0; i < GroupCards.length; i++) {
+//     // Move the first element of GroupCards to the end
+//     const firstElement = GroupCards.shift();
+//     GroupCards.push(firstElement);
+
+//     // Call addClassesFromGroups with the updated GroupCards configuration
+//     const selectedClasses = addClassesFromGroups(GroupCards, GroupCounts);
+//     allSchedules.push(selectedClasses);
+//   }
+//   // selectedClasses.map(section => section.time_and_locations[0].start_time)
+//   console.log(allSchedules);
+//   return (
+//     <div>
+//       {allSchedules.map((schedule, index) => (
+//         <div key={index}>
+//           <h3>Schedule {index + 1}</h3>
+//           <table>
+//             <thead>
+//               <tr>
+//                 <th>Time</th>
+//                 {days.map((day) => (
+//                   <th key={day}>{day}</th>
+//                 ))}
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {times.map((time) => (
+//                 <tr key={time}>
+//                   <td>{time}</td>
+//                   {days.map((day) => {
+//                     const course = getCourseForCell(day, time, schedule);
+//                     return (
+//                       <td
+//                         key={day + time}
+//                         style={{
+//                           backgroundColor: course ? course.color : "#fff",
+//                         }}
+//                       >
+//                         {course
+//                           ? `${course.course_number} ${course.course_name}`
+//                           : ""}
+//                       </td>
+//                     );
+//                   })}
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+/* original schedule_generator */
+
 import ExampleData from "../../ExampleData";
 
 function schedule_generator() {
@@ -19,7 +119,6 @@ function schedule_generator() {
   ];
 
   const allSchedules = [];
-  const curSchedule = [];
 
   const GroupCards = [
     [ExampleData[0], ExampleData[1]],
@@ -40,8 +139,11 @@ function schedule_generator() {
     allSchedules.push(selectedClasses);
   }
   // selectedClasses.map(section => section.time_and_locations[0].start_time)
+  console.log(allSchedules);
   return allSchedules;
 }
+
+/* work in progress */
 
 // function addClassesFromGroups(GroupCards, GroupCounts) {
 //   const selectedClasses = [];
@@ -121,7 +223,7 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
 
     console.log(`Added ${addedCount} classes from Group ${groupIndex + 1}`);
   });
-  console.log(selectedClasses);
+  // console.log(selectedClasses);
   return selectedClasses;
 }
 
