@@ -100,7 +100,7 @@ import { computeHeadingLevel } from "@testing-library/react";
 
 /* original schedule_generator */
 
-export function schedule_generator(groupCardsList, groupCountsList) {
+export function schedule_generator(groupCardsList, groupCountsDict) {
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const times = [
     "8:00",
@@ -120,16 +120,16 @@ export function schedule_generator(groupCardsList, groupCountsList) {
 
   const allSchedules = [];
   const groupCardsandCounts = [];
-  groupCountsList = [];
+  // groupCountsList = [];
   // hardcoded groupCounts for now
-  for (let i = 0; i < groupCardsList.length; i++) {
-    groupCountsList.push(2);
-  }
-  console.log(groupCountsList);
+  // for (let i = 0; i < groupCardsList.length; i++) {
+  //   groupCountsList.push(2);
+  // }
+  // console.log(groupCountsList);
 
   // 2D array of groupCards and groupCounts to keep them tgt when permutating
   for (let i = 0; i < groupCardsList.length; i++) {
-    groupCardsandCounts.push([groupCardsList[i], groupCountsList[i]]);
+    groupCardsandCounts.push([groupCardsList[i], groupCountsDict[groupCardsList[i].id]]);
   }
   const groupPermutations = permute(groupCardsandCounts);
   console.log("the groupPermutations is", groupPermutations);
