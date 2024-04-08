@@ -120,12 +120,6 @@ export function schedule_generator(groupCardsList, groupCountsDict) {
 
   const allSchedules = [];
   const groupCardsandCounts = [];
-  // groupCountsList = [];
-  // hardcoded groupCounts for now
-  // for (let i = 0; i < groupCardsList.length; i++) {
-  //   groupCountsList.push(2);
-  // }
-  // console.log(groupCountsList);
 
   // 2D array of groupCards and groupCounts to keep them tgt when permutating
   for (let i = 0; i < groupCardsList.length; i++) {
@@ -181,25 +175,23 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
   const selectedClasses = [];
   const selectedCourses = new Set();
 
+  console.log("selected classes is ", selectedClasses);
   // Iterate over each group card
-  GroupCards.forEach((groupCard, groupIndex) => {
+  for (let groupIndex = 0; groupIndex < GroupCards.length; groupIndex++) {
+    const groupCard = GroupCards[groupIndex];
     let addedCount = 0;
 
-    // Ensure groupCard is iterable
-    if (!Array.isArray(GroupCards)) {
-      console.error("groupCard is not an array:", GroupCards);
-      return; // Skip iteration or handle error accordingly
-    }
-
-    // Iterate over each class object in the group
-    groupCard.classes.forEach((classObj) => {
-      classObj.sections.forEach((section) => {
-        // Check if section meets criteria
-        if (
-          addedCount < GroupCounts[groupIndex] &&
-          !selectedCourses.has(section.id)
-        ) {
+    // for each class of a groupCard
+    for (const classObj of groupCard.classes) {
+      // for each section of a class
+      let addedSectionFromThisClass = false;
+      for (const section of classObj.sections) {
+        if (addedSectionFromThisClass) {
+          break;
+        }
+        if (addedCount < GroupCounts[groupIndex]) {
           let overlap = false;
+          // check if this section overlaps with any previously selected section
           selectedClasses.forEach((selectedSection) => {
             if (checkOverlap(section, selectedSection)) {
               overlap = true;
@@ -209,13 +201,16 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
             selectedClasses.push(section);
             selectedCourses.add(section.id);
             addedCount++;
+            addedSectionFromThisClass = true;
+            break;
           }
         }
-      });
-    });
+      }
+    }
 
     console.log(`Added ${addedCount} classes from Group ${groupIndex + 1}`);
-  });
+  }
+  console.log("selected classes is ", selectedClasses);
   return selectedClasses;
 }
 
@@ -256,54 +251,6 @@ function checkOverlap(section1, section2) {
 }
 
 export default schedule_generator;
-
-/* work in progress */
-
-// function addClassesFromGroups(GroupCards, GroupCounts) {
-//   const selectedClasses = [];
-//   const selectedCourses = new Set();
-
-//   const allZero = GroupCounts.every((count) => count === 0);
-
-//   // GroupCards.forEach((group, groupIndex) => {
-//   let groupIndex = 0;
-//   while (groupIndex < GroupCards.length) {
-//     let addedCount = 0;
-
-//     GroupCards[groupIndex].forEach((classObj) => {
-//       // Iterate over each class object in the group
-//       classObj.sections.forEach((section) => {
-//         // Iterate over each section of the class
-//         if (
-//           addedCount < GroupCounts[groupIndex] &&
-//           !selectedCourses.has(section.id)
-//         ) {
-//           let overlap = false;
-//           selectedClasses.forEach((selectedSection) => {
-//             if (checkOverlap(section, selectedSection)) {
-//               overlap = true;
-//             }
-//           });
-
-//           if (!overlap) {
-//             selectedClasses.push(section);
-//             selectedCourses.add(section.id);
-//             addedCount++;
-//             groupIndex++;
-//           }
-//         }
-//       });
-//     });
-//     groupIndex++;
-//     console.log(`Added ${addedCount} classes from Group ${groupIndex + 1}`);
-//     if (GroupCounts.every((count) => count === 0)) {
-//       groupIndex = 0;
-//     }
-//   }
-
-//   console.log(selectedClasses);
-//   return selectedClasses;
-// }
 
 // The code below can print one schedule
 // function schedule_generator() {
