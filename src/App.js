@@ -8,8 +8,9 @@ import HelpPage from './pages/HelpPage/HelpPage'
 
 function App() {
   const [groupCards, setGroupCards] = useState([]); // LIFTING STATE HERE SO WE CAN ACCESS THE GLOBAL ARRAY
+  const [groupCounts, setGroupCounts] = useState({});
+  const [groupNames, setGroupNames] = useState({});
   const [unassignedClasses, setUnassignedClass] = useState(ExampleData);
-  const [allClasses, setAllClasses] = useState([...unassignedClasses, ...groupCards]);
 
   return (
     <Router>
@@ -20,10 +21,15 @@ function App() {
             <GroupingPage 
               groupCards={groupCards}
               setGroupCards={setGroupCards}
+
               unassignedClasses={unassignedClasses}
               setUnassignedClass={setUnassignedClass}
-              allClasses={allClasses}
-              setAllClasses={setAllClasses}
+
+              groupCounts={groupCounts}
+              setGroupCounts={setGroupCounts}
+              
+              groupNames={groupNames}
+              setGroupNames={setGroupNames}
             />
           </Route>
           

@@ -7,18 +7,21 @@ import { DragDropContext} from "@hello-pangea/dnd";
 const DragAndDrop = ({
   groupCards,
   setGroupCards,
+
   unassignedClasses,
-  setUnassignedClass
+  setUnassignedClass,
+
+  groupCounts,
+  setGroupCounts,
+
+  groupNames,
+  setGroupNames
 }) => {
 
   const handleDragEnd = (result) => {
     const {source, destination} = result;
 
-    // console.log('woooo', source);
-    // console.log('crying', destination);
-
     if(!destination){
-      // console.log('fuck me');
       return;
     }
 
@@ -54,7 +57,6 @@ const DragAndDrop = ({
 
     //removing classes from the all classes list
     if(source.droppableId === "all-classes"){
-      // console.log("removing from all classes");
       let new_list = [...unassignedClasses];
       [class_removed] = new_list.splice(source.index, 1);
       setUnassignedClass(new_list);
@@ -62,9 +64,7 @@ const DragAndDrop = ({
     }
     //removing class from one of the groups
     else{
-      // console.log("removing from group: ", source.droppableId);
       let group_num = parseInt(source.droppableId.slice(-1));
-      // console.log("number is: ", group_num);
       let new_groupCards = [...groupCards];
       let group = groupCards.find(group => group.id === group_num);
 
@@ -74,23 +74,17 @@ const DragAndDrop = ({
       group = new_groupCards.find(group => group.id === group_num);
       group.classes = new_classes;
       setGroupCards(new_groupCards);
-      // console.log("2 ", new_groupCards);
     }
 
 
     if(destination.droppableId === "all-classes"){
-      // console.log("adding to all classes");
       let new_list = [...unassignedClasses];
       new_list.splice(destination.index, 0, class_removed);
       setUnassignedClass(new_list);
-      // console.log("3 ", new_list);
     }
     else{
-      // console.log("adding to a group: ", destination.droppableId);
       let group_num = parseInt(destination.droppableId.slice(-1));
-      // console.log("lol number is: ", group_num);
       let new_groupCards = [...groupCards]
-      // console.log(new_groupCards);
       let group = groupCards.find(group => group.id === group_num);
 
       //adding the class to the newest group and updating groupCards
@@ -99,7 +93,6 @@ const DragAndDrop = ({
       group = new_groupCards.find(group => group.id === group_num);
       group.classes = new_classes;
       setGroupCards(new_groupCards);
-      // console.log("4 ", new_groupCards);
     }
   }
 
@@ -110,6 +103,7 @@ const DragAndDrop = ({
           <AllClassesList
             groupCards={groupCards}
             setGroupCards={setGroupCards}
+
             unassignedClasses={unassignedClasses}
             setUnassignedClass={setUnassignedClass}
           />
@@ -118,8 +112,15 @@ const DragAndDrop = ({
           <ClassGroup
             groupCards={groupCards}
             setGroupCards={setGroupCards}
+
             unassignedClasses={unassignedClasses}
             setUnassignedClass={setUnassignedClass}
+            
+            groupCounts={groupCounts}
+            setGroupCounts={setGroupCounts}
+            
+            groupNames={groupNames}
+            setGroupNames={setGroupNames}
           />
           
         </div>

@@ -1,35 +1,47 @@
 import React, { useState, useRef, useEffect } from "react";
 import GroupCard from "./GroupCard";
 import AddCard from "./AddCard";
-import HelpScreen from "./HelpScreen";
 import { Link } from 'react-router-dom';
 import "./ClassGroup.css";
-import {Droppable} from "@hello-pangea/dnd"
 
 
 const ClassGroup = ({
   groupCards,
   setGroupCards,
+
   unassignedClasses,
-  setUnassignedClass
+  setUnassignedClass,
+
+  groupCounts,
+  setGroupCounts,
+
+  groupNames,
+  setGroupNames
 }) => {
-  const [groupCounts, setGroupCounts] = useState({});
   const [nextId, setNextId] = useState(1);
   const [showHelpScreen, setShowHelpScreen] = useState(false);
   const helpScreenRef = useRef(null);
 
+  const updateGroupNames = (id, name) => {
+    const newNames = { ...groupNames, [id]: name };
+    console.log(newNames);
+    setGroupNames(newNames);
+  };
+
   const addGroupCard = () => {
+    updateGroupNames(nextId, `Group ${nextId}`) 
     let newGroup = {
       // initializes a dictionary of classes
       id: nextId,
       classes: [],
     };
 
-    setGroupCards([...groupCards, newGroup]); 
+    setGroupCards([...groupCards, newGroup]);
+    
     setNextId(nextId + 1); // Increment the nextId for the next card
   };
 
-  const deleteGroupCard = (id) => {
+  const deleteGroupCard = (id) => { 
     //add the cards from the deleted group to the unassigned classes
     let group = groupCards.find(group => group.id === id);
     let reassign = group.classes;
@@ -41,6 +53,12 @@ const ClassGroup = ({
     const newCounts = { ...groupCounts };
     delete newCounts[id];
     setGroupCounts(newCounts);
+    const newNames = {...groupNames};
+    delete newNames[id];
+    setGroupNames(newNames);
+
+    console.log(newCounts);
+    console.log(newNames);
   };
 
   const updateGroupCount = (id, count) => {
@@ -49,6 +67,8 @@ const ClassGroup = ({
     // console.log(`Group ${id} count updated to: ${count}`);
     // console.log("Current group counts:", newCounts);
   };
+
+  
 
   const toggleHelpScreen = () => {
     setShowHelpScreen(!showHelpScreen);
@@ -80,7 +100,10 @@ const ClassGroup = ({
               key={id}
               groupNumber={groupCard.id}
               onDelete={() => deleteGroupCard(groupCard.id)}
-              onCountChange={(count) => updateGroupCount(id, count)}
+              courseCount={groupCounts[groupCard.id]}
+              changeCount={(count) => updateGroupCount(groupCard.id, count)}
+              groupNames={groupNames}
+              setGroupName={(name) => updateGroupNames(groupCard.id, name)}
               groupCards={groupCards}
               setGroupCards={setGroupCards}
               unassignedClasses={unassignedClasses}
