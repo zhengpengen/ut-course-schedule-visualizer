@@ -299,6 +299,12 @@ function addClassesFromGroups(
 
       // If no overlap, add the section to selectedClasses and continue exploring recursively
       if (!overlap) {
+        section.className =
+          classObj.course_major +
+          " " +
+          classObj.course_number +
+          " " +
+          classObj.course_name; // CONCATENATE CLASS PROPERTIES TO FORM CLASS NAME
         selectedClasses.push(section);
         const subResult = addClassesFromGroups(
           GroupCards,
