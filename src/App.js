@@ -85,7 +85,7 @@ function App() {
           var [hour, minute] = input[index].split(':');
           index += 1;
           if(input[index] === 'p.m.'){
-            hour = (parseInt(hour)+12)+''
+            hour = (parseInt(hour)%12+12)+''
           } 
           section['time_and_locations'][t]['start_time'] = hour+':'+minute;
           index += 1;
@@ -94,7 +94,7 @@ function App() {
           [hour, minute] = input[index].split(':');
           index += 1;
           if(input[index] === 'p.m.'){
-            hour = (parseInt(hour)+12)+''
+            hour = (parseInt(hour)%12+12)+''
           } 
           section['time_and_locations'][t]['end_time'] = hour+':'+minute;
           index += 1;
