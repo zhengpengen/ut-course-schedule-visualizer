@@ -135,10 +135,10 @@ export function schedule_generator(groupCardsList, groupCountsDict) {
     const GroupCards = groupPermutations[i].map((groupcards) => groupcards[0]);
     const GroupCounts = groupPermutations[i].map((groupcount) => groupcount[1]);
     const selectedClasses = addClassesFromGroups(GroupCards, GroupCounts);
-    let containsArray = allSchedules.some((arr) =>
+    let duplicateDetected = allSchedules.some((arr) =>
       hasSameSectionIDs(arr, selectedClasses)
     );
-    if (!containsArray) {
+    if (!duplicateDetected) {
       allSchedules.push(selectedClasses);
     }
   }
@@ -171,6 +171,7 @@ function permute(arr) {
   return result;
 }
 
+/*
 function addClassesFromGroups(GroupCards, GroupCounts) {
   const selectedClasses = [];
   // const selectedCourses = new Set();
@@ -178,7 +179,6 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
   console.log("selected classes is ", selectedClasses);
   // Iterate over each group card
   for (let groupIndex = 0; groupIndex < GroupCards.length; groupIndex++) {
-    //TODO: switch to using id instead of indexing
     const groupCard = GroupCards[groupIndex];
     let addedCount = 0;
 
@@ -187,10 +187,13 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
       // for each section of a class
       let addedSectionFromThisClass = false;
       for (const section of classObj.sections) {
-        if (addedSectionFromThisClass) {
+        if (
+          addedSectionFromThisClass ||
+          addedCount >= GroupCounts[groupIndex]
+        ) {
           break;
         }
-        if (addedCount < GroupCounts[groupIndex] && section.checked === true) {
+        if (section.checked === true) {
           let overlap = false;
           // check if this section overlaps with any previously selected section
           selectedClasses.forEach((selectedSection) => {
@@ -213,6 +216,103 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
   }
   console.log("selected classes is ", selectedClasses);
   return selectedClasses;
+}
+*/
+
+// function addClassesFromGroups(GroupCards, GroupCounts) {
+//   const selectedClasses = [];
+//   // const selectedCourses = new Set();
+
+//   console.log("selected classes is ", selectedClasses);
+//   // Iterate over each group card
+//   for (let groupIndex = 0; groupIndex < GroupCards.length; groupIndex++) {
+//     const groupCard = GroupCards[groupIndex];
+//     let addedCount = 0;
+
+//     // for each class of a groupCard
+//     for (const classObj of groupCard.classes) {
+//       // for each section of a class
+//       let addedSectionFromThisClass = false;
+//       for (const section of classObj.sections) {
+//         if (
+//           addedSectionFromThisClass ||
+//           addedCount >= GroupCounts[groupIndex]
+//         ) {
+//           break;
+//         }
+//         if (section.checked === true) {
+//           let overlap = false;
+//           // check if this section overlaps with any previously selected section
+//           selectedClasses.forEach((selectedSection) => {
+//             if (checkOverlap(section, selectedSection)) {
+//               overlap = true;
+//             }
+//           });
+//           if (!overlap) {
+//             selectedClasses.push(section);
+//             // selectedCourses.add(section.id);
+//             addedCount++;
+//             addedSectionFromThisClass = true;
+//             break;
+//           }
+//         }
+//       }
+//     }
+
+//     console.log(`Added ${addedCount} classes from Group ${groupIndex + 1}`);
+//   }
+//   console.log("selected classes is ", selectedClasses);
+//   return selectedClasses;
+// }
+function addClassesFromGroups(
+  GroupCards,
+  GroupCounts,
+  selectedClasses = [],
+  groupIndex = 0
+) {
+  if (groupIndex >= GroupCards.length) {
+    // If we've reached the end of GroupCards, add the current selectedClasses to the result
+    return [selectedClasses.slice()]; // Make a copy of selectedClasses to avoid reference issues
+  }
+
+  const groupCard = GroupCards[groupIndex];
+  const classCount = groupCard.classes.length;
+  const result = [];
+
+  // Recursively explore each class in the current group
+  for (let classIndex = 0; classIndex < classCount; classIndex++) {
+    const classObj = groupCard.classes[classIndex];
+    const sectionCount = classObj.sections.length;
+
+    // Recursively explore each section in the current class
+    for (let sectionIndex = 0; sectionIndex < sectionCount; sectionIndex++) {
+      const section = classObj.sections[sectionIndex];
+      let overlap = false;
+
+      // Check if the section overlaps with any previously selected section
+      for (const selectedSection of selectedClasses) {
+        if (checkOverlap(section, selectedSection)) {
+          overlap = true;
+          break;
+        }
+      }
+
+      // If no overlap, add the section to selectedClasses and continue exploring recursively
+      if (!overlap) {
+        selectedClasses.push(section);
+        const subResult = addClassesFromGroups(
+          GroupCards,
+          GroupCounts,
+          selectedClasses,
+          groupIndex + 1
+        );
+        result.push(...subResult); // Merge sub-results into the result
+        selectedClasses.pop(); // Backtrack: remove the last section added
+      }
+    }
+  }
+
+  return result;
 }
 
 // Function to compare if two arrays contain the same set of section IDs

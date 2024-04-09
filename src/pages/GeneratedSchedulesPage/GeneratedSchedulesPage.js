@@ -1,13 +1,12 @@
-import React from 'react';
-import Schedule from '../../components/SchedulePageComponents/Schedule';
-import './GeneratedSchedulesPage.css';
-import BackButton from '../../components/BackButton/BackButton';
+import React from "react";
+import Schedule from "../../components/SchedulePageComponents/Schedule";
+import "./GeneratedSchedulesPage.css";
+import BackButton from "../../components/BackButton/BackButton";
 
 const GeneratedSchedulesPage = () => {
   return (
-    
     <div className="generated-schedules">
-      <BackButton/>
+      <BackButton />
       <h1>Generated Schedules</h1>
       <Schedule />
     </div>

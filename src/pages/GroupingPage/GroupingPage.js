@@ -15,7 +15,7 @@ const GroupingPage = ({
     setGroupNames,
 
     nextId,
-    setNextId
+    setNextId,
 }) => {
     return(
         <DragAndDrop
