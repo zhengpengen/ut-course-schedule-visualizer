@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./GroupCard.css";
 import CourseCard from "../CourseCard/CourseCard";
-import {Draggable, Droppable} from "@hello-pangea/dnd";
+import { Draggable, Droppable } from "@hello-pangea/dnd";
 
 const GroupCard = ({
   groupNumber,
@@ -14,6 +14,8 @@ const GroupCard = ({
   setGroupCards,
   unassignedClasses,
   setUnassignedClass,
+  allClasses,
+  setAllClasses,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [groupClasses, setGroupClasses] = useState([]);
@@ -42,12 +44,11 @@ const GroupCard = ({
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-    if(value===""){
-      changeCount(0)
-    }
-    else if (!value || isNaN(value)) {
+    if (value === "") {
+      changeCount(0);
+    } else if (!value || isNaN(value)) {
       alert(`Please enter a number. '${value}' is not a number.`);
-      changeCount(0)
+      changeCount(0);
     } else {
       changeCount(parseInt(value));
       console.log(
@@ -70,35 +71,54 @@ const GroupCard = ({
           />
         ) : (
           <span
-            // className={
-            //   groupName === `Group ${groupNumber}`
-            //     ? "group-name italic"
-            //     : "group-name bold"
-            // }
+          // className={
+          //   groupName === `Group ${groupNumber}`
+          //     ? "group-name italic"
+          //     : "group-name bold"
+          // }
           >
             {groupNames[groupNumber]}
           </span>
         )}
       </div>
       <div>
-        <Droppable droppableId={`drop_group_card_${groupNumber}`} isDropDisabled={false}>
-            {(provided, snapshot) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <div className="group-body">
-                    {groupClasses.map((course, index) => (
-                      <Draggable key={course.course_name} draggableId={course.course_name} index={index}>
-                        {(provided, snapshot) => (
-                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                            <CourseCard key={index} courses={[course]} group_id={groupNumber} groupCards={groupCards} setGroupCards={setGroupCards} unassignedClasses={unassignedClasses} setUnassignedClass={setUnassignedClass}/>
-                            {provided.placeholder}
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                </div>
-            )}
+        <Droppable
+          droppableId={`drop_group_card_${groupNumber}`}
+          isDropDisabled={false}
+        >
+          {(provided, snapshot) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              <div className="group-body">
+                {groupClasses.map((course, index) => (
+                  <Draggable
+                    key={course.course_name}
+                    draggableId={course.course_name}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <CourseCard
+                          key={index}
+                          courses={[course]}
+                          group_id={groupNumber}
+                          groupCards={groupCards}
+                          setGroupCards={setGroupCards}
+                          unassignedClasses={unassignedClasses}
+                          setUnassignedClass={setUnassignedClass}
+                        />
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            </div>
+          )}
         </Droppable>
       </div>
 

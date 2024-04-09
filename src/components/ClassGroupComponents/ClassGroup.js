@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import GroupCard from "./GroupCard";
 import AddCard from "./AddCard";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./ClassGroup.css";
-
+import { schedule_generator } from "../scheduleGenerator/scheduleGenerator.js";
 
 const ClassGroup = ({
   groupCards,
@@ -19,7 +19,10 @@ const ClassGroup = ({
   setGroupNames,
 
   nextId,
-  setNextId
+  setNextId,
+
+  allSchedules,
+  setAllSchedules
 }) => {
   const [showHelpScreen, setShowHelpScreen] = useState(false);
   const helpScreenRef = useRef(null);
@@ -36,8 +39,8 @@ const ClassGroup = ({
   };
 
   const addGroupCard = () => {
-    updateGroupNames(nextId, `Group ${nextId}`) 
-    updateGroupCount(nextId, 0)
+    updateGroupNames(nextId, `Group ${nextId}`);
+    updateGroupCount(nextId, 0);
     let newGroup = {
       // initializes a dictionary of classes
       id: nextId,
@@ -45,13 +48,13 @@ const ClassGroup = ({
     };
 
     setGroupCards([...groupCards, newGroup]);
-    
+
     setNextId(nextId + 1); // Increment the nextId for the next card
   };
 
-  const deleteGroupCard = (id) => { 
+  const deleteGroupCard = (id) => {
     //add the cards from the deleted group to the unassigned classes
-    let group = groupCards.find(group => group.id === id);
+    let group = groupCards.find((group) => group.id === id);
     let reassign = group.classes;
     let new_unassigned = [...unassignedClasses, ...reassign];
 
@@ -61,14 +64,13 @@ const ClassGroup = ({
     const newCounts = { ...groupCounts };
     delete newCounts[id];
     setGroupCounts(newCounts);
-    const newNames = {...groupNames};
+    const newNames = { ...groupNames };
     delete newNames[id];
     setGroupNames(newNames);
 
     console.log(newCounts);
     console.log(newNames);
   };
-  
 
   const toggleHelpScreen = () => {
     setShowHelpScreen(!showHelpScreen);
@@ -89,6 +91,11 @@ const ClassGroup = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleGenSchedule = () => {
+    console.log(typeof(setAllSchedules))
+    setAllSchedules(schedule_generator(groupCards, groupCounts)); // Call the schedule_generator function
+  };
 
   return (
     <div className={`class-group ${showHelpScreen ? "blur" : ""}`}>
@@ -115,14 +122,14 @@ const ClassGroup = ({
           </div>
         </div>
         <div className="footer d-flex justify-content-center align-items-center">
-          <Link to='/ut-course-schedule-visualizer/help'>
+          <Link to="/ut-course-schedule-visualizer/help">
             {/* <button className="btn help-btn" onClick={toggleHelpScreen}> */}
-            <button className="btn help-btn">
-              ?
-            </button>
+            <button className="btn help-btn">?</button>
           </Link>
-          <Link to='/ut-course-schedule-visualizer/schedules'>
-            <button className="btn generate-btn">Generate My Schedule</button>
+          <Link to="/ut-course-schedule-visualizer/schedules">
+            <button className="btn generate-btn" onClick={handleGenSchedule}>
+              Generate My Schedule
+            </button>
           </Link>
         </div>
       </div>

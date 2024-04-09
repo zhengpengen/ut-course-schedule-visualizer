@@ -15,7 +15,10 @@ const GroupingPage = ({
     setGroupNames,
 
     nextId,
-    setNextId
+    setNextId,
+
+    allSchedules,
+    setAllSchedules
 }) => {
     return(
         <DragAndDrop
@@ -33,6 +36,9 @@ const GroupingPage = ({
 
             nextId={nextId}
             setNextId={setNextId}
+
+            allSchedules={allSchedules}
+            setAllSchedules={setAllSchedules}
         />
     );
 }

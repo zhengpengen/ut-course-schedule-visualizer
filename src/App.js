@@ -1,10 +1,10 @@
-import './App.css';
-import React, {useState} from 'react';
+import "./App.css";
+import React, { useState } from "react";
 import ExampleData from "./ExampleData";
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
-import GeneratedSchedulesPage from './pages/GeneratedSchedulesPage/GeneratedSchedulesPage';
-import GroupingPage from './pages/GroupingPage/GroupingPage';
-import HelpPage from './pages/HelpPage/HelpPage'
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import GeneratedSchedulesPage from "./pages/GeneratedSchedulesPage/GeneratedSchedulesPage";
+import GroupingPage from "./pages/GroupingPage/GroupingPage";
+import HelpPage from "./pages/HelpPage/HelpPage";
 
 function App() {
   const [groupCards, setGroupCards] = useState([]); // LIFTING STATE HERE SO WE CAN ACCESS THE GLOBAL ARRAY
@@ -13,9 +13,8 @@ function App() {
   // const [unassignedClasses, setUnassignedClass] = useState([ExampleData]);
   const [unassignedClasses, setUnassignedClass] = useState([]);
   const [nextId, setNextId] = useState(1);
-
-  // C S 330E ELMNTS SOFTWARE ENGINEER I 50385	MW 9:30 a.m.-11:00 a.m. UTC 3.132 Face-to-face	FRAIJ, FARES Z closed	  50390	MW 11:00 a.m.-12:30 p.m. UTC 3.112 Face-to-face	FRAIJ, FARES Z closed
-
+  const [allSchedules, setAllSchedules] = useState([]);
+  
   const classInputChange = (e) => { // parses the input as a class + section copied from schedules website
     const value = e.target.value;
     console.log(value)
@@ -163,25 +162,23 @@ function App() {
 
   return (
     <Router>
-      <div className='container row'>
+      <div className="container row">
         <Switch>
           {/* the main page */}
           <Route exact path='/ut-course-schedule-visualizer'>
             <GroupingPage 
               groupCards={groupCards} 
               setGroupCards={setGroupCards}
-
               unassignedClasses={unassignedClasses}
               setUnassignedClass={setUnassignedClass}
-
               groupCounts={groupCounts}
               setGroupCounts={setGroupCounts}
-
               groupNames={groupNames}
               setGroupNames={setGroupNames}
-
               nextId={nextId}
               setNextId={setNextId}
+              allSchedules={allSchedules}
+              setAllSchedules={setAllSchedules}
             />
             <h1>
               Add class
@@ -193,21 +190,19 @@ function App() {
               className="class-count-input"
             />
           </Route>
-          
+
           {/* the schedules page*/}
-          <Route exact path='/ut-course-schedule-visualizer/schedules'>
-            <GeneratedSchedulesPage />
+          <Route exact path="/ut-course-schedule-visualizer/schedules">
+            <GeneratedSchedulesPage allSchedules={allSchedules}/>
           </Route>
 
           {/* the help page */}
-          <Route exact path='/ut-course-schedule-visualizer/help'>
+          <Route exact path="/ut-course-schedule-visualizer/help">
             <HelpPage />
           </Route>
         </Switch>
-        
       </div>
     </Router>
-    
   );
 }
 
