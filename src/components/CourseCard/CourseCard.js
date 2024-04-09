@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./CourseCard.css";
 
 const colors = [
@@ -15,20 +15,20 @@ const colors = [
   "#ffaadd",
   "#ffaaaa",
 ];
+const courseColorMapping = {};
 
 const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedClasses, setUnassignedClass}) => {
   const [selectedSection, setSelectedSection] = useState(null);
   const [courseColors, setCourseColors] = useState({});
+  const courseColorsRef = useRef({});
 
 
   useEffect(() => {
-    /* Ensure color doesn't change when dropdown clicked */
-    const initialColors = {};
     courses.forEach((course) => {
-      initialColors[course.course_number] =
-        colors[Math.floor(Math.random() * colors.length)];
+      if (!courseColorMapping[course.course_name]) {
+        courseColorMapping[course.course_name] = colors[Math.floor(Math.random() * colors.length)];
+      }
     });
-    setCourseColors(initialColors);
   }, [courses]);
 
 
@@ -67,7 +67,7 @@ const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedCl
         <div
           key={index}
           className="card mb-3"
-          style={{ backgroundColor: courseColors[course.course_number] }}
+          style={{ backgroundColor: courseColorMapping[course.course_name] }}
         >
           <div className="card-body">
             <div className="d-flex align-items-center">
