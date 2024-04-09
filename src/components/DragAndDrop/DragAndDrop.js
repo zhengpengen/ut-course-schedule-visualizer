@@ -19,6 +19,9 @@ const DragAndDrop = ({
 
   nextId,
   setNextId,
+
+  allSchedules,
+  setAllSchedules
 }) => {
   const handleDragEnd = (result) => {
     const { source, destination } = result;
@@ -118,6 +121,8 @@ const DragAndDrop = ({
             setGroupNames={setGroupNames}
             nextId={nextId}
             setNextId={setNextId}
+            allSchedules={allSchedules}
+            setAllSchedules={setAllSchedules}
           />
         </div>
       </div>

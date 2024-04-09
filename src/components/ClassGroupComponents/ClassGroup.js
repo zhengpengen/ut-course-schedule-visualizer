@@ -20,6 +20,9 @@ const ClassGroup = ({
 
   nextId,
   setNextId,
+
+  allSchedules,
+  setAllSchedules
 }) => {
   const [showHelpScreen, setShowHelpScreen] = useState(false);
   const helpScreenRef = useRef(null);
@@ -90,12 +93,8 @@ const ClassGroup = ({
   }, []);
 
   const handleGenSchedule = () => {
-    // console.log(groupCounts);
-
-    // const groupCountsArray = Object.values(groupCounts);
-    // console.log(groupCountsArray);
-    const scheduleOutput = schedule_generator(groupCards, groupCounts); // Call the schedule_generator function
-    // console.log(scheduleOutput); // Print out the output
+    console.log(typeof(setAllSchedules))
+    setAllSchedules(schedule_generator(groupCards, groupCounts)); // Call the schedule_generator function
   };
 
   return (
@@ -130,7 +129,7 @@ const ClassGroup = ({
           <Link to="/ut-course-schedule-visualizer/schedules">
             <button className="btn generate-btn" onClick={handleGenSchedule}>
               Generate My Schedule
-            </button>{" "}
+            </button>
           </Link>
         </div>
       </div>

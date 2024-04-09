@@ -298,7 +298,7 @@ function addClassesFromGroups(
       }
 
       // If no overlap, add the section to selectedClasses and continue exploring recursively
-      if (!overlap) {
+      if (!overlap && section.checked === true) {
         section.className =
           classObj.course_major +
           " " +

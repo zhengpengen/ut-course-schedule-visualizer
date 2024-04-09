@@ -12,6 +12,8 @@ function App() {
   const [groupNames, setGroupNames] = useState({});
   const [unassignedClasses, setUnassignedClass] = useState(ExampleData);
   const [nextId, setNextId] = useState(1);
+  const [allSchedules, setAllSchedules] = useState([]);
+  
 
   return (
     <Router>
@@ -30,12 +32,14 @@ function App() {
               setGroupNames={setGroupNames}
               nextId={nextId}
               setNextId={setNextId}
+              allSchedules={allSchedules}
+              setAllSchedules={setAllSchedules}
             />
           </Route>
 
           {/* the schedules page*/}
           <Route exact path="/ut-course-schedule-visualizer/schedules">
-            <GeneratedSchedulesPage />
+            <GeneratedSchedulesPage allSchedules={allSchedules}/>
           </Route>
 
           {/* the help page */}
