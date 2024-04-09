@@ -9,7 +9,7 @@ const GeneratedSchedulesPage = ({allSchedules}) => {
     <div className="generated-schedules">
       <BackButton />
       <h1>Generated Schedules</h1>
-      {allSchedules[0]?.map((schedule, index) => (
+      {allSchedules.map((schedule, index) => (
         <div className="schedule">
           <h3>
             {index+1}

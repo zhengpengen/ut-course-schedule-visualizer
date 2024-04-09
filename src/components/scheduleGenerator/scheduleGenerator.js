@@ -134,12 +134,23 @@ export function schedule_generator(groupCardsList, groupCountsDict) {
     const GroupCards = groupPermutations[i]
     let overallResults= [];
     addClassesFromGroups(overallResults, GroupCards, {...groupCountsDict});
-    let duplicateDetected = allSchedules.some((arr) =>
-      hasSameSectionIDs(arr, overallResults)
-    );
-    if (!duplicateDetected) {
-      allSchedules.push(overallResults);
+    // console.log('all sch', allSchedules)
+    for(let c = 0; c < overallResults.length; c++){
+      // console.log('s', overallResults[c])
+      let duplicateDetected = allSchedules.some((arr) =>
+        hasSameSectionIDs(arr, overallResults[c])
+      );
+      if (!duplicateDetected) {
+        allSchedules.push(overallResults[c]);
+      }
     }
+    // let duplicateDetected = allSchedules.some((arr) =>
+    //   hasSameSectionIDs(arr, overallResults)
+    // );
+    // if (!duplicateDetected) {
+    //   console.log('or', overallResults)
+    //   allSchedules.push(...overallResults);
+    // }
   }
   // selectedClasses.map(section => section.time_and_locations[0].start_time)
   return allSchedules;
@@ -333,12 +344,13 @@ function hasSameSectionIDs(arr1, arr2) {
   const sectionIDs2 = arr2.map((section) => section.id).sort();
 
   for (let i = 0; i < sectionIDs1.length; i++) {
-    if (sectionIDs1[i] !== sectionIDs2[i]) {
-      return false;
+    // console.log(sectionIDs1[i], sectionIDs2[i])
+    if (sectionIDs1[i] === sectionIDs2[i]) {
+      return true;
     }
   }
 
-  return true;
+  return false;
 }
 
 function checkOverlap(section1, section2) {
