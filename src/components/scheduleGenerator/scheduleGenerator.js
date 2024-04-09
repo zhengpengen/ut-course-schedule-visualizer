@@ -173,11 +173,12 @@ function permute(arr) {
 
 function addClassesFromGroups(GroupCards, GroupCounts) {
   const selectedClasses = [];
-  const selectedCourses = new Set();
+  // const selectedCourses = new Set();
 
   console.log("selected classes is ", selectedClasses);
   // Iterate over each group card
   for (let groupIndex = 0; groupIndex < GroupCards.length; groupIndex++) {
+    //TODO: switch to using id instead of indexing
     const groupCard = GroupCards[groupIndex];
     let addedCount = 0;
 
@@ -189,7 +190,7 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
         if (addedSectionFromThisClass) {
           break;
         }
-        if (addedCount < GroupCounts[groupIndex]) {
+        if (addedCount < GroupCounts[groupIndex] && section.checked === true) {
           let overlap = false;
           // check if this section overlaps with any previously selected section
           selectedClasses.forEach((selectedSection) => {
@@ -199,7 +200,7 @@ function addClassesFromGroups(GroupCards, GroupCounts) {
           });
           if (!overlap) {
             selectedClasses.push(section);
-            selectedCourses.add(section.id);
+            // selectedCourses.add(section.id);
             addedCount++;
             addedSectionFromThisClass = true;
             break;
