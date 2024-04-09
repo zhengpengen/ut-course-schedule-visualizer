@@ -5,7 +5,6 @@ import BackButton from "../../components/BackButton/BackButton";
 
 const GeneratedSchedulesPage = ({allSchedules}) => {
 
-  console.log('PAGE STUFF', allSchedules)
   return (
     <div className="generated-schedules">
       <BackButton />
