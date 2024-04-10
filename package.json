@@ -1,6 +1,6 @@
 {
   "name": "ut-csv",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://zhengpengen.github.io/ut-course-schedule-visualizer/",
   "private": true,
   "dependencies": {

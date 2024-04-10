@@ -93,8 +93,15 @@ const ClassGroup = ({
   }, []);
 
   const handleGenSchedule = () => {
-    console.log(typeof(setAllSchedules))
-    setAllSchedules(schedule_generator(groupCards, groupCounts)); // Call the schedule_generator function
+    const adjustedGroupCards = [];
+    const adjustedGroupCounts = {};
+    for (let group = 0; group < groupCards.length; group++){
+      if(groupCards[group].classes.length === 0) continue; // no class in this group
+      if(groupCounts[groupCards[group].id] <= 0) continue; // no class to be added for this group
+      adjustedGroupCards.push(groupCards[group])
+      adjustedGroupCounts[groupCards[group].id] = Math.min(groupCounts[groupCards[group].id], groupCards[group].classes.length)
+    }
+    setAllSchedules(schedule_generator(adjustedGroupCards, adjustedGroupCounts)); // Call the schedule_generator function
   };
 
   return (
