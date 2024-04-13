@@ -1,24 +1,23 @@
 .generated-schedules {
-    margin: 20px;
-  }
-  
-  .generated-schedules h1 {
-    text-align: center;
-  }
+  margin: 20px;
+}
 
-  .schedule { 
-    display: flex;
-    flex-direction: row;
-  }
+.generated-schedules h1 {
+  text-align: center;
+}
 
-  .classEntry {
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
+.schedule {
+  display: flex;
+  flex-direction: row;
+}
 
-  .class-name{
-    font-weight: bold;
-  }
-  
+.classEntry {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.class-name {
+  font-weight: bold;
+}
