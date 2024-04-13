@@ -1,19 +1,40 @@
-import React from "react";
+import {React, useState} from "react";
 import Schedule from "../../components/SchedulePageComponents/Schedule";
 import "./GeneratedSchedulesPage.css";
 import BackButton from "../../components/BackButton/BackButton";
 
+
 const GeneratedSchedulesPage = ({ allSchedules }) => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <div className="generated-schedules">
       <BackButton />
       <h1>Generated Schedules</h1>
       {allSchedules.map((schedule, index) => (
         <div className="schedule">
-          <h3>{index + 1}</h3>
+          {/* <h3>{index + 1}</h3> */}
+          <button onClick={handleClick}> Schedule {index + 1} </button>
+
+          {isOpen && (
+            <div className="popup">
+              <div className="popup-inner">
+                <h2>Popup Content</h2>
+                <p>This is the content of the popup.</p>
+                <button onClick={handleClick}>Close Popup</button>
+              </div>
+            </div>
+          )}
+
+
           {schedule.map((classEntry) => (
             <div className="classEntry">
-              <div className="class-name">{classEntry.className}</div>
+              <div className="class-name">{classEntry.className} </div>
               <div>
                 {classEntry.id} {classEntry.professor}
               </div>
