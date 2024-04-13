@@ -1,44 +1,52 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import "./GeneratedSchedulesPage.css";
 import BackButton from "../../components/BackButton/BackButton";
 import Select from "react-select";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const GeneratedSchedulesPage = ({ allSchedules }) => {
-  const [selectedCourses, setSelectedCourses] = useState([]);
+  const [selectedCourses1, setSelectedCourses1] = useState([]);
+  const [selectedCourses2, setSelectedCourses2] = useState([]);
+  const [deepCopyCourseNames, setDeepCopyCourseNames] = useState([]);
 
-  // Generate unique colors for each course name
-  const generateColor = useMemo(() => {
-    const hash = (str) => {
-      let hash = 0;
-      for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-      }
-      return hash;
+  useEffect(() => {
+    // Extract all unique course names from allSchedules
+    const generateColor = (str) => {
+      const hash = (str) => {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+          hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return hash;
+      };
+
+      const intToRGB = (i) => {
+        const c = (i & 0x00ffffff).toString(16).toUpperCase();
+        return "#" + "00000".substring(0, 6 - c.length) + c;
+      };
+
+      return intToRGB(hash(str));
     };
 
-    const intToRGB = (i) => {
-      const c = (i & 0x00ffffff).toString(16).toUpperCase();
-      return "#" + "00000".substring(0, 6 - c.length) + c;
-    };
-
-    return (str) => intToRGB(hash(str));
-  }, []);
-
-  // Extract all unique course names from allSchedules
-  const courseNames = useMemo(() => {
     const uniqueNames = new Set();
     allSchedules.forEach((schedule) => {
       schedule.forEach((classEntry) => {
         uniqueNames.add(classEntry.className);
       });
     });
-    return Array.from(uniqueNames).map((name) => ({
+    const courseNames = Array.from(uniqueNames).map((name) => ({
       value: name,
       label: name,
       color: generateColor(name), // Assign color based on course name
     }));
-  }, [allSchedules, generateColor]);
+
+    setDeepCopyCourseNames(
+      courseNames.filter(
+        (course) =>
+          !selectedCourses1.some((selected) => selected.value === course.value)
+      )
+    );
+  }, [allSchedules, selectedCourses1]);
 
   const colorStyles = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
@@ -70,8 +78,19 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
     },
   };
 
-  const handleChange = (selectedOption, actionMeta) => {
-    setSelectedCourses(selectedOption);
+  const handleChange1 = (selectedOption, actionMeta) => {
+    setSelectedCourses1(selectedOption);
+    // Update deepCopyCourseNames based on selected courses
+    setDeepCopyCourseNames(
+      deepCopyCourseNames.filter(
+        (course) =>
+          !selectedOption.some((selected) => selected.value === course.value)
+      )
+    );
+  };
+
+  const handleChange2 = (selectedOption, actionMeta) => {
+    setSelectedCourses2(selectedOption);
   };
 
   const handleInputChange = (inputValue, actionMeta) => {
@@ -83,9 +102,9 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
       <div className="row">
         <div className="col-6">
           <Select
-            options={courseNames}
-            value={selectedCourses}
-            onChange={handleChange}
+            options={deepCopyCourseNames}
+            value={selectedCourses1}
+            onChange={handleChange1}
             onInputChange={handleInputChange}
             isMulti
             isCreatable
@@ -95,9 +114,9 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
         </div>
         <div className="col-6">
           <Select
-            options={courseNames}
-            value={selectedCourses}
-            onChange={handleChange}
+            options={deepCopyCourseNames}
+            value={selectedCourses2}
+            onChange={handleChange2}
             onInputChange={handleInputChange}
             isMulti
             isCreatable
