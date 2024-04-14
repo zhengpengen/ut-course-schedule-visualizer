@@ -28,12 +28,16 @@
 }
 
 .schedule_table{
-    position: relative;
     width: 100%;
     padding-right: 5%;
     height: 90%;
     border-collapse: collapse;
     background-color: azure;
+}
+
+.schedule_table thead{
+    position: sticky;
+    top: 0;
 }
 
 
