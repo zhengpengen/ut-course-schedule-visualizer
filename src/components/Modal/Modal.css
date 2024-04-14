@@ -18,9 +18,48 @@
 }
 
 .schedule_container {
-    background-color: azure;
     position: fixed;
     top: 50%;
     left: 50%;
+    width: 90%;
+    height: 90%;
     transform: translate(-50%, -50%);
+    overflow: auto;
+}
+
+.schedule_table{
+    position: relative;
+    width: 100%;
+    padding-right: 5%;
+    height: 90%;
+    border-collapse: collapse;
+    background-color: azure;
+}
+
+
+.schedule_table th{
+    background-color: azure;
+}
+
+
+.header{
+    width: 14%;
+}
+
+.time{
+    width: 8%;
+    vertical-align: text-top;
+    font-size: xx-small;
+    border: none;
+}
+
+/* .schedule_table td {
+    border: 1px dotted black;
+    height: auto; 
+} */
+
+.day{
+    flex-direction: column;
+    text-align: center;
+    border: 1px dotted black;
 }
