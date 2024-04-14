@@ -18,6 +18,7 @@
 }
 
 .schedule_container {
+    background-color:azure;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -29,7 +30,7 @@
 
 .schedule_table{
     width: 100%;
-    padding-right: 5%;
+    margin-right: 5%;
     height: 90%;
     border-collapse: collapse;
     background-color: azure;
@@ -43,6 +44,7 @@
 
 .schedule_table th{
     background-color: azure;
+    font-family:   'Lucida Grande';
 }
 
 
@@ -52,18 +54,31 @@
 
 .time{
     width: 8%;
+    font-family:'Lucida Sans Unicode';
     vertical-align: text-top;
-    font-size: xx-small;
+    font-size: x-small;
     border: none;
 }
 
-/* .schedule_table td {
-    border: 1px dotted black;
-    height: auto; 
-} */
-
 .day{
+    font-family:  'Lucida Grande';
     flex-direction: column;
     text-align: center;
-    border: 1px dotted black;
+    border: 1px dotted grey;
+}
+
+.name{
+    font-size: medium;
+    background-color:cadetblue;
+}
+
+.prof{
+    font-size: x-small;
+    background-color: cadetblue;
+}
+
+.loc{
+    font-size: small;
+    font-weight:700;
+    background-color: cadetblue;
 }

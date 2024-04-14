@@ -63,9 +63,10 @@ function create_schedule(schedule){
             let end_mins = parseInt(end_time.split(":")[1]);
 
             let diff = (((end_hour * 60) + end_mins) - ((hour * 60) + mins));
+            let prof = section.professor[0];
+            prof = prof.split(",")[0];
 
-
-            let class_obj = {className: section.className, professor: section.professor, location: meeting.location, rows: diff/30}
+            let class_obj = {className: section.className, professor: prof, location: meeting.location, rows: diff/30}
 
             let all_times = new_schedule[time];
             console.log("new_schedule is: ", new_schedule);
@@ -115,11 +116,32 @@ const Modal = ({allSchedules, openModalArray, index, onClose}) => {
                                 {times.map((time, timeIndex) => (
                                     <tr key={timeIndex}>
                                         <td className="time">{time}</td>
-                                        <td className="day">{new_schedule[time]["M"].className || ""}</td>
-                                        <td className="day">{new_schedule[time]["T"].className || ""}</td>
-                                        <td className="day">{new_schedule[time]["W"].className || ""}</td>
-                                        <td className="day">{new_schedule[time]["Th"].className || ""}</td>
-                                        <td className="day">{new_schedule[time]["F"].className || ""}</td>
+                                        <td className="day">
+                                            <div className="name">{new_schedule[time]["M"].className || ""}</div>
+                                            <div className="prof">{new_schedule[time]["M"].professor || ""}</div>
+                                            <div className="loc">{new_schedule[time]["M"].location || ""}</div>
+                                            
+                                        </td>
+                                        <td className="day">
+                                            <div className="name">{new_schedule[time]["T"].className || ""}</div>
+                                            <div className="prof">{new_schedule[time]["T"].professor || ""}</div>
+                                            <div className="loc">{new_schedule[time]["T"].location || ""}</div>
+                                        </td>
+                                        <td className="day">
+                                            <div className="name">{new_schedule[time]["W"].className || ""}</div>
+                                            <div className="prof">{new_schedule[time]["W"].professor || ""}</div>
+                                            <div className="loc">{new_schedule[time]["W"].location || ""}</div>
+                                        </td>
+                                        <td className="day">
+                                            <div className="name">{new_schedule[time]["Th"].className || ""}</div>
+                                            <div className="prof">{new_schedule[time]["Th"].professor || ""}</div>
+                                            <div className="loc">{new_schedule[time]["Th"].location || ""}</div>
+                                        </td>
+                                        <td className="day">
+                                            <div className="name">{new_schedule[time]["F"].className || ""}</div>
+                                            <div className="prof">{new_schedule[time]["F"].professor || ""}</div>
+                                            <div className="loc">{new_schedule[time]["F"].location || ""}</div>
+                                        </td>
                                     </tr>
                                 ))}
             
