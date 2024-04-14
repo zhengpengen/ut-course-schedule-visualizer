@@ -1,0 +1,26 @@
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    height: 95%;
+    display: flex;
+}
+
+.close {
+    background-color: grey;
+    font-weight: bold;
+    position: fixed;
+    top: 1%;
+    right: 1%;
+}
+
+.schedule_container {
+    background-color: azure;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
