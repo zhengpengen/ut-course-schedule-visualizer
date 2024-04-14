@@ -11,7 +11,7 @@ function create_schedule(schedule){
     let hour = "";
     let half = "";
 
-    for (let i = 7; i <= 22; i++) {
+    for (let i = 8; i <= 21; i++) {
         // console.log("hour is: ", i);
         hour = `${i % 12 === 0 ? 12 : i % 12}:00 ${i < 12 ? 'AM' : 'PM'}`;
         half = `${i % 12 === 0 ? 12 : i % 12}:30 ${i < 12 ? 'AM' : 'PM'}`;
@@ -33,11 +33,29 @@ function create_schedule(schedule){
             let hour = parseInt(time.split(":")[0]);
             let mins = parseInt(time.split(":")[1]);
 
-            if(hour <= 12){
-                time = `${hour}:${mins} AM`;
+            if(hour < 12){
+                if(mins < 10){
+                    time = `${hour}:${mins}0 AM`;
+                }
+                else{
+                    time = `${hour}:${mins} AM`;
+                }
+            }
+            else if(hour === 12){
+                if(mins < 10){
+                    time = `${hour}:${mins}0 PM`;
+                }
+                else{
+                    time = `${hour}:${mins} PM`;
+                }
             }
             else{
-                time = `${hour-12}:${mins} PM`;
+                if(mins < 10){
+                    time = `${hour-12}:${mins}0 PM`;
+                }
+                else{
+                    time = `${hour-12}:${mins} PM`;
+                }
             }
 
             let end_time = meeting.end_time;
@@ -47,9 +65,12 @@ function create_schedule(schedule){
             let diff = (((end_hour * 60) + end_mins) - ((hour * 60) + mins));
 
 
-            let class_obj = {className: section.className, professor: section.professor, location: meeting.location, cols: diff/30}
+            let class_obj = {className: section.className, professor: section.professor, location: meeting.location, rows: diff/30}
 
             let all_times = new_schedule[time];
+            console.log("new_schedule is: ", new_schedule);
+            console.log("well time is: ", time);
+            console.log("all_times: ", all_times);
             meeting.weekday.forEach(day => {
                 all_times[day] = class_obj
             });
@@ -79,7 +100,6 @@ const Modal = ({allSchedules, openModalArray, index, onClose}) => {
                         <button onClick={onClose} className="close">X</button>
                     </div>
                     <div className="schedule_container">
-                        {/* <h1>YAHOOO WOOHOOO {index}</h1> */}
                         <table className="schedule_table">
                             <thead>
                                 <tr className="top-line">
@@ -92,29 +112,20 @@ const Modal = ({allSchedules, openModalArray, index, onClose}) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {times.map((time, index) => (
-                                    <tr key={index}>
+                                {times.map((time, timeIndex) => (
+                                    <tr key={timeIndex}>
                                         <td className="time">{time}</td>
-                                        <td className="day" colSpan={new_schedule[time]["M"].cols}> 
-                                            {new_schedule[time]["M"].className ? new_schedule[time]["M"].className : ""}
-                                        </td>
-                                        <td className="day" colSpan={new_schedule[time]["T"].cols}> 
-                                            {new_schedule[time]["T"].className ? new_schedule[time]["T"].className : ""}
-                                        </td>
-                                        <td className="day" colSpan={new_schedule[time]["W"].cols}> 
-                                            {new_schedule[time]["W"].className ? new_schedule[time]["W"].className : ""}
-                                        </td>
-                                        <td className="day" colSpan={new_schedule[time]["Th"].cols}> 
-                                            {new_schedule[time]["Th"].className ? new_schedule[time]["Th"].className : ""}
-                                        </td>
-                                        <td className="day" colSpan={new_schedule[time]["F"].cols}>
-                                            {new_schedule[time]["F"].className ? new_schedule[time]["F"].className : ""} 
-                                        </td>
+                                        <td className="day">{new_schedule[time]["M"].className || ""}</td>
+                                        <td className="day">{new_schedule[time]["T"].className || ""}</td>
+                                        <td className="day">{new_schedule[time]["W"].className || ""}</td>
+                                        <td className="day">{new_schedule[time]["Th"].className || ""}</td>
+                                        <td className="day">{new_schedule[time]["F"].className || ""}</td>
                                     </tr>
                                 ))}
             
                             </tbody>
                         </table>
+
 
                     </div>
                 </div>
