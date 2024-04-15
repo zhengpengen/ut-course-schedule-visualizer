@@ -13,12 +13,12 @@ function App() {
   // const [unassignedClasses, setUnassignedClass] = useState([ExampleData]);
   const [unassignedClasses, setUnassignedClass] = useState([]);
   const [nextId, setNextId] = useState(1);
-  const [allSchedules, setAllSchedules] = useState([]);
+  const [allSchedules, setAllSchedules] = useState({});
   
   const classInputChange = (e) => { // parses the input as a class + section copied from schedules website
     const value = e.target.value;
     console.log(value)
-    const input = value.split(/[\s\-]+/);
+    const input = value.split(/\.-|\s/);
 
     const new_course = {}
 

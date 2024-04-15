@@ -29,9 +29,11 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
     };
 
     const uniqueNames = new Set();
-    allSchedules.forEach((schedule) => {
-      schedule.forEach((classEntry) => {
-        uniqueNames.add(classEntry.className);
+    Object.keys(allSchedules).forEach((class_combo) => {
+      allSchedules[class_combo].forEach((schedule) => {
+        schedule.forEach((classEntry) => {
+          uniqueNames.add(classEntry.className);
+        });
       });
     });
     const courseNames = Array.from(uniqueNames).map((name) => ({
@@ -80,6 +82,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
 
   const handleChange1 = (selectedOption, actionMeta) => {
     setSelectedCourses1(selectedOption);
+    console.log(selectedOption)
     // Update deepCopyCourseNames based on selected courses
     setDeepCopyCourseNames(
       deepCopyCourseNames.filter(
@@ -129,30 +132,51 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
       <div className="generated-schedules">
         <BackButton />
         <h1>Generated Schedules</h1>
-        {allSchedules.map((schedule, index) => (
-          <div className="schedule" key={index}>
-            <h3>{index + 1}</h3>
-            {schedule.map((classEntry, classIndex) => (
-              <div className="classEntry" key={classIndex}>
-                <div className="class-name">{classEntry.className}</div>
-                <div>
-                  {classEntry.id} {classEntry.professor}
-                </div>
-                {classEntry.time_and_locations.map(
-                  (time_and_locations, timeIndex) => (
-                    <div key={timeIndex}>
-                      {time_and_locations.location} |{" "}
-                      {time_and_locations.weekday
-                        ?.toString()
-                        .replaceAll(",", " ")}{" "}
-                      | {time_and_locations.start_time}
-                      {time_and_locations.start_time === "" ? "" : "-"}
-                      {time_and_locations.end_time}
+        {/* <div>
+          {Object.keys(allSchedules).map((class_combo, index) => (
+            <div>
+            <h2>{index+1} {class_combo.replaceAll(',',', ')}</h2>
+            <div className="schedule">
+              {allSchedules[class_combo].map((schedule, s_index) => (
+                 <div>hi</div>
+               ))}
+            </div>
+            </div>
+          ))}
+        </div> */}
+        
+
+
+
+        {Object.keys(allSchedules).map((class_combo, index) => (
+          <div>
+
+            {/* <div className="schedule" key={index}> */}
+              <h3>{index + 1} {class_combo.replaceAll(',',', ')}</h3>
+              {allSchedules[class_combo].map((schedule, classIndex) => (
+                <div className="schedule">
+                  {schedule.map((classEntry, classIndex) => (
+                    <div className="classEntry" key={classIndex}>
+                      <div className="class-name">{classEntry.className}</div>
+                      <div>
+                        {classEntry.id} {classEntry.professor}
+                      </div>
+                      {classEntry.time_and_locations.map((time_and_locations, timeIndex) => (
+                        <div key={timeIndex}>
+                          {time_and_locations.location} |{" "}
+                          {time_and_locations.weekday
+                            ?.toString()
+                            .replaceAll(",", " ")}{" "}
+                          | {time_and_locations.start_time}
+                          {time_and_locations.start_time === "" ? "" : "-"}
+                          {time_and_locations.end_time}
+                        </div>
+                      ))}
                     </div>
-                  )
-                )}
-              </div>
-            ))}
+                  ))}
+                </div>
+              ))}
+            {/* </div> */}
           </div>
         ))}
       </div>
