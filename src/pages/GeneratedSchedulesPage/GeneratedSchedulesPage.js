@@ -9,6 +9,39 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
   const [selectedCourses2, setSelectedCourses2] = useState([]);
   const [deepCopyCourseNames, setDeepCopyCourseNames] = useState([]);
 
+  function filteredSchedules() {
+    let filtered_schedules = {};
+    for(const key of Object.keys(allSchedules)){
+      let key_array = key.split(',');
+      let legal = true;
+      for(const must_have of selectedCourses1){
+        if(!key_array.includes(must_have.value)){
+          legal = false;
+          // console.log(must_have)
+          // console.log(key_array)
+          break;
+        }
+      }
+      if(legal){
+        let legal_2 = false
+        for(const at_least_one of selectedCourses2){
+          // console.log(at_least_one)
+          if(key_array.includes(at_least_one.value)){
+            legal_2 = true;
+            break;
+          }
+        }
+        if(legal_2 || selectedCourses2.length === 0) filtered_schedules[key] = [...allSchedules[key]];
+      }
+    }
+
+    return filtered_schedules;
+  }
+
+  const filtered_schedules = filteredSchedules(); 
+
+  // console.log(filtered_schedules)
+
   useEffect(() => {
     // Extract all unique course names from allSchedules
     const generateColor = (str) => {
@@ -112,7 +145,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
             isMulti
             isCreatable
             styles={colorStyles}
-            placeholder="Schedules must have..."
+            placeholder="Schedules must have all of..."
           />
         </div>
         <div className="col-6">
@@ -124,7 +157,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
             isMulti
             isCreatable
             styles={colorStyles}
-            placeholder="Schedules can have..."
+            placeholder="Schedules must have at least one of..."
           />
         </div>
       </div>
@@ -132,28 +165,12 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
       <div className="generated-schedules">
         <BackButton />
         <h1>Generated Schedules</h1>
-        {/* <div>
-          {Object.keys(allSchedules).map((class_combo, index) => (
-            <div>
-            <h2>{index+1} {class_combo.replaceAll(',',', ')}</h2>
-            <div className="schedule">
-              {allSchedules[class_combo].map((schedule, s_index) => (
-                 <div>hi</div>
-               ))}
-            </div>
-            </div>
-          ))}
-        </div> */}
-        
 
-
-
-        {Object.keys(allSchedules).map((class_combo, index) => (
+        {Object.keys(filtered_schedules).map((class_combo, index) => (
           <div>
-
             {/* <div className="schedule" key={index}> */}
               <h3>{index + 1} {class_combo.replaceAll(',',', ')}</h3>
-              {allSchedules[class_combo].map((schedule, classIndex) => (
+              {filtered_schedules[class_combo].map((schedule, classIndex) => (
                 <div className="schedule">
                   {schedule.map((classEntry, classIndex) => (
                     <div className="classEntry" key={classIndex}>
