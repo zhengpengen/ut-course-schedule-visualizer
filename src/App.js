@@ -72,6 +72,10 @@ function App() {
       // reads all dates
       console.log(index, input[index])
       while(input[index] === input[index].toUpperCase() && !input[index].includes(':')){
+        if(input[index] === ''){
+          index+=1;
+          continue;
+        }
         section['time_and_locations'].push({'weekday': input[index].match(/M|TH|W|T|F/g).map((item) => item==='TH' ? 'Th' : item)})
         date_count += 1;
         index += 1
