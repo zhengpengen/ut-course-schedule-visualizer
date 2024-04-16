@@ -5,13 +5,13 @@
   align-items: center;
   padding: 10px 20px; /* Adjust padding as needed */
   background-color: #1e1d1d; /* Example background color */
-  color: white; /* Example text color */
+  color: rgb(255, 255, 255); /* Example text color */
   margin-bottom: 20px;
 }
 
 .navbar-title {
   font-weight: bold;
-  font-size: 28px; /* Adjust font size as needed */
+  font-size: 26px; /* Adjust font size as needed */
 }
 
 .help-btn {

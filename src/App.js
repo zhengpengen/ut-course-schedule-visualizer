@@ -176,32 +176,35 @@ function App() {
       <Switch>
         {/* the main page */}
         <Route exact path="/ut-course-schedule-visualizer">
-          <GroupingPage
-            groupCards={groupCards}
-            setGroupCards={setGroupCards}
-            unassignedClasses={unassignedClasses}
-            setUnassignedClass={setUnassignedClass}
-            groupCounts={groupCounts}
-            setGroupCounts={setGroupCounts}
-            groupNames={groupNames}
-            setGroupNames={setGroupNames}
-            nextId={nextId}
-            setNextId={setNextId}
-            allSchedules={allSchedules}
-            setAllSchedules={setAllSchedules}
-          />
-          <div className="row">
-            <div className="col-3">
-              <div className="add-text">Add class</div>
+          <div style={{ backgroundColor: "white" }}>
+            <GroupingPage
+              groupCards={groupCards}
+              setGroupCards={setGroupCards}
+              unassignedClasses={unassignedClasses}
+              setUnassignedClass={setUnassignedClass}
+              groupCounts={groupCounts}
+              setGroupCounts={setGroupCounts}
+              groupNames={groupNames}
+              setGroupNames={setGroupNames}
+              nextId={nextId}
+              setNextId={setNextId}
+              allSchedules={allSchedules}
+              setAllSchedules={setAllSchedules}
+            />
+            <div className="row mt-3">
+              {/* <div className="col-3">
+                <div className="add-text">Add class</div>
+              </div> */}
+              <div className="class-paste col mb-5 mt-2">
+                <input
+                  type="text"
+                  value="Paste class here"
+                  onChange={classInputChange}
+                  className="class-count-input"
+                  style={{ width: "100%" }}
+                />
+              </div>
             </div>
-            <div className="col">
-              <input
-                type="text"
-                value=""
-                onChange={classInputChange}
-                className="class-count-input"
-              />
-            </div>{" "}
           </div>
         </Route>
 
