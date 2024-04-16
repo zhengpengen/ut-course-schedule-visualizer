@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import GeneratedSchedulesPage from "./pages/GeneratedSchedulesPage/GeneratedSchedulesPage";
 import GroupingPage from "./pages/GroupingPage/GroupingPage";
 import HelpPage from "./pages/HelpPage/HelpPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [groupCards, setGroupCards] = useState([]); // LIFTING STATE HERE SO WE CAN ACCESS THE GLOBAL ARRAY
@@ -189,13 +190,19 @@ function App() {
             allSchedules={allSchedules}
             setAllSchedules={setAllSchedules}
           />
-          <h1>Add class</h1>
-          <input
-            type="text"
-            value=""
-            onChange={classInputChange}
-            className="class-count-input"
-          />
+          <div className="row">
+            <div className="col-3">
+              <div className="add-text">Add class</div>
+            </div>
+            <div className="col">
+              <input
+                type="text"
+                value=""
+                onChange={classInputChange}
+                className="class-count-input"
+              />
+            </div>{" "}
+          </div>
         </Route>
 
         {/* the schedules page*/}

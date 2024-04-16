@@ -1,5 +1,4 @@
 import React from "react";
-import Schedule from "../../components/SchedulePageComponents/Schedule";
 import "./GeneratedSchedulesPage.css";
 import BackButton from "../../components/BackButton/BackButton";
 import Modal from "../../components/Modal/Modal";

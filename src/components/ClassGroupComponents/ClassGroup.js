@@ -112,7 +112,7 @@ const ClassGroup = ({
   return (
     <div className={`class-group ${showHelpScreen ? "blur" : ""}`}>
       <div className="content-wrapper">
-        <div className="header rounded-top text-center bold">Class Groups</div>
+        <div className="component-title">Class Groups</div>
         <div className="main-content d-flex align-items-center">
           {groupCards.map((groupCard, id) => (
             <GroupCard
@@ -133,7 +133,7 @@ const ClassGroup = ({
             <AddCard />
           </div>
         </div>
-        <div className="footer d-flex justify-content-center align-items-center">
+        <div className="footer">
           <Link to="/ut-course-schedule-visualizer/schedules">
             <button className="btn generate-btn" onClick={handleGenSchedule}>
               Generate My Schedule

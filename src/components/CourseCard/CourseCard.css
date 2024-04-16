@@ -1,12 +1,13 @@
 .card {
   /* width: 20%; Adjust the width of the card. This is commented out because parent component sets width anyways  */
   height: 50%; /* Adjust the height of the card */
-  margin: 10px;
+  margin: 15px 10px;
   /* width: auto; */
 }
 
 .course-card-header {
   text-align: center;
+  margin-top: 0;
 }
 
 .section-info {
@@ -30,4 +31,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.course-title-text {
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.course-number-text {
+  font-size: 16px;
 }

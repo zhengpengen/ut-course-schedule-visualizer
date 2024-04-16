@@ -3,6 +3,7 @@ import "./DragAndDrop.css";
 import AllClassesList from "../AllClassesList/AllClassesList";
 import ClassGroup from "../ClassGroupComponents/ClassGroup";
 import { DragDropContext } from "@hello-pangea/dnd";
+import Box from "@mui/material/Box";
 
 const DragAndDrop = ({
   groupCards,
@@ -100,16 +101,16 @@ const DragAndDrop = ({
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <div className="row">
-        <div className="col-2">
+      <Box display="grid" gridTemplateColumns="repeat(12, 1fr)">
+        <Box gridColumn="span 3" height="100%">
           <AllClassesList
             groupCards={groupCards}
             setGroupCards={setGroupCards}
             unassignedClasses={unassignedClasses}
             setUnassignedClass={setUnassignedClass}
           />
-        </div>
-        <div className="col-10">
+        </Box>
+        <Box gridColumn="span 9" height="100%">
           <ClassGroup
             groupCards={groupCards}
             setGroupCards={setGroupCards}
@@ -124,8 +125,8 @@ const DragAndDrop = ({
             allSchedules={allSchedules}
             setAllSchedules={setAllSchedules}
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </DragDropContext>
   );
 };

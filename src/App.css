@@ -1,3 +1,14 @@
 .container {
   display: flex;
 }
+
+.add-text {
+  font-weight: bold;
+  background-color: white; /* Header background */
+  font-size: large;
+  text-align: center !important; /* Center align text */
+  margin: 0; /* Ensure no default margin is applied */
+  padding: 10px 0; /* Add padding for better spacing */
+  justify-content: center;
+  align-content: center;
+}

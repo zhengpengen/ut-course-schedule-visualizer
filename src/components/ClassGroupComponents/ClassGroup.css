@@ -9,7 +9,15 @@
   filter: blur(4px);
 }
 
-.header {
+.content-wrapper {
+  display: inline;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.component-title {
   font-weight: bold;
   background-color: white; /* Header background */
   font-size: large;
@@ -25,11 +33,15 @@
   align-items: center;
   overflow-x: scroll;
   background-color: #ffa152; /* Content background */
-  height: 70vh;
+  height: 67vh;
   scrollbar-width: auto;
 }
 .footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ffa152; /* Content background */
+  height: 8vh;
 }
 .generate-btn {
   background-color: #bf5700;
@@ -37,6 +49,7 @@
   border-radius: 5px;
   font-weight: bold;
   margin: 10px;
+  padding: 20px;
 }
 
 .help-btn {

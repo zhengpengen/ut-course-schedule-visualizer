@@ -1,11 +1,6 @@
-.all-classes-list {
+.container {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  align-items: center;
-  width: 25vh; /* Adjust width  */
-  margin-left: 20px;
-  margin-right: 0px;
 }
 
 .title-box {
@@ -28,10 +23,12 @@
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  height: 70vh; /* Adjusts length of cards container */
-  background-color: #dedede;
+  height: 75vh; /* Adjusts length of cards container */
+  background-color: #ffa152;
   border-right: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
   width: 100%;
 }
