@@ -93,7 +93,7 @@ const CourseCard = ({
               </button>
               <div className="course-info ms-2">
                 <div className="fw-bold course-number-text">
-                  {course.course_number}
+                  {course.course_major + " " + course.course_number}
                 </div>
                 <div className="course-title-text"> {course.course_name}</div>
               </div>
