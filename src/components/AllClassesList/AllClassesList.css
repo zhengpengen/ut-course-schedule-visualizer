@@ -3,11 +3,15 @@
   flex-direction: column;
   height: 100%;
   align-items: center;
-  width: 100%; /* Adjust width  */
+  width: 25vh; /* Adjust width  */
+  margin-left: 20px;
+  margin-right: 0px;
 }
 
 .title-box {
   text-align: center;
+  font-size: large;
+  font-weight: bold;
   padding: 10px;
   background-color: #ffffff;
   /* Rounded Top Corners but not bottom corners */

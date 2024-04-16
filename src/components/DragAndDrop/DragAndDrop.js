@@ -21,7 +21,7 @@ const DragAndDrop = ({
   setNextId,
 
   allSchedules,
-  setAllSchedules
+  setAllSchedules,
 }) => {
   const handleDragEnd = (result) => {
     const { source, destination } = result;

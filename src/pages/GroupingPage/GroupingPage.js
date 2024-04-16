@@ -1,46 +1,44 @@
-import './GroupingPage.css';
-import DragAndDrop from '../../components/DragAndDrop/DragAndDrop';
-
+import "./GroupingPage.css";
+import DragAndDrop from "../../components/DragAndDrop/DragAndDrop";
+import NavigationBar from "./NavigationBar";
 const GroupingPage = ({
-    groupCards, 
-    setGroupCards,
+  groupCards,
+  setGroupCards,
 
-    unassignedClasses, 
-    setUnassignedClass,
+  unassignedClasses,
+  setUnassignedClass,
 
-    groupCounts,
-    setGroupCounts,
+  groupCounts,
+  setGroupCounts,
 
-    groupNames,
-    setGroupNames,
+  groupNames,
+  setGroupNames,
 
-    nextId,
-    setNextId,
+  nextId,
+  setNextId,
 
-    allSchedules,
-    setAllSchedules
+  allSchedules,
+  setAllSchedules,
 }) => {
-    return(
-        <DragAndDrop
-            groupCards={groupCards}
-            setGroupCards={setGroupCards}
-
-            unassignedClasses={unassignedClasses}
-            setUnassignedClass={setUnassignedClass}
-
-            groupCounts={groupCounts}
-            setGroupCounts={setGroupCounts}
-
-            groupNames={groupNames}
-            setGroupNames={setGroupNames}
-
-            nextId={nextId}
-            setNextId={setNextId}
-
-            allSchedules={allSchedules}
-            setAllSchedules={setAllSchedules}
-        />
-    );
-}
+  return (
+    <>
+      <NavigationBar />
+      <DragAndDrop
+        groupCards={groupCards}
+        setGroupCards={setGroupCards}
+        unassignedClasses={unassignedClasses}
+        setUnassignedClass={setUnassignedClass}
+        groupCounts={groupCounts}
+        setGroupCounts={setGroupCounts}
+        groupNames={groupNames}
+        setGroupNames={setGroupNames}
+        nextId={nextId}
+        setNextId={setNextId}
+        allSchedules={allSchedules}
+        setAllSchedules={setAllSchedules}
+      />
+    </>
+  );
+};
 
 export default GroupingPage;

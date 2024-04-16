@@ -4,10 +4,24 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px; /* Adjust padding as needed */
-  background-color: #333; /* Example background color */
+  background-color: #1e1d1d; /* Example background color */
   color: white; /* Example text color */
+  margin-bottom: 20px;
 }
 
 .navbar-title {
   font-weight: bold;
+  font-size: 28px; /* Adjust font size as needed */
+}
+
+.help-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  /* Your button styles */
+  padding: 2px 2px; /* Adjust padding to change button size */
+  font-size: 16px; /* Adjust font size to change button text size */
 }
