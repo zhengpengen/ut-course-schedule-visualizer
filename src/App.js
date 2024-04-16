@@ -14,13 +14,12 @@ function App() {
   // const [unassignedClasses, setUnassignedClass] = useState([ExampleData]);
   const [unassignedClasses, setUnassignedClass] = useState([]);
   const [nextId, setNextId] = useState(1);
-  const [allSchedules, setAllSchedules] = useState([]);
-
-  const classInputChange = (e) => {
-    // parses the input as a class + section copied from schedules website
+  const [allSchedules, setAllSchedules] = useState({});
+  
+  const classInputChange = (e) => { // parses the input as a class + section copied from schedules website
     const value = e.target.value;
-    console.log(value);
-    const input = value.split(/[\s\-]+/);
+    console.log(value)
+    const input = value.split(/\.-|\s/);
 
     const new_course = {};
 
@@ -69,16 +68,13 @@ function App() {
       let date_count = 0; // number of diff tiem_and_location instances
 
       // reads all dates
-      console.log(index, input[index]);
-      while (
-        input[index] === input[index].toUpperCase() &&
-        !input[index].includes(":")
-      ) {
-        section["time_and_locations"].push({
-          weekday: input[index]
-            .match(/M|TH|W|T|F/g)
-            .map((item) => (item === "TH" ? "Th" : item)),
-        });
+      console.log(index, input[index])
+      while(input[index] === input[index].toUpperCase() && !input[index].includes(':')){
+        if(input[index] === ''){
+          index+=1;
+          continue;
+        }
+        section['time_and_locations'].push({'weekday': input[index].match(/M|TH|W|T|F/g).map((item) => item==='TH' ? 'Th' : item)})
         date_count += 1;
         index += 1;
         console.log(index, input[index]);

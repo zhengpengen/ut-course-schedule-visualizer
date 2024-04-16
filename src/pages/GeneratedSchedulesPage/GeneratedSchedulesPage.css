@@ -27,6 +27,12 @@
   flex-direction: column;
   text-align: center;
 }
+.classEntry {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
 
 .class-name {
   font-weight: bold;
