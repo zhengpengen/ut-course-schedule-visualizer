@@ -1,21 +1,20 @@
-.generated-schedules {
+/* .generated-schedules {
   margin: 10%;
   height: 50%;
-  display: flexbox;
-
+  display: flex;
 }
 
-.outer_box{
+.outer_box {
   display: flexbox;
   width: 90%;
   height: 40%;
 }
-  
+
 .generated-schedules h1 {
   text-align: center;
 }
 
-.schedule { 
+.schedule {
   display: flexbox;
   text-align: center;
   justify-content: space-between;
@@ -29,12 +28,29 @@
   text-align: center;
 }
 
-.class-name{
+.class-name {
   font-weight: bold;
 }
 
-.m_container{
+.m_container {
   width: 80%;
   height: 40%;
-  display:flexbox;
+  display: flexbox;
+} */
+.generated-schedules {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Set width to 100% */
+}
+
+.generated-schedules h1 {
+  margin-top: 20px; /* Add some top margin */
+  text-align: center;
+}
+
+.schedule {
+  width: 100%; /* Set width to 100% to accommodate the entire table */
+  margin-top: 20px;
+  text-align: center;
 }

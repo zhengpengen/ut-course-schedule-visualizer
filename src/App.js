@@ -14,142 +14,151 @@ function App() {
   const [unassignedClasses, setUnassignedClass] = useState([]);
   const [nextId, setNextId] = useState(1);
   const [allSchedules, setAllSchedules] = useState([]);
-  
-  const classInputChange = (e) => { // parses the input as a class + section copied from schedules website
+
+  const classInputChange = (e) => {
+    // parses the input as a class + section copied from schedules website
     const value = e.target.value;
-    console.log(value)
+    console.log(value);
     const input = value.split(/[\s\-]+/);
 
-    const new_course = {}
+    const new_course = {};
 
     // parse course major, number, name
     let index = 0;
-    console.log(input)
-    if(input[1].length >= 3){
-      new_course['course_major'] = input[0];
+    console.log(input);
+    if (input[1].length >= 3) {
+      new_course["course_major"] = input[0];
       index += 1;
-    }
-    else{
-      new_course['course_major'] = input[0]+' '+input[1];
+    } else {
+      new_course["course_major"] = input[0] + " " + input[1];
       index += 2;
     }
 
-    new_course['course_number'] = input[index];
+    new_course["course_number"] = input[index];
     index += 1;
 
-
-    let title = '';
-    while(isNaN(input[index])){
-      title += input[index]+' ';
+    let title = "";
+    while (isNaN(input[index])) {
+      title += input[index] + " ";
       index += 1;
     }
 
-    new_course['course_name'] = title.trim();
-    new_course['sections'] = [];
+    new_course["course_name"] = title.trim();
+    new_course["sections"] = [];
 
     // iterate through each section
 
-    section_loop:
-    while(true){
-      console.log(input[index])
-      while(!input[index] || isNaN(input[index])){ //get to the beginning of the next section
-        if(index >= input.length){
+    section_loop: while (true) {
+      console.log(input[index]);
+      while (!input[index] || isNaN(input[index])) {
+        //get to the beginning of the next section
+        if (index >= input.length) {
           break section_loop;
-        }
-        else{
+        } else {
           index += 1;
         }
       }
-      
-      const section = {'checked': true};
+
+      const section = { checked: true };
 
       // populate section id
-      section['id'] = parseInt(input[index])
+      section["id"] = parseInt(input[index]);
       index += 1;
-      section['time_and_locations']=[]
+      section["time_and_locations"] = [];
       let date_count = 0; // number of diff tiem_and_location instances
 
       // reads all dates
-      console.log(index, input[index])
-      while(input[index] === input[index].toUpperCase() && !input[index].includes(':')){
-        section['time_and_locations'].push({'weekday': input[index].match(/M|TH|W|T|F/g).map((item) => item==='TH' ? 'Th' : item)})
+      console.log(index, input[index]);
+      while (
+        input[index] === input[index].toUpperCase() &&
+        !input[index].includes(":")
+      ) {
+        section["time_and_locations"].push({
+          weekday: input[index]
+            .match(/M|TH|W|T|F/g)
+            .map((item) => (item === "TH" ? "Th" : item)),
+        });
         date_count += 1;
-        index += 1
-        console.log(index, input[index])
+        index += 1;
+        console.log(index, input[index]);
       }
 
       // get all start and end time
-      for(let t = 0; t < date_count; t++){
-        if(input[index].includes(':')){ // check if there is a section time
+      for (let t = 0; t < date_count; t++) {
+        if (input[index].includes(":")) {
+          // check if there is a section time
           // start time
-          var [hour, minute] = input[index].split(':');
+          var [hour, minute] = input[index].split(":");
           index += 1;
-          if(input[index] === 'p.m.'){
-            hour = (parseInt(hour)%12+12)+''
-          } 
-          section['time_and_locations'][t]['start_time'] = hour+':'+minute;
+          if (input[index] === "p.m.") {
+            hour = (parseInt(hour) % 12) + 12 + "";
+          }
+          section["time_and_locations"][t]["start_time"] = hour + ":" + minute;
           index += 1;
 
           // end time
-          [hour, minute] = input[index].split(':');
+          [hour, minute] = input[index].split(":");
           index += 1;
-          if(input[index] === 'p.m.'){
-            hour = (parseInt(hour)%12+12)+''
-          } 
-          section['time_and_locations'][t]['end_time'] = hour+':'+minute;
+          if (input[index] === "p.m.") {
+            hour = (parseInt(hour) % 12) + 12 + "";
+          }
+          section["time_and_locations"][t]["end_time"] = hour + ":" + minute;
           index += 1;
-        }
-        else{ // no time, just put empty
-          section['time_and_locations'][t]['start_time'] = '';
-          section['time_and_locations'][t]['end_time'] = '';
+        } else {
+          // no time, just put empty
+          section["time_and_locations"][t]["start_time"] = "";
+          section["time_and_locations"][t]["end_time"] = "";
         }
       }
 
       // get all location
-      for(let t = 0; t < date_count; t++){
-        if(input[index] === input[index].toUpperCase()){ // check if there is a location
-          section['time_and_locations'][t]['location'] = input[index]+' '+input[index+1];
+      for (let t = 0; t < date_count; t++) {
+        if (input[index] === input[index].toUpperCase()) {
+          // check if there is a location
+          section["time_and_locations"][t]["location"] =
+            input[index] + " " + input[index + 1];
           index += 2;
+        } else {
+          // if not just put empty
+          section["time_and_locations"][t]["location"] = "";
         }
-        else{ // if not just put empty
-          section['time_and_locations'][t]['location'] = ''
-        }
-        
       }
 
       // get to professors
-      section['professor'] = [];
+      section["professor"] = [];
 
-      while(input[index] !== input[index].toUpperCase()){
-        index += 1
-        if(index >= input.length){ // last section and no professor
-          new_course['sections'].push(section);
+      while (input[index] !== input[index].toUpperCase()) {
+        index += 1;
+        if (index >= input.length) {
+          // last section and no professor
+          new_course["sections"].push(section);
           break section_loop;
         }
       }
 
-      if(!input[index].includes(',')){ // no professor, go to next section
-        new_course['sections'].push(section);
+      if (!input[index].includes(",")) {
+        // no professor, go to next section
+        new_course["sections"].push(section);
         continue section_loop;
       }
 
-      let professor_name = input[index]+' ';
+      let professor_name = input[index] + " ";
       index += 1;
-      while(input[index] === input[index].toUpperCase()){
-        if(input[index].includes(',')) { // one professor ended, next professor start
-          section['professor'].push(professor_name.trim())
-          professor_name = input[index]+' ';
-          index += 1; 
-        }
-        else{
-          professor_name += input[index] + ' ';
+      while (input[index] === input[index].toUpperCase()) {
+        if (input[index].includes(",")) {
+          // one professor ended, next professor start
+          section["professor"].push(professor_name.trim());
+          professor_name = input[index] + " ";
+          index += 1;
+        } else {
+          professor_name += input[index] + " ";
           index += 1;
         }
       }
-      section['professor'].push(professor_name.trim())
+      section["professor"].push(professor_name.trim());
 
       // push sections to general course
-      new_course['sections'].push(section);
+      new_course["sections"].push(section);
     }
 
     // add the course
@@ -162,46 +171,44 @@ function App() {
 
   return (
     <Router>
-      <div className="container row">
-        <Switch>
-          {/* the main page */}
-          <Route exact path='/ut-course-schedule-visualizer'>
-            <GroupingPage 
-              groupCards={groupCards} 
-              setGroupCards={setGroupCards}
-              unassignedClasses={unassignedClasses}
-              setUnassignedClass={setUnassignedClass}
-              groupCounts={groupCounts}
-              setGroupCounts={setGroupCounts}
-              groupNames={groupNames}
-              setGroupNames={setGroupNames}
-              nextId={nextId}
-              setNextId={setNextId}
-              allSchedules={allSchedules}
-              setAllSchedules={setAllSchedules}
-            />
-            <h1>
-              Add class
-            </h1>
-            <input
-              type="text"
-              value=''
-              onChange={classInputChange}
-              className="class-count-input"
-            />
-          </Route>
+      {/* <div className="container row"> */}
+      <Switch>
+        {/* the main page */}
+        <Route exact path="/ut-course-schedule-visualizer">
+          <GroupingPage
+            groupCards={groupCards}
+            setGroupCards={setGroupCards}
+            unassignedClasses={unassignedClasses}
+            setUnassignedClass={setUnassignedClass}
+            groupCounts={groupCounts}
+            setGroupCounts={setGroupCounts}
+            groupNames={groupNames}
+            setGroupNames={setGroupNames}
+            nextId={nextId}
+            setNextId={setNextId}
+            allSchedules={allSchedules}
+            setAllSchedules={setAllSchedules}
+          />
+          <h1>Add class</h1>
+          <input
+            type="text"
+            value=""
+            onChange={classInputChange}
+            className="class-count-input"
+          />
+        </Route>
 
-          {/* the schedules page*/}
-          <Route exact path="/ut-course-schedule-visualizer/schedules">
-            <GeneratedSchedulesPage allSchedules={allSchedules}/>
-          </Route>
+        {/* the schedules page*/}
+        <Route exact path="/ut-course-schedule-visualizer/schedules">
+          <GeneratedSchedulesPage allSchedules={allSchedules} />
+        </Route>
 
-          {/* the help page */}
-          <Route exact path="/ut-course-schedule-visualizer/help">
-            <HelpPage />
-          </Route>
-        </Switch>
-      </div>
+        {/* the help page */}
+        <Route exact path="/ut-course-schedule-visualizer/help">
+          <HelpPage />
+        </Route>
+      </Switch>
+      {/* </div> */}
     </Router>
   );
 }

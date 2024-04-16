@@ -1,151 +1,161 @@
 import React from "react";
-import "./Modal.css"
+import "./Modal.css";
 
 const times = [];
 
-function create_schedule(schedule){
-    // console.log("in create schedule, schedule is: ", schedule);
+function create_schedule(schedule) {
+  times.length = 0;
+  let new_schedule = {};
 
-    times.length = 0;
-    let new_schedule = {}
-    let hour = "";
-    let half = "";
+  // Populate times array
+  for (let i = 8; i <= 21; i++) {
+    let hour = `${i % 12 === 0 ? 12 : i % 12}:00 ${i < 12 ? "AM" : "PM"}`;
+    let half = `${i % 12 === 0 ? 12 : i % 12}:30 ${i < 12 ? "AM" : "PM"}`;
+    times.push(hour);
+    times.push(half);
+    new_schedule[hour] = { M: {}, T: {}, W: {}, Th: {}, F: {} };
+    new_schedule[half] = { M: {}, T: {}, W: {}, Th: {}, F: {} };
+  }
 
-    for (let i = 8; i <= 21; i++) {
-        // console.log("hour is: ", i);
-        hour = `${i % 12 === 0 ? 12 : i % 12}:00 ${i < 12 ? 'AM' : 'PM'}`;
-        half = `${i % 12 === 0 ? 12 : i % 12}:30 ${i < 12 ? 'AM' : 'PM'}`;
-        times.push(hour);
-        times.push(half);
-        new_schedule[hour] = {"M": {}, "T": {}, "W": {}, "Th" : {}, "F": {}};
-        new_schedule[half]= {"M": {}, "T": {}, "W": {}, "Th" : {}, "F": {}};
-    }
+  schedule.forEach((section) => {
+    let time_and_loc = section.time_and_locations;
+    time_and_loc.forEach((meeting) => {
+      let start_time = meeting.start_time;
+      let end_time = meeting.end_time;
+      let weekday = meeting.weekday;
 
-    schedule.forEach(section => {
+      // Convert start and end times to minutes for easier calculation
+      let start_hour = parseInt(start_time.split(":")[0]);
+      let start_minutes = parseInt(start_time.split(":")[1]);
+      let end_hour = parseInt(end_time.split(":")[0]);
+      let end_minutes = parseInt(end_time.split(":")[1]);
 
-        console.log("well section is: ", section);
-        let time_and_loc = section.time_and_locations;
-        // console.log("well time and locs is is: ", time_and_loc);
+      let start_total_minutes = start_hour * 60 + start_minutes;
+      let end_total_minutes = end_hour * 60 + end_minutes;
 
-        time_and_loc.forEach(meeting => {
-            let time = meeting.start_time;
-            // console.log("what is time: ", time);
-            let hour = parseInt(time.split(":")[0]);
-            let mins = parseInt(time.split(":")[1]);
+      let duration_minutes = end_total_minutes - start_total_minutes;
 
-            if(hour < 12){
-                if(mins < 10){
-                    time = `${hour}:${mins}0 AM`;
-                }
-                else{
-                    time = `${hour}:${mins} AM`;
-                }
-            }
-            else if(hour === 12){
-                if(mins < 10){
-                    time = `${hour}:${mins}0 PM`;
-                }
-                else{
-                    time = `${hour}:${mins} PM`;
-                }
-            }
-            else{
-                if(mins < 10){
-                    time = `${hour-12}:${mins}0 PM`;
-                }
-                else{
-                    time = `${hour-12}:${mins} PM`;
-                }
-            }
+      // Calculate number of rows the class should occupy
+      let rows = duration_minutes / 30;
 
-            let end_time = meeting.end_time;
-            let end_hour = parseInt(end_time.split(":")[0]);
-            let end_mins = parseInt(end_time.split(":")[1]);
+      // Populate schedule for each half-hour block
+      for (let i = 0; i < rows; i++) {
+        let current_time = new Date(
+          0,
+          0,
+          0,
+          start_hour,
+          start_minutes + i * 30
+        );
+        let formatted_time = current_time.toLocaleTimeString([], {
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        });
 
-            let diff = (((end_hour * 60) + end_mins) - ((hour * 60) + mins));
-            let prof = section.professor[0];
-            prof = prof.split(",")[0];
-
-            let class_obj = {className: section.className, professor: prof, location: meeting.location, rows: diff/30}
-
-            let all_times = new_schedule[time];
-            // console.log("new_schedule is: ", new_schedule);
-            // console.log("well time is: ", time);
-            // console.log("all_times: ", all_times);
-            meeting.weekday.forEach(day => {
-                all_times[day] = class_obj
-            });
-        })
-        
+        weekday.forEach((day) => {
+          new_schedule[formatted_time][day] = {
+            className: section.className,
+            professor: section.professor[0].split(",")[0],
+            location: meeting.location,
+          };
+        });
+      }
     });
+  });
 
-    return new_schedule;
+  return new_schedule;
 }
 
-const Modal = ({allSchedules, index}) => {
-    console.log("entered Modal.... with index ", index);
+const Modal = ({ allSchedules, index }) => {
+  console.log("entered Modal.... with index ", index);
 
-    if(allSchedules.length === 0){
-        return null;
-    }
-    else{
-        const temp_schedule = allSchedules[index];
-        // console.log("schedule is: ", temp_schedule);
-        const new_schedule = create_schedule(temp_schedule);
+  if (allSchedules.length === 0) {
+    return null;
+  } else {
+    const temp_schedule = allSchedules[index];
+    // console.log("schedule is: ", temp_schedule);
+    const new_schedule = create_schedule(temp_schedule);
 
-        return (
-            <div className="schedule_container">
-                <table className="schedule_table">
-                    <thead>
-                        <tr className="top-line">
-                            <th className="t-header"></th>
-                            <th className="header">MONDAY</th>
-                            <th className="header">TUESDAY</th>
-                            <th className="header">WEDNESDAY</th>
-                            <th className="header">THURSDAY</th>
-                            <th className="header">FRIDAY</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {times.map((time, timeIndex) => (
-                            <tr key={timeIndex}>
-                                <td className="time">{time}</td>
-                                <td className="day">
-                                    <div className="name">{new_schedule[time]["M"].className || ""}</div>
-                                    <div className="prof">{new_schedule[time]["M"].professor || ""}</div>
-                                    <div className="loc">{new_schedule[time]["M"].location || ""}</div>
-                                    
-                                </td>
-                                <td className="day">
-                                    <div className="name">{new_schedule[time]["T"].className || ""}</div>
-                                    <div className="prof">{new_schedule[time]["T"].professor || ""}</div>
-                                    <div className="loc">{new_schedule[time]["T"].location || ""}</div>
-                                </td>
-                                <td className="day">
-                                    <div className="name">{new_schedule[time]["W"].className || ""}</div>
-                                    <div className="prof">{new_schedule[time]["W"].professor || ""}</div>
-                                    <div className="loc">{new_schedule[time]["W"].location || ""}</div>
-                                </td>
-                                <td className="day">
-                                    <div className="name">{new_schedule[time]["Th"].className || ""}</div>
-                                    <div className="prof">{new_schedule[time]["Th"].professor || ""}</div>
-                                    <div className="loc">{new_schedule[time]["Th"].location || ""}</div>
-                                </td>
-                                <td className="day">
-                                    <div className="name">{new_schedule[time]["F"].className || ""}</div>
-                                    <div className="prof">{new_schedule[time]["F"].professor || ""}</div>
-                                    <div className="loc">{new_schedule[time]["F"].location || ""}</div>
-                                </td>
-                            </tr>
-                        ))}
-    
-                    </tbody>
-                </table>
-
-
-            </div>
-        )
-    }
-}
+    return (
+      <div className="schedule_container">
+        <table className="schedule_table">
+          <thead>
+            <tr className="top-line">
+              <th className="t-header"></th>
+              <th className="header">MONDAY</th>
+              <th className="header">TUESDAY</th>
+              <th className="header">WEDNESDAY</th>
+              <th className="header">THURSDAY</th>
+              <th className="header">FRIDAY</th>
+            </tr>
+          </thead>
+          <tbody>
+            {times.map((time, timeIndex) => (
+              <tr key={timeIndex}>
+                <td className="time">{time}</td>
+                <td className="day">
+                  <div className="name">
+                    {new_schedule[time]["M"].className || ""}
+                  </div>
+                  <div className="prof">
+                    {new_schedule[time]["M"].professor || ""}
+                  </div>
+                  <div className="loc">
+                    {new_schedule[time]["M"].location || ""}
+                  </div>
+                </td>
+                <td className="day">
+                  <div className="name">
+                    {new_schedule[time]["T"].className || ""}
+                  </div>
+                  <div className="prof">
+                    {new_schedule[time]["T"].professor || ""}
+                  </div>
+                  <div className="loc">
+                    {new_schedule[time]["T"].location || ""}
+                  </div>
+                </td>
+                <td className="day">
+                  <div className="name">
+                    {new_schedule[time]["W"].className || ""}
+                  </div>
+                  <div className="prof">
+                    {new_schedule[time]["W"].professor || ""}
+                  </div>
+                  <div className="loc">
+                    {new_schedule[time]["W"].location || ""}
+                  </div>
+                </td>
+                <td className="day">
+                  <div className="name">
+                    {new_schedule[time]["Th"].className || ""}
+                  </div>
+                  <div className="prof">
+                    {new_schedule[time]["Th"].professor || ""}
+                  </div>
+                  <div className="loc">
+                    {new_schedule[time]["Th"].location || ""}
+                  </div>
+                </td>
+                <td className="day">
+                  <div className="name">
+                    {new_schedule[time]["F"].className || ""}
+                  </div>
+                  <div className="prof">
+                    {new_schedule[time]["F"].professor || ""}
+                  </div>
+                  <div className="loc">
+                    {new_schedule[time]["F"].location || ""}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+};
 
 export default Modal;

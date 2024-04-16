@@ -92,12 +92,10 @@ function addClassesFromGroups(
         // ignore this section
         continue;
       }
-      section.className =
-        classObj.course_major +
-        " " +
-        classObj.course_number +
-        " " +
-        classObj.course_name; // CONCATENATE CLASS PROPERTIES TO FORM CLASS NAME
+      section.className = classObj.course_major + " " + classObj.course_number;
+      // +
+      // " " +
+      // classObj.course_name; // CONCATENATE CLASS PROPERTIES TO FORM CLASS NAME
       let overlap = false;
 
       // Check if the section overlaps with any previously selected section

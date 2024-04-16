@@ -1,29 +1,26 @@
-import {React, useState} from "react";
+import React from "react";
 import Schedule from "../../components/SchedulePageComponents/Schedule";
 import "./GeneratedSchedulesPage.css";
 import BackButton from "../../components/BackButton/BackButton";
 import Modal from "../../components/Modal/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
 
+import { Grid, Box } from "@mui/material";
 
 const GeneratedSchedulesPage = ({ allSchedules }) => {
-
-  // const [openModalArray, setOpenModalArray] = useState(Array(allSchedules.length).fill(false));
-  console.log("sigh is: ", allSchedules);
-
   return (
     <div className="generated-schedules">
       <BackButton />
       <h1>Generated Schedules</h1>
-      <div className="outer_box">
+      <Grid container spacing={2}>
         {allSchedules.map((schedule, index) => (
-          <div key={`allSchedules_schedule_${index}`} className="schedule">
-            {/* <h3>{index + 1}</h3> */}
-            {/* <button onClick={() => handleClick(index)} className="schedule_button"> Click to view Schedule {index + 1} </button> */}
-            <div className="m_container"><Modal allSchedules={allSchedules} index={index} /></div>
-            
-          </div>
+          <Grid item xs={6} key={`allSchedules_schedule_${index}`}>
+            <Box className="schedule">
+              <Modal allSchedules={allSchedules} index={index} />
+            </Box>
+          </Grid>
         ))}
-      </div>
+      </Grid>
     </div>
   );
 };
