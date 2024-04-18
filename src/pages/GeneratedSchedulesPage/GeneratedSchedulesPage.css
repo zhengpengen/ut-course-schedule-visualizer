@@ -1,17 +1,37 @@
+/* Add these styles to lock the scroll on the x-axis of the webpage */
+body {
+  overflow-x: hidden;
+}
+
+/* Add these styles to make the carousel scrollable left and right */
 .generated-schedules {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%; /* Set width to 100% */
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap; /* Prevent line breaks */
+  justify-content: space-evenly;
 }
 
-.generated-schedules h1 {
-  margin-top: 20px; /* Add some top margin */
-  text-align: center;
+/* Add these styles to adjust the appearance of the carousel arrows */
+.generated-schedules button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  color: black;
+  transition: color 0.3s;
 }
 
-.schedule {
-  /* width: 100%; Set width to 100% to accommodate the entire table */
-  margin-top: 20px;
-  text-align: center;
+.generated-schedules button:hover {
+  color: gray;
+}
+
+.carousel-arrow {
+  color: gray !important; /* Set the color to gray */
+  background-color: black !important; /* Make the background transparent */
+  border: none; /* Remove the border */
+  font-size: 16px; /* Adjust font size if needed */
+  cursor: pointer; /* Set cursor to pointer */
+  padding: 0; /* Remove padding */
+  z-index: 999;
 }
