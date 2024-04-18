@@ -1,6 +1,27 @@
-.box {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  background-color: yellow;
-  grid-column-gap: 20px;
+.main-page {
+  overflow-x: hidden;
+}
+
+.add-text {
+  font-weight: bold;
+  background-color: white; /* Header background */
+  font-size: large;
+  text-align: center !important; /* Center align text */
+  margin: 0; /* Ensure no default margin is applied */
+  padding: 10px 0; /* Add padding for better spacing */
+  justify-content: center;
+  align-content: center;
+}
+
+.class-count-input {
+  width: 100%;
+  padding: 0px;
+  margin-right: 0;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.class-paste {
+  margin-left: 15px;
+  /* margin-right: 15px; */
 }

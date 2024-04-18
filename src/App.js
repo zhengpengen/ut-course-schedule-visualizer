@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import GeneratedSchedulesPage from "./pages/GeneratedSchedulesPage/GeneratedSchedulesPage";
 import GroupingPage from "./pages/GroupingPage/GroupingPage";
 import HelpPage from "./pages/HelpPage/HelpPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [groupCards, setGroupCards] = useState([]); // LIFTING STATE HERE SO WE CAN ACCESS THE GLOBAL ARRAY
@@ -14,7 +15,7 @@ function App() {
   const [unassignedClasses, setUnassignedClass] = useState([]);
   const [nextId, setNextId] = useState(1);
   const [allSchedules, setAllSchedules] = useState({});
-  
+
   const classInputChange = (e) => {
     // parses the input as a class + section copied from schedules website
     const value = e.target.value;
@@ -95,7 +96,7 @@ function App() {
           var [hour, minute] = input[index].split(":");
           index += 1;
           if (input[index].includes("p.m")) {
-            hour = ((parseInt(hour) % 12) + 12) + "";
+            hour = (parseInt(hour) % 12) + 12 + "";
           }
           section["time_and_locations"][t]["start_time"] = hour + ":" + minute;
           index += 1;
@@ -104,7 +105,7 @@ function App() {
           [hour, minute] = input[index].split(":");
           index += 1;
           if (input[index].includes("p.m")) {
-            hour = ((parseInt(hour) % 12) + 12) + "";
+            hour = (parseInt(hour) % 12) + 12 + "";
           }
           section["time_and_locations"][t]["end_time"] = hour + ":" + minute;
           index += 1;
@@ -131,7 +132,10 @@ function App() {
       // get to professors
       section["professor"] = [];
 
-      while (input[index] !== input[index].toUpperCase() || input[index] === "") {
+      while (
+        input[index] !== input[index].toUpperCase() ||
+        input[index] === ""
+      ) {
         index += 1;
         if (index >= input.length) {
           // last section and no professor
@@ -175,12 +179,13 @@ function App() {
 
   return (
     <Router>
-      <div className="container row">
-        <Switch>
-          {/* the main page */}
-          <Route exact path='/ut-course-schedule-visualizer'>
-            <GroupingPage 
-              groupCards={groupCards} 
+      {/* <div className="container row"> */}
+      <Switch>
+        {/* the main page */}
+        <Route exact path="/ut-course-schedule-visualizer">
+          <div className="main-page" style={{ backgroundColor: "white" }}>
+            <GroupingPage
+              groupCards={groupCards}
               setGroupCards={setGroupCards}
               unassignedClasses={unassignedClasses}
               setUnassignedClass={setUnassignedClass}
@@ -193,28 +198,35 @@ function App() {
               allSchedules={allSchedules}
               setAllSchedules={setAllSchedules}
             />
-            <h1>
-              Add class
-            </h1>
-            <input
-              type="text"
-              value=''
-              onChange={classInputChange}
-              className="class-count-input"
-            />
-          </Route>
+            <div className="row mt-3">
+              {/* <div className="col-3">
+                <div className="add-text">Add class</div>
+              </div> */}
+              <div className="class-paste col mb-5 mt-2">
+                <input
+                  type="text"
+                  placeholder="Paste copied classes here"
+                  value=""
+                  onChange={classInputChange}
+                  className="class-count-input"
+                  style={{ width: "100%" }}
+                />
+              </div>
+            </div>
+          </div>
+        </Route>
 
-          {/* the schedules page*/}
-          <Route exact path="/ut-course-schedule-visualizer/schedules">
-            <GeneratedSchedulesPage allSchedules={allSchedules}/>
-          </Route>
+        {/* the schedules page*/}
+        <Route exact path="/ut-course-schedule-visualizer/schedules">
+          <GeneratedSchedulesPage allSchedules={allSchedules} />
+        </Route>
 
-          {/* the help page */}
-          <Route exact path="/ut-course-schedule-visualizer/help">
-            <HelpPage />
-          </Route>
-        </Switch>
-      </div>
+        {/* the help page */}
+        <Route exact path="/ut-course-schedule-visualizer/help">
+          <HelpPage />
+        </Route>
+      </Switch>
+      {/* </div> */}
     </Router>
   );
 }

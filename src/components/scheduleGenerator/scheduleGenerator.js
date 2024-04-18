@@ -24,19 +24,19 @@ export function schedule_generator(groupCardsList, groupCountsDict) {
     let overallResults = [];
     addClassesFromGroups(overallResults, GroupCards, { ...groupCountsDict });
     for (let c = 0; c < overallResults.length; c++) {
-
-      console.log(overallResults[c])
+      // console.log(overallResults[c]);
 
       let names = [];
-      for(const course of overallResults[c]){
+      for (const course of overallResults[c]) {
         names.push(course.className);
       }
-      names.sort()
+      names.sort();
       const dict_key = names.toString();
       // console.log(names)
       // console.log(dict_key)
 
-      if(dict_key in allSchedules){ //this combo of classes has appeared before
+      if (dict_key in allSchedules) {
+        //this combo of classes has appeared before
         let duplicateDetected = allSchedules[dict_key].some((arr) =>
           hasSameSectionIDs(arr, overallResults[c])
         );
@@ -44,10 +44,9 @@ export function schedule_generator(groupCardsList, groupCountsDict) {
         // console.log(overallResults[c], duplicateDetected)
         if (!duplicateDetected) {
           allSchedules[dict_key].push(overallResults[c]);
-          console.log(allSchedules)
+          // console.log(allSchedules);
         }
-      }
-      else{
+      } else {
         allSchedules[dict_key] = [];
         allSchedules[dict_key].push(overallResults[c]);
       }
@@ -62,7 +61,7 @@ export function schedule_generator(groupCardsList, groupCountsDict) {
     }
   }
 
-  console.log(allSchedules)
+  console.log(allSchedules);
   return allSchedules;
 }
 
@@ -100,7 +99,7 @@ function addClassesFromGroups(
   if (groupIndex >= GroupCards.length) {
     // If we've reached the end of GroupCards, add the current selectedClasses to the result
     overallResults.push([...selectedClasses]); // Make a copy of selectedClasses to avoid reference issues
-    console.log([...selectedClasses])
+    // console.log([...selectedClasses])
     return;
   }
 
@@ -119,18 +118,15 @@ function addClassesFromGroups(
         // ignore this section
         continue;
       }
-      section.className =
-        classObj.course_major +
-        " " +
-        classObj.course_number +
-        " " +
-        classObj.course_name; // CONCATENATE CLASS PROPERTIES TO FORM CLASS NAME
+      section.className = classObj.course_major + " " + classObj.course_number;
+      // +
+      // " " +
+      // classObj.course_name; // CONCATENATE CLASS PROPERTIES TO FORM CLASS NAME
       let overlap = false;
 
       // Check if the section overlaps with any previously selected section
       for (const selectedSection of selectedClasses) {
         if (checkOverlap(section, selectedSection)) {
-          
           overlap = true;
           break;
         }
@@ -183,10 +179,34 @@ function checkOverlap(section1, section2) {
   for (const timeLoc1 of section1.time_and_locations) {
     for (const timeLoc2 of section2.time_and_locations) {
       if (timeLoc1.weekday.some((day) => timeLoc2.weekday.includes(day))) {
-        const start1 = new Date(`2000-01-01T${timeLoc1.start_time.length ===5 ? timeLoc1.start_time : ('0'+timeLoc1.start_time)}`);
-        const end1 = new Date(`2000-01-01T${timeLoc1.end_time.length ===5 ? timeLoc1.end_time : ('0'+timeLoc1.end_time)}`);
-        const start2 = new Date(`2000-01-01T${timeLoc2.start_time.length ===5 ? timeLoc2.start_time : ('0'+timeLoc2.start_time)}`);
-        const end2 = new Date(`2000-01-01T${timeLoc2.end_time.length ===5 ? timeLoc2.end_time : ('0'+timeLoc2.end_time)}`);
+        const start1 = new Date(
+          `2000-01-01T${
+            timeLoc1.start_time.length === 5
+              ? timeLoc1.start_time
+              : "0" + timeLoc1.start_time
+          }`
+        );
+        const end1 = new Date(
+          `2000-01-01T${
+            timeLoc1.end_time.length === 5
+              ? timeLoc1.end_time
+              : "0" + timeLoc1.end_time
+          }`
+        );
+        const start2 = new Date(
+          `2000-01-01T${
+            timeLoc2.start_time.length === 5
+              ? timeLoc2.start_time
+              : "0" + timeLoc2.start_time
+          }`
+        );
+        const end2 = new Date(
+          `2000-01-01T${
+            timeLoc2.end_time.length === 5
+              ? timeLoc2.end_time
+              : "0" + timeLoc2.end_time
+          }`
+        );
         if (!(end1 <= start2 || end2 <= start1)) {
           // console.log('overlap')
           // console.log(section1, section2)
@@ -194,7 +214,6 @@ function checkOverlap(section1, section2) {
           // console.log(end1, start2)
           // console.log(end2, start1)
           return true; // There's overlap
-          
         }
       }
     }

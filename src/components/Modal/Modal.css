@@ -1,0 +1,85 @@
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  height: 95%;
+  display: flex;
+}
+
+.close {
+  background-color: grey;
+  font-weight: bold;
+  position: fixed;
+  top: 1%;
+  right: 1%;
+}
+
+.schedule_container {
+  /* background-color: azure; */
+  background-color: black;
+  /* display: flex; */
+  /* top: 50%;
+    left: 50%; */
+  width: 90%;
+  /* height: 20%; */
+  /* transform: translate(-50%, -50%); */
+  /* overflow: auto; */
+}
+
+.schedule_table {
+  display: inline;
+  width: 10%;
+  margin-right: 5%;
+  height: 20%;
+  border-collapse: collapse;
+  background-color: azure;
+}
+
+.schedule_table thead {
+  position: sticky;
+  top: 0;
+}
+
+.schedule_table th {
+  background-color: azure;
+  font-family: "Lucida Grande";
+}
+
+.header {
+  width: 14%;
+  font-size: 10px;
+}
+
+.time {
+  width: 8%;
+  font-family: "Lucida Sans Unicode";
+  vertical-align: text-top;
+  font-size: x-small;
+  border: none;
+}
+
+.day {
+  font-family: "Lucida Grande";
+  flex-direction: column;
+  text-align: center;
+  border: 1px dotted grey;
+}
+
+.name {
+  font-size: small;
+  background-color: cadetblue;
+}
+
+.prof {
+  font-size: x-small;
+  background-color: cadetblue;
+}
+
+.loc {
+  font-size: x-small;
+  font-weight: 700;
+  background-color: cadetblue;
+}

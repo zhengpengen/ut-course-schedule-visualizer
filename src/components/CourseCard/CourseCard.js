@@ -17,20 +17,26 @@ const colors = [
 ];
 const courseColorMapping = {};
 
-const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedClasses, setUnassignedClass}) => {
+const CourseCard = ({
+  courses,
+  group_id,
+  groupCards,
+  setGroupCards,
+  unassignedClasses,
+  setUnassignedClass,
+}) => {
   const [selectedSection, setSelectedSection] = useState(null);
   const [courseColors, setCourseColors] = useState({});
   const courseColorsRef = useRef({});
 
-
   useEffect(() => {
     courses.forEach((course) => {
       if (!courseColorMapping[course.course_name]) {
-        courseColorMapping[course.course_name] = colors[Math.floor(Math.random() * colors.length)];
+        courseColorMapping[course.course_name] =
+          colors[Math.floor(Math.random() * colors.length)];
       }
     });
   }, [courses]);
-
 
   const toggleSection = (id) => {
     setSelectedSection(selectedSection === id ? null : id);
@@ -41,25 +47,33 @@ const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedCl
     console.log("section is: ", section);
 
     //in unassigned-classes
-    if(group_id == -1){
+    if (group_id == -1) {
       let new_classes = [...unassignedClasses];
-      let curr_class = new_classes.find(course_class => course_class.course_name === course.course_name);
-      let new_section = curr_class.sections.find(sect => sect.id === section.id);
+      let curr_class = new_classes.find(
+        (course_class) => course_class.course_name === course.course_name
+      );
+      let new_section = curr_class.sections.find(
+        (sect) => sect.id === section.id
+      );
       new_section.checked = !section.checked;
 
       setUnassignedClass(new_classes);
     }
     //in a group
-    else{
+    else {
       let new_groupCards = [...groupCards];
-      let group = new_groupCards.find(group => group.id === group_id);
-      let curr_class = group.classes.find(curr_class => curr_class.course_name === course.course_name);
-      let new_section = curr_class.sections.find(sect => sect.id === section.id);
+      let group = new_groupCards.find((group) => group.id === group_id);
+      let curr_class = group.classes.find(
+        (curr_class) => curr_class.course_name === course.course_name
+      );
+      let new_section = curr_class.sections.find(
+        (sect) => sect.id === section.id
+      );
       new_section.checked = !section.checked;
 
       setGroupCards(new_groupCards);
     }
-  }
+  };
 
   const handleDelete = (course) => {
     // console.log("course is: ", course);
@@ -128,8 +142,10 @@ const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedCl
                 ▼
               </button>
               <div className="course-info ms-2">
-                <div className="fw-bold">{course.course_number}</div>
-                <div>{course.course_name}</div>
+                <div className="fw-bold course-number-text">
+                  {course.course_major + " " + course.course_number}
+                </div>
+                <div className="course-title-text"> {course.course_name}</div>
               </div>
             </div>
             {selectedSection === course.course_number && (
@@ -157,7 +173,12 @@ const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedCl
                         </div>
                       ))}
                     </div>
-                    <input type="checkbox" className="form-check-input" checked={section.checked} onChange={() => handleCheckbox(course, section)}/>
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      checked={section.checked}
+                      onChange={() => handleCheckbox(course, section)}
+                    />
                   </li>
                 ))}
               </ul>

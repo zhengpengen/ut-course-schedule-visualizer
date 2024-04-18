@@ -1,77 +1,81 @@
-  .group-card {
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    padding: 20px;
-    flex: 0 0 auto;
-  }
-  
-  .group-header {
-    background-color: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-    border-top: 1px solid black;
-    cursor: pointer;
-  }
-  
-  .group-name-input,
-  .class-count-input {
-    padding: 5px;
-  }
+.group-card {
+  display: flex;
+  flex-direction: column;
+  /* width: 10%; */
+  padding: 20px;
+  flex: 0 0 auto;
+  margin-top: 8px;
+}
 
-  .group-name-input {
-    font-size: 1em;
-  }
+.group-header {
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  cursor: pointer;
+  width: 30vh;
+}
 
-  .italic {
-    font-style: italic;
-  }
+.group-name-input,
+.class-count-input {
+  padding: 5px;
+}
 
-  .bold {
-    font-weight: bold;
-  }
+.group-name-input {
+  font-size: 1em;
+}
 
-  .group-body {
-    background-color: #dedede;
-    height: 60vh; /* Fixed height */
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-  }
+.italic {
+  font-style: italic;
+}
 
-  .group-delete {
-    width: 100%;
-    text-align: center; /* Center the button text */
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-  }
-  
-  .delete-btn {
-    width: 100%;
-    padding: 10px 0; /* Increase padding for better clickability */
-    border: none;
-    background-color: red;
-    color: white;
-    cursor: pointer;
-  }
-  
-  
-  .group-footer {
-    background-color: #4399ff;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding: 10px;
-    text-align: left;
-    color: white;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-  }
-  .class-count-input {
-    width: 30px; 
-  }  
+.bold {
+  font-weight: bold;
+}
+
+.group-body {
+  background-color: #dedede;
+  height: 45vh; /* Fixed height */
+  width: 30vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+
+.group-delete {
+  width: 100%;
+  text-align: center; /* Center the button text */
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  width: 30vh;
+}
+
+.delete-btn {
+  width: 100%;
+  padding: 10px 0; /* Increase padding for better clickability */
+  border: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
+
+.group-footer {
+  background-color: #4399ff;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  color: white;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 30vh;
+}
+.class-count-input {
+  width: 30px;
+}

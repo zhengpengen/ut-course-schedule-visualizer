@@ -22,7 +22,7 @@ const ClassGroup = ({
   setNextId,
 
   allSchedules,
-  setAllSchedules
+  setAllSchedules,
 }) => {
   const [showHelpScreen, setShowHelpScreen] = useState(false);
   const helpScreenRef = useRef(null);
@@ -95,19 +95,24 @@ const ClassGroup = ({
   const handleGenSchedule = () => {
     const adjustedGroupCards = [];
     const adjustedGroupCounts = {};
-    for (let group = 0; group < groupCards.length; group++){
-      if(groupCards[group].classes.length === 0) continue; // no class in this group
-      if(groupCounts[groupCards[group].id] <= 0) continue; // no class to be added for this group
-      adjustedGroupCards.push(groupCards[group])
-      adjustedGroupCounts[groupCards[group].id] = Math.min(groupCounts[groupCards[group].id], groupCards[group].classes.length)
+    for (let group = 0; group < groupCards.length; group++) {
+      if (groupCards[group].classes.length === 0) continue; // no class in this group
+      if (groupCounts[groupCards[group].id] <= 0) continue; // no class to be added for this group
+      adjustedGroupCards.push(groupCards[group]);
+      adjustedGroupCounts[groupCards[group].id] = Math.min(
+        groupCounts[groupCards[group].id],
+        groupCards[group].classes.length
+      );
     }
-    setAllSchedules(schedule_generator(adjustedGroupCards, adjustedGroupCounts)); // Call the schedule_generator function
+    setAllSchedules(
+      schedule_generator(adjustedGroupCards, adjustedGroupCounts)
+    ); // Call the schedule_generator function
   };
 
   return (
     <div className={`class-group ${showHelpScreen ? "blur" : ""}`}>
       <div className="content-wrapper">
-        <div className="header rounded-top text-center bold">Class Groups</div>
+        <div className="component-title">Class Groups</div>
         <div className="main-content d-flex align-items-center">
           {groupCards.map((groupCard, id) => (
             <GroupCard
@@ -128,11 +133,7 @@ const ClassGroup = ({
             <AddCard />
           </div>
         </div>
-        <div className="footer d-flex justify-content-center align-items-center">
-          <Link to="/ut-course-schedule-visualizer/help">
-            {/* <button className="btn help-btn" onClick={toggleHelpScreen}> */}
-            <button className="btn help-btn">?</button>
-          </Link>
+        <div className="footer">
           <Link to="/ut-course-schedule-visualizer/schedules">
             <button className="btn generate-btn" onClick={handleGenSchedule}>
               Generate My Schedule

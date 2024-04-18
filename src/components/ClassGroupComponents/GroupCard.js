@@ -70,15 +70,7 @@ const GroupCard = ({
             className="group-name-input"
           />
         ) : (
-          <span
-          // className={
-          //   groupName === `Group ${groupNumber}`
-          //     ? "group-name italic"
-          //     : "group-name bold"
-          // }
-          >
-            {groupNames[groupNumber]}
-          </span>
+          <span>{groupNames[groupNumber]}</span>
         )}
       </div>
       <div>
