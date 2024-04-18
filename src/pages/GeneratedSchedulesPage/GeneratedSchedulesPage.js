@@ -169,7 +169,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
         {Object.keys(filtered_schedules).map((class_combo, index) => (
           <div>
             {/* <div className="schedule" key={index}> */}
-              <h3>{index + 1} {class_combo.replaceAll(',',', ')}</h3>
+              <h3>{index + 1}. {class_combo.replaceAll(',',', ')}</h3>
               {filtered_schedules[class_combo].map((schedule, classIndex) => (
                 <div className="schedule">
                   {schedule.map((classEntry, classIndex) => (
