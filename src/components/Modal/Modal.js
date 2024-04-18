@@ -76,7 +76,6 @@ const Modal = ({ allSchedules, index }) => {
 
     return (
       <div className="schedule_container">
-        <p>something should be here</p>
         <table className="schedule_table">
           <thead>
             <tr className="top-line">
