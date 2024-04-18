@@ -51,7 +51,7 @@ function App() {
 
     section_loop: while (true) {
       // console.log(input[index]);
-      while (!input[index] || isNaN(input[index])) {
+      while (input[index] === "" || isNaN(input[index])) {
         //get to the beginning of the next section
         if (index >= input.length) {
           break section_loop;
@@ -95,16 +95,18 @@ function App() {
           // start time
           var [hour, minute] = input[index].split(":");
           index += 1;
-          if (input[index] === "p.m.") {
-            hour = (parseInt(hour) % 12) + 12 + "";
+          console.log(index, input[index])
+          if (input[index] === "p.m") {
+            hour = ((parseInt(hour) % 12) + 12) + "";
           }
+          console.log(hour)
           section["time_and_locations"][t]["start_time"] = hour + ":" + minute;
           index += 1;
 
           // end time
           [hour, minute] = input[index].split(":");
           index += 1;
-          if (input[index] === "p.m.") {
+          if (input[index] === "p.m") {
             hour = (parseInt(hour) % 12) + 12 + "";
           }
           section["time_and_locations"][t]["end_time"] = hour + ":" + minute;
@@ -132,7 +134,7 @@ function App() {
       // get to professors
       section["professor"] = [];
 
-      while (input[index] !== input[index].toUpperCase()) {
+      while (input[index] !== input[index].toUpperCase() || input[index] === "") {
         index += 1;
         if (index >= input.length) {
           // last section and no professor
