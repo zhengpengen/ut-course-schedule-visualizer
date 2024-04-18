@@ -56,7 +56,7 @@
 }
 
 .schedule {
-  width: 100%; /* Set width to 100% to accommodate the entire table */
+  /* width: 100%; Set width to 100% to accommodate the entire table */
   margin-top: 20px;
   text-align: center;
 }

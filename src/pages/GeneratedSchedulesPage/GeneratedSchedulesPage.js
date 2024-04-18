@@ -142,22 +142,25 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
   // console.log("filtered_schedules keys are ", Object.keys(filtered_schedules));
   // console.log("filered_schedule[0] is ", filtered_schedules[0]);
 
-  {
-    Object.keys(filtered_schedules).map((class_combo, index) =>
-      console.log(
-        "class_combo is ",
-        class_combo,
-        "first array should be, ",
-        filtered_schedules[class_combo],
-        "schedule is ",
-        filtered_schedules[class_combo][0]
-      )
-    );
-  }
+  // {
+  //   Object.keys(filtered_schedules).map((class_combo, index) =>
+  //     console.log(
+  //       "class_combo is ",
+  //       class_combo,
+  //       "first array should be, ",
+  //       filtered_schedules[class_combo],
+  //       "schedule is ",
+  //       filtered_schedules[class_combo][0]
+  //     )
+  //   );
+  // }
   return (
     <div className="container">
       <div className="row">
-        <div className="col-6">
+        <div className="col-2 d mt-2">
+          <BackButton />
+        </div>
+        <div className="col-5 mt-1">
           <Select
             options={deepCopyCourseNames}
             value={selectedCourses1}
@@ -169,7 +172,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
             placeholder="Schedules must have all of..."
           />
         </div>
-        <div className="col-6">
+        <div className="col-5 mt-1">
           <Select
             options={deepCopyCourseNames}
             value={selectedCourses2}
@@ -183,63 +186,48 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
         </div>
       </div>
 
-      <div className="generated-schedules">
+      {/* <div className="generated-schedules">
         <BackButton />
         <h1>Generated Schedules</h1>
-        <Grid
-          container
-          // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          spacing={0}
-          direction="column"
-          // justifyContent="flex-start"
-          // alignItems="center"
-        >
+        <Grid container spacing={1}>
           {Object.keys(filtered_schedules).map((class_combo, index) => (
-            <Grid
-              container
-              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              spacing={0}
-              direction="row"
-              justifyContent="space-evenly"
-              alignItems="center"
-            >
+            <Grid item xs={12} sm={6} key={`schedule_${index}`}>
               <div>
-                {/* <div className="schedule" key={index}> */}
-                <h3>{/* {index + 1} {class_combo.replaceAll(",", ", ")} */}</h3>
-                {/* {filtered_schedules[class_combo].map((schedule, classIndex) => ( */}
+                <h3>
+                  {index + 1} {class_combo.replaceAll(",", ", ")}
+                </h3>
                 <div className="schedule">
                   {filtered_schedules[class_combo].map(
                     (classEntry, classIndex) => (
-                      <Grid item xs={6} key={`class_combo_${classIndex}`}>
-                        <div className="classEntry">
-                          <Modal schedule={classEntry} index={classIndex} />
-                        </div>
-                      </Grid>
+                      <Box key={`class_combo_${classIndex}`}>
+                        <Modal schedule={classEntry} index={classIndex} />
+                      </Box>
                     )
                   )}
                 </div>
-                {/* ))} */}
-                {/* </div> */}
               </div>
             </Grid>
           ))}
         </Grid>
+      </div> */}
+      <div className="generated-schedules">
+        <h1>Generated Schedules</h1>
+        {Object.keys(filtered_schedules).map((class_combo, index) => (
+          <div className="row">
+            <h3>
+              {index + 1} {class_combo.replaceAll(",", ", ")}
+            </h3>
+            {/* <div className="schedule"> */}
+            {filtered_schedules[class_combo].map((classEntry, classIndex) => (
+              <div className="col-6 mb-5">
+                <Modal schedule={classEntry} index={classIndex} />
+              </div>
+            ))}
+          </div>
+          // </div>
+        ))}
       </div>
     </div>
-
-    // <div className="generated-schedules">
-    //   <BackButton />
-    //   <h1>Generated Schedules</h1>
-    //   <Grid container spacing={2}>
-    //     {allSchedules.map((schedule, index) => (
-    //       <Grid item xs={6} key={`allSchedules_schedule_${index}`}>
-    //         <Box className="schedule">
-    //           <Modal allSchedules={allSchedules} index={index} />
-    //         </Box>
-    //       </Grid>
-    //     ))}
-    //   </Grid>
-    // </div>
   );
 };
 

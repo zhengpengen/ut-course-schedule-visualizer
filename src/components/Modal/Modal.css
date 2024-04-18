@@ -18,8 +18,8 @@
 }
 
 .schedule_container {
-  /* background-color: azure; */
-  background-color: black;
+  background-color: azure;
+  /* background-color: black; */
   /* display: flex; */
   /* top: 50%;
     left: 50%; */
@@ -35,7 +35,8 @@
   margin-right: 5%;
   height: 20%;
   border-collapse: collapse;
-  background-color: azure;
+  background-color: rgb(214, 121, 34);
+  /* background-color: azure; */
 }
 
 .schedule_table thead {
