@@ -154,8 +154,6 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
       )
     );
   }
-  console.log("filtered_schedules[0] is ", filtered_schedules["M 328K"]);
-
   return (
     <div className="container">
       <div className="row">
@@ -214,7 +212,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
                     (classEntry, classIndex) => (
                       <Grid item xs={6} key={`class_combo_${classIndex}`}>
                         <div className="classEntry">
-                          <Modal allSchedules={classEntry} index={classIndex} />
+                          <Modal schedule={classEntry} index={classIndex} />
                         </div>
                       </Grid>
                     )
