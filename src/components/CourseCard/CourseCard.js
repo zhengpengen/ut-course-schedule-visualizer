@@ -61,6 +61,23 @@ const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedCl
     }
   }
 
+  const handleDelete = (course, index) => {
+    console.log("course is: ", course);
+    console.log("index is: ", index);
+    console.log("unassigned classeS: ", unassignedClasses);
+
+    let new_array = null;
+    if((unassignedClasses.length > index) && (unassignedClasses[index].course_name === course.course_name)){
+      new_array = [...unassignedClasses];
+      new_array.splice(index, 1);
+      setUnassignedClass(new_array);
+      return;
+    }
+
+    
+    
+  }
+
   return (
     <div className="course-card">
       {courses.map((course, index) => (
@@ -70,6 +87,7 @@ const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedCl
           style={{ backgroundColor: courseColorMapping[course.course_name] }}
         >
           <div className="card-body">
+          <p className="delete-button" onClick={() => handleDelete(course, index)}>X</p>
             <div className="d-flex align-items-center">
               <button
                 className="btn btn-light dropdown-button"

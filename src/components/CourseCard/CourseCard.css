@@ -1,33 +1,42 @@
 .card {
-    /* width: 20%; Adjust the width of the card. This is commented out because parent component sets width anyways  */
-    height: 50%; /* Adjust the height of the card */
-    margin: 10px;
-  }
+  /* width: 20%; Adjust the width of the card. This is commented out because parent component sets width anyways  */
+  height: 50%; /* Adjust the height of the card */
+  margin: 10px;
+}
 
-  .course-card-header {
-    text-align: center;
-  }
-    
-  .section-info {
-    margin-right: 7px;
-  }
-
-  .dropdown-button {
-    font-size: 0.8rem;
-    cursor: pointer;
-    margin: 0;
-    padding: 5px; 
-  }
+.course-card-header {
+  text-align: center;
+}
   
-  .course-info {
-    flex-grow: 1;
-    text-align: center;
-  }
+.section-info {
+  margin-right: 7px;
+}
+
+.dropdown-button {
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin: 0;
+  padding: 5px; 
+}
+
+.course-info {
+  flex-grow: 1;
+  text-align: center;
+}
 
 
-  .list-group-item {
-    font-size: 0.65rem; /* Adjust this if dropdown text is too small */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.list-group-item {
+  font-size: 0.65rem; /* Adjust this if dropdown text is too small */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-button{
+  position:absolute;
+  top: 3px;
+  right: 7px;
+  font-weight: bolder;
+  color: black;
+  cursor: pointer;
+}
