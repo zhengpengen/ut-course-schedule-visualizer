@@ -1,8 +1,11 @@
 import React, { useMemo, useState, useEffect } from "react";
 import "./GeneratedSchedulesPage.css";
 import BackButton from "../../components/BackButton/BackButton";
-import Select from "react-select";
+import Modal from "../../components/Modal/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Select from "react-select";
+import MultiCarousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const GeneratedSchedulesPage = ({ allSchedules }) => {
   const [selectedCourses1, setSelectedCourses1] = useState([]);
@@ -17,16 +20,13 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
       for(const must_have of selectedCourses1){
         if(!key_array.includes(must_have.value)){
           legal = false;
-          // console.log(must_have)
-          // console.log(key_array)
           break;
         }
       }
-      if(legal){
-        let legal_2 = false
-        for(const at_least_one of selectedCourses2){
-          // console.log(at_least_one)
-          if(key_array.includes(at_least_one.value)){
+      if (legal) {
+        let legal_2 = false;
+        for (const at_least_one of selectedCourses2) {
+          if (key_array.includes(at_least_one.value)) {
             legal_2 = true;
             break;
           }
@@ -38,12 +38,9 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
     return filtered_schedules;
   }
 
-  const filtered_schedules = filteredSchedules(); 
-
-  // console.log(filtered_schedules)
+  const filtered_schedules = filteredSchedules();
 
   useEffect(() => {
-    // Extract all unique course names from allSchedules
     const generateColor = (str) => {
       const hash = (str) => {
         let hash = 0;
@@ -72,7 +69,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
     const courseNames = Array.from(uniqueNames).map((name) => ({
       value: name,
       label: name,
-      color: generateColor(name), // Assign color based on course name
+      color: generateColor(name),
     }));
 
     setDeepCopyCourseNames(
@@ -86,7 +83,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
   const colorStyles = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-      return { ...styles, color: "black" }; // Display plain black text
+      return { ...styles, color: "black" };
     },
     multiValue: (styles, { data }) => {
       return {
@@ -115,8 +112,6 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
 
   const handleChange1 = (selectedOption, actionMeta) => {
     setSelectedCourses1(selectedOption);
-    console.log(selectedOption)
-    // Update deepCopyCourseNames based on selected courses
     setDeepCopyCourseNames(
       deepCopyCourseNames.filter(
         (course) =>
@@ -133,10 +128,31 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
     console.log("handleInputChange", inputValue, actionMeta);
   };
 
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 2,
+      slidesToSlide: 2,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1,
+    },
+  };
+
   return (
     <div className="container">
       <div className="row">
-        <div className="col-6">
+        <div className="col-2 d mt-2">
+          <BackButton />
+        </div>
+        <div className="col-5 mt-1">
           <Select
             options={deepCopyCourseNames}
             value={selectedCourses1}
@@ -148,7 +164,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
             placeholder="Schedules must have all of..."
           />
         </div>
-        <div className="col-6">
+        <div className="col-5 mt-1">
           <Select
             options={deepCopyCourseNames}
             value={selectedCourses2}
@@ -161,39 +177,69 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
           />
         </div>
       </div>
-
       <div className="generated-schedules">
-        <BackButton />
         <h1>Generated Schedules</h1>
-
         {Object.keys(filtered_schedules).map((class_combo, index) => (
-          <div>
-            {/* <div className="schedule" key={index}> */}
-              <h3>{index + 1}. {class_combo.replaceAll(',',', ')}</h3>
-              {filtered_schedules[class_combo].map((schedule, classIndex) => (
-                <div className="schedule">
-                  {schedule.map((classEntry, classIndex) => (
-                    <div className="classEntry" key={classIndex}>
-                      <div className="class-name">{classEntry.className}</div>
-                      <div>
-                        {classEntry.id} {classEntry.professor}
-                      </div>
-                      {classEntry.time_and_locations.map((time_and_locations, timeIndex) => (
-                        <div key={timeIndex}>
-                          {time_and_locations.location} |{" "}
-                          {time_and_locations.weekday
-                            ?.toString()
-                            .replaceAll(",", " ")}{" "}
-                          | {time_and_locations.start_time}
-                          {time_and_locations.start_time === "" ? "" : "-"}
-                          {time_and_locations.end_time}
-                        </div>
-                      ))}
+          <div className="row" key={index}>
+            <h3 className="class-combo-title">
+              {class_combo.replaceAll(",", ", ")}
+            </h3>
+            <div className="col-12">
+              <MultiCarousel
+                responsive={responsive}
+                draggable={true}
+                infinite={false}
+                showDots={false}
+                arrows={true}
+                renderButtonGroupOutside={true}
+                renderArrowPrev={(onClickHandler, hasPrev, label) =>
+                  hasPrev && (
+                    <button
+                      type="button"
+                      className="carousel-arrow"
+                      onClick={onClickHandler}
+                      title={label}
+                      style={{
+                        position: "absolute",
+                        zIndex: 2,
+                        left: 0,
+                        top: "50%",
+                        // transform: "translateY(-50%)",
+                      }}
+                    >
+                      Previous
+                    </button>
+                  )
+                }
+                renderArrowNext={(onClickHandler, hasNext, label) =>
+                  hasNext && (
+                    <button
+                      type="button"
+                      className="carousel-arrow"
+                      onClick={onClickHandler}
+                      title={label}
+                      style={{
+                        position: "absolute",
+                        zIndex: 2,
+                        right: 0,
+                        top: "50%",
+                        // transform: "translateY(-50%)",
+                      }}
+                    >
+                      Next
+                    </button>
+                  )
+                }
+              >
+                {filtered_schedules[class_combo].map(
+                  (classEntry, classIndex) => (
+                    <div key={classIndex} className="mb-5">
+                      <Modal schedule={classEntry} color={classEntry.color} />
                     </div>
-                  ))}
-                </div>
-              ))}
-            {/* </div> */}
+                  )
+                )}
+              </MultiCarousel>
+            </div>
           </div>
         ))}
       </div>

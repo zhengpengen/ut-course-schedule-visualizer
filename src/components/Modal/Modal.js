@@ -67,7 +67,7 @@ function create_schedule(schedule) {
   return new_schedule;
 }
 
-const Modal = ({ schedule, index }) => {
+const Modal = ({ schedule, color }) => {
   if (schedule.length === 0) {
     return null;
   } else {
