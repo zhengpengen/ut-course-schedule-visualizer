@@ -61,39 +61,47 @@ const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedCl
     }
   }
 
-  const handleDelete = (course, index) => {
-    console.log("course is: ", course);
-    console.log("index is: ", index);
-    console.log("groupCards: ", groupCards);
-
+  const handleDelete = (course) => {
+    // console.log("course is: ", course);
+    
     let new_array = null;
-    if((unassignedClasses.length > index) && (unassignedClasses[index].course_name === course.course_name)){
-      // console.log("entered handle delete card for unassigned classes!");
-      new_array = [...unassignedClasses];
-      new_array.splice(index, 1);
-      setUnassignedClass(new_array);
-      return;
+    for(let i = 0; i < unassignedClasses.length; i++){
+      if(unassignedClasses[i].course_name === course.course_name){
+        // console.log("entered handle delete card for unassigned classes!");
+        new_array = [...unassignedClasses];
+        new_array.splice(i, 1);
+        setUnassignedClass(new_array);
+        return;
+      }
     }
+    
     
     let group = null;
     let group_classes = null;
+
     for(let i = 0; i < groupCards.length; i++){
       group = groupCards[i];
+      // console.log("group is: ", group);
       group_classes = group.classes;
+      // console.log("group_classes: ", group_classes);
 
-      if((group_classes.length > index) && (group_classes[index].course_name === course.course_name)){
-        // console.log("entered handle delete card for group ", i);
-        new_array = [...group_classes];
-        new_array.splice(index, 1);
+      for(let j = 0; j < group_classes.length; j++){
 
-        let new_group = {...group};
-        new_group.classes = new_array;
+        if(group_classes[j].course_name === course.course_name){
 
-        let new_groupCards = [...groupCards];
-        new_groupCards[i] = new_group;
-        setGroupCards(new_groupCards);
+          // console.log("entered handle delete card for group ", i);
+          new_array = [...group_classes];
+          new_array.splice(j, 1);
+
+          let new_group = {...group};
+          new_group.classes = new_array;
+
+          let new_groupCards = [...groupCards];
+          new_groupCards[i] = new_group;
+          setGroupCards(new_groupCards);
+          return;
+        }
       }
-
     }
 
 
