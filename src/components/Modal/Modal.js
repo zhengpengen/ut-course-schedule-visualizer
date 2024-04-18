@@ -67,7 +67,7 @@ function create_schedule(schedule) {
   return new_schedule;
 }
 
-const Modal = ({ schedule, index }) => {
+const Modal = ({ schedule, color }) => {
   if (schedule.length === 0) {
     return null;
   } else {
@@ -90,61 +90,19 @@ const Modal = ({ schedule, index }) => {
             {times.map((time, timeIndex) => (
               <tr key={timeIndex}>
                 <td className="time">{time}</td>
-                <td className="day">
-                  <div className="name">
-                    {new_schedule[time]["M"].className || ""}
-                  </div>
-                  <div className="prof">
-                    {new_schedule[time]["M"].professor || ""}
-                  </div>
-                  <div className="loc">
-                    {new_schedule[time]["M"].location || ""}
-                  </div>
-                </td>
-                <td className="day">
-                  <div className="name">
-                    {new_schedule[time]["T"].className || ""}
-                  </div>
-                  <div className="prof">
-                    {new_schedule[time]["T"].professor || ""}
-                  </div>
-                  <div className="loc">
-                    {new_schedule[time]["T"].location || ""}
-                  </div>
-                </td>
-                <td className="day">
-                  <div className="name">
-                    {new_schedule[time]["W"].className || ""}
-                  </div>
-                  <div className="prof">
-                    {new_schedule[time]["W"].professor || ""}
-                  </div>
-                  <div className="loc">
-                    {new_schedule[time]["W"].location || ""}
-                  </div>
-                </td>
-                <td className="day">
-                  <div className="name">
-                    {new_schedule[time]["Th"].className || ""}
-                  </div>
-                  <div className="prof">
-                    {new_schedule[time]["Th"].professor || ""}
-                  </div>
-                  <div className="loc">
-                    {new_schedule[time]["Th"].location || ""}
-                  </div>
-                </td>
-                <td className="day">
-                  <div className="name">
-                    {new_schedule[time]["F"].className || ""}
-                  </div>
-                  <div className="prof">
-                    {new_schedule[time]["F"].professor || ""}
-                  </div>
-                  <div className="loc">
-                    {new_schedule[time]["F"].location || ""}
-                  </div>
-                </td>
+                {["M", "T", "W", "Th", "F"].map((day) => (
+                  <td key={day} className="day">
+                    <div className="name">
+                      {new_schedule[time][day].className || ""}
+                    </div>
+                    <div className="prof">
+                      {new_schedule[time][day].professor || ""}
+                    </div>
+                    <div className="loc">
+                      {new_schedule[time][day].location || ""}
+                    </div>
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>

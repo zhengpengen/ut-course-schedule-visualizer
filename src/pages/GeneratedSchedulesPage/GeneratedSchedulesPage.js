@@ -3,9 +3,6 @@ import "./GeneratedSchedulesPage.css";
 import BackButton from "../../components/BackButton/BackButton";
 import Modal from "../../components/Modal/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import { Grid, Box } from "@mui/material";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Select from "react-select";
 
 const GeneratedSchedulesPage = ({ allSchedules }) => {
@@ -44,8 +41,6 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
   }
 
   const filtered_schedules = filteredSchedules();
-
-  // console.log(filtered_schedules)
 
   useEffect(() => {
     // Extract all unique course names from allSchedules
@@ -91,7 +86,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
   const colorStyles = {
     control: (styles) => ({ ...styles, backgroundColor: "white" }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-      return { ...styles, color: "black" }; // Display plain black text
+      return { ...styles, color: "black" };
     },
     multiValue: (styles, { data }) => {
       return {
@@ -138,22 +133,6 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
     console.log("handleInputChange", inputValue, actionMeta);
   };
 
-  // console.log("filtered_schedules is ", filtered_schedules);
-  // console.log("filtered_schedules keys are ", Object.keys(filtered_schedules));
-  // console.log("filered_schedule[0] is ", filtered_schedules[0]);
-
-  // {
-  //   Object.keys(filtered_schedules).map((class_combo, index) =>
-  //     console.log(
-  //       "class_combo is ",
-  //       class_combo,
-  //       "first array should be, ",
-  //       filtered_schedules[class_combo],
-  //       "schedule is ",
-  //       filtered_schedules[class_combo][0]
-  //     )
-  //   );
-  // }
   return (
     <div className="container">
       <div className="row">
@@ -186,30 +165,6 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
         </div>
       </div>
 
-      {/* <div className="generated-schedules">
-        <BackButton />
-        <h1>Generated Schedules</h1>
-        <Grid container spacing={1}>
-          {Object.keys(filtered_schedules).map((class_combo, index) => (
-            <Grid item xs={12} sm={6} key={`schedule_${index}`}>
-              <div>
-                <h3>
-                  {index + 1} {class_combo.replaceAll(",", ", ")}
-                </h3>
-                <div className="schedule">
-                  {filtered_schedules[class_combo].map(
-                    (classEntry, classIndex) => (
-                      <Box key={`class_combo_${classIndex}`}>
-                        <Modal schedule={classEntry} index={classIndex} />
-                      </Box>
-                    )
-                  )}
-                </div>
-              </div>
-            </Grid>
-          ))}
-        </Grid>
-      </div> */}
       <div className="generated-schedules">
         <h1>Generated Schedules</h1>
         {Object.keys(filtered_schedules).map((class_combo, index) => (
@@ -217,10 +172,10 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
             <h3>
               {index + 1} {class_combo.replaceAll(",", ", ")}
             </h3>
-            {/* <div className="schedule"> */}
             {filtered_schedules[class_combo].map((classEntry, classIndex) => (
-              <div className="col-6 mb-5">
-                <Modal schedule={classEntry} index={classIndex} />
+              <div className="col-4 mb-5">
+                {/* Pass in just one schedule at a time */}
+                <Modal schedule={classEntry} color={classEntry.color} />
               </div>
             ))}
           </div>
