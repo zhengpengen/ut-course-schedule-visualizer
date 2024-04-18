@@ -1,3 +1,7 @@
+.main-page {
+  overflow-x: hidden;
+}
+
 .add-text {
   font-weight: bold;
   background-color: white; /* Header background */

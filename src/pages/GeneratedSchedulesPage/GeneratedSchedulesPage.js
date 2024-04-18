@@ -138,6 +138,24 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
     console.log("handleInputChange", inputValue, actionMeta);
   };
 
+  // console.log("filtered_schedules is ", filtered_schedules);
+  // console.log("filtered_schedules keys are ", Object.keys(filtered_schedules));
+  // console.log("filered_schedule[0] is ", filtered_schedules[0]);
+
+  {
+    Object.keys(filtered_schedules).map((class_combo, index) =>
+      console.log(
+        "class_combo is ",
+        class_combo,
+        "first array should be, ",
+        filtered_schedules[class_combo],
+        "schedule is ",
+        filtered_schedules[class_combo][0]
+      )
+    );
+  }
+  console.log("filtered_schedules[0] is ", filtered_schedules["M 328K"]);
+
   return (
     <div className="container">
       <div className="row">
@@ -170,41 +188,44 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
       <div className="generated-schedules">
         <BackButton />
         <h1>Generated Schedules</h1>
-
-        {Object.keys(filtered_schedules).map((class_combo, index) => (
-          <div>
-            {/* <div className="schedule" key={index}> */}
-            <h3>
-              {index + 1} {class_combo.replaceAll(",", ", ")}
-            </h3>
-            {filtered_schedules[class_combo].map((schedule, classIndex) => (
-              <div className="schedule">
-                {schedule.map((classEntry, classIndex) => (
-                  <div className="classEntry" key={classIndex}>
-                    <div className="class-name">{classEntry.className}</div>
-                    <div>
-                      {classEntry.id} {classEntry.professor}
-                    </div>
-                    {classEntry.time_and_locations.map(
-                      (time_and_locations, timeIndex) => (
-                        <div key={timeIndex}>
-                          {time_and_locations.location} |{" "}
-                          {time_and_locations.weekday
-                            ?.toString()
-                            .replaceAll(",", " ")}{" "}
-                          | {time_and_locations.start_time}
-                          {time_and_locations.start_time === "" ? "" : "-"}
-                          {time_and_locations.end_time}
+        <Grid
+          container
+          // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          spacing={0}
+          direction="column"
+          // justifyContent="flex-start"
+          // alignItems="center"
+        >
+          {Object.keys(filtered_schedules).map((class_combo, index) => (
+            <Grid
+              container
+              // columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              spacing={0}
+              direction="row"
+              justifyContent="space-evenly"
+              alignItems="center"
+            >
+              <div>
+                {/* <div className="schedule" key={index}> */}
+                <h3>{/* {index + 1} {class_combo.replaceAll(",", ", ")} */}</h3>
+                {/* {filtered_schedules[class_combo].map((schedule, classIndex) => ( */}
+                <div className="schedule">
+                  {filtered_schedules[class_combo].map(
+                    (classEntry, classIndex) => (
+                      <Grid item xs={6} key={`class_combo_${classIndex}`}>
+                        <div className="classEntry">
+                          <Modal allSchedules={classEntry} index={classIndex} />
                         </div>
-                      )
-                    )}
-                  </div>
-                ))}
+                      </Grid>
+                    )
+                  )}
+                </div>
+                {/* ))} */}
+                {/* </div> */}
               </div>
-            ))}
-            {/* </div> */}
-          </div>
-        ))}
+            </Grid>
+          ))}
+        </Grid>
       </div>
     </div>
 

@@ -50,7 +50,7 @@ function App() {
     // iterate through each section
 
     section_loop: while (true) {
-      console.log(input[index]);
+      // console.log(input[index]);
       while (!input[index] || isNaN(input[index])) {
         //get to the beginning of the next section
         if (index >= input.length) {
@@ -69,7 +69,7 @@ function App() {
       let date_count = 0; // number of diff tiem_and_location instances
 
       // reads all dates
-      console.log(index, input[index]);
+      // console.log(index, input[index]);
       while (
         input[index] === input[index].toUpperCase() &&
         !input[index].includes(":")
@@ -85,7 +85,7 @@ function App() {
         });
         date_count += 1;
         index += 1;
-        console.log(index, input[index]);
+        // console.log(index, input[index]);
       }
 
       // get all start and end time
@@ -180,7 +180,7 @@ function App() {
       <Switch>
         {/* the main page */}
         <Route exact path="/ut-course-schedule-visualizer">
-          <div style={{ backgroundColor: "white" }}>
+          <div className="main-page" style={{ backgroundColor: "white" }}>
             <GroupingPage
               groupCards={groupCards}
               setGroupCards={setGroupCards}
