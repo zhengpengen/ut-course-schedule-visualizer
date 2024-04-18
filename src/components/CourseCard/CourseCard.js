@@ -64,17 +64,41 @@ const CourseCard = ({ courses, group_id, groupCards, setGroupCards, unassignedCl
   const handleDelete = (course, index) => {
     console.log("course is: ", course);
     console.log("index is: ", index);
-    console.log("unassigned classeS: ", unassignedClasses);
+    console.log("groupCards: ", groupCards);
 
     let new_array = null;
     if((unassignedClasses.length > index) && (unassignedClasses[index].course_name === course.course_name)){
+      // console.log("entered handle delete card for unassigned classes!");
       new_array = [...unassignedClasses];
       new_array.splice(index, 1);
       setUnassignedClass(new_array);
       return;
     }
-
     
+    let group = null;
+    let group_classes = null;
+    for(let i = 0; i < groupCards.length; i++){
+      group = groupCards[i];
+      group_classes = group.classes;
+
+      if((group_classes.length > index) && (group_classes[index].course_name === course.course_name)){
+        // console.log("entered handle delete card for group ", i);
+        new_array = [...group_classes];
+        new_array.splice(index, 1);
+
+        let new_group = {...group};
+        new_group.classes = new_array;
+
+        let new_groupCards = [...groupCards];
+        new_groupCards[i] = new_group;
+        setGroupCards(new_groupCards);
+      }
+
+    }
+
+
+
+
     
   }
 
