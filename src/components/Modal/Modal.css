@@ -1,9 +1,11 @@
 .schedule_container {
+  display: flex;
   background-color: azure;
   width: 100%;
   overflow-x: auto; /* Add horizontal scroll if content overflows */
   overflow-y: hidden; /* Hide vertical scroll */
   white-space: nowrap; /* Prevent line breaks */
+  justify-content: center;
 }
 
 .schedule_table {
@@ -25,6 +27,7 @@
 .schedule_table th,
 .schedule_table td {
   padding: 5px; /* Add padding */
+  justify-content: center;
 }
 
 .schedule_table th {
@@ -37,6 +40,7 @@
 .header {
   width: auto; /* Set width to auto */
   font-size: 12px; /* Adjust font size */
+  text-align: center;
 }
 
 .time {
@@ -67,4 +71,8 @@
   font-size: small;
   font-weight: 700;
   background-color: cadetblue;
+}
+
+.section {
+  font-size: x-small;
 }

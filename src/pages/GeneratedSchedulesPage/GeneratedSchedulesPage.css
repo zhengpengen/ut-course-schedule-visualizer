@@ -1,37 +1,53 @@
-/* Add these styles to lock the scroll on the x-axis of the webpage */
-body {
-  overflow-x: hidden;
-}
-
-/* Add these styles to make the carousel scrollable left and right */
 .generated-schedules {
+  background-color: azure;
+  width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  white-space: nowrap; /* Prevent line breaks */
-  justify-content: space-evenly;
+  white-space: nowrap;
 }
 
-/* Add these styles to adjust the appearance of the carousel arrows */
-.generated-schedules button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+.class-combo-title {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-size: large;
+  margin-left: 10px !important;
   padding: 10px;
-  font-size: 16px;
-  color: black;
-  transition: color 0.3s;
 }
 
-.generated-schedules button:hover {
-  color: gray;
+.generated-schedules th,
+.generated-schedules td {
+  padding: 5px;
+  justify-content: center;
 }
 
-.carousel-arrow {
-  color: gray !important; /* Set the color to gray */
-  background-color: black !important; /* Make the background transparent */
-  border: none; /* Remove the border */
-  font-size: 16px; /* Adjust font size if needed */
-  cursor: pointer; /* Set cursor to pointer */
-  padding: 0; /* Remove padding */
-  z-index: 999;
+.generated-schedules th {
+  background-color: rgb(214, 121, 34);
+  font-family: "Lucida Grande";
+  font-size: 10px;
+}
+
+.header,
+.time {
+  width: auto;
+  font-size: 12px;
+  text-align: center;
+}
+
+.day {
+  font-family: "Lucida Grande";
+  text-align: center;
+  border: 1px dotted grey;
+  white-space: normal;
+}
+
+.name,
+.prof {
+  font-size: medium;
+  background-color: cadetblue;
+}
+
+.loc {
+  font-size: small;
+  font-weight: 700;
+  background-color: cadetblue;
 }

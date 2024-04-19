@@ -56,14 +56,18 @@ function create_schedule(schedule) {
         weekday.forEach((day) => {
           console.log("day is: ", day);
           console.log("formatted time is: ", new_schedule[formatted_time]);
-          console.log("what about specific day's professor: ", new_schedule[formatted_time][day].professor);
-          if(new_schedule[formatted_time][day] === null){
+          console.log(
+            "what about specific day's professor: ",
+            new_schedule[formatted_time][day].professor
+          );
+          if (new_schedule[formatted_time][day] === null) {
             console.log("crying");
           }
           new_schedule[formatted_time][day] = {
             className: section.className,
             professor: section.professor[0].split(",")[0],
             location: meeting.location,
+            section: section.id,
           };
         });
       }
@@ -106,6 +110,9 @@ const Modal = ({ schedule, color }) => {
                   <div className="loc">
                     {new_schedule[time]["M"].location || ""}
                   </div>
+                  <div className="section">
+                    {new_schedule[time]["M"].section || ""}
+                  </div>
                 </td>
                 <td className="day">
                   <div className="name">
@@ -116,6 +123,9 @@ const Modal = ({ schedule, color }) => {
                   </div>
                   <div className="loc">
                     {new_schedule[time]["T"].location || ""}
+                  </div>
+                  <div className="section">
+                    {new_schedule[time]["T"].section || ""}
                   </div>
                 </td>
                 <td className="day">
@@ -128,6 +138,9 @@ const Modal = ({ schedule, color }) => {
                   <div className="loc">
                     {new_schedule[time]["W"].location || ""}
                   </div>
+                  <div className="section">
+                    {new_schedule[time]["W"].section || ""}
+                  </div>
                 </td>
                 <td className="day">
                   <div className="name">
@@ -139,6 +152,9 @@ const Modal = ({ schedule, color }) => {
                   <div className="loc">
                     {new_schedule[time]["Th"].location || ""}
                   </div>
+                  <div className="section">
+                    {new_schedule[time]["Th"].section || ""}
+                  </div>
                 </td>
                 <td className="day">
                   <div className="name">
@@ -149,6 +165,9 @@ const Modal = ({ schedule, color }) => {
                   </div>
                   <div className="loc">
                     {new_schedule[time]["F"].location || ""}
+                  </div>
+                  <div className="section">
+                    {new_schedule[time]["F"].section || ""}
                   </div>
                 </td>
               </tr>

@@ -14,11 +14,11 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
 
   function filteredSchedules() {
     let filtered_schedules = {};
-    for(const key of Object.keys(allSchedules)){
-      let key_array = key.split(',');
+    for (const key of Object.keys(allSchedules)) {
+      let key_array = key.split(",");
       let legal = true;
-      for(const must_have of selectedCourses1){
-        if(!key_array.includes(must_have.value)){
+      for (const must_have of selectedCourses1) {
+        if (!key_array.includes(must_have.value)) {
           legal = false;
           break;
         }
@@ -31,7 +31,8 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
             break;
           }
         }
-        if(legal_2 || selectedCourses2.length === 0) filtered_schedules[key] = [...allSchedules[key]];
+        if (legal_2 || selectedCourses2.length === 0)
+          filtered_schedules[key] = [...allSchedules[key]];
       }
     }
 
@@ -223,7 +224,7 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
                         zIndex: 2,
                         right: 0,
                         top: "50%",
-                        // transform: "translateY(-50%)",
+                        transform: "translateY(-50%)",
                       }}
                     >
                       Next
