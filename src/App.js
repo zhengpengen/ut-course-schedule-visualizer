@@ -144,26 +144,25 @@ function App() {
         }
       }
 
-      if (!input[index].includes(",")) {
+      if (!input[index].includes(",") && !input[index+1].includes(",")) {
         // no professor, go to next section
         new_course["sections"].push(section);
         continue section_loop;
       }
 
-      let professor_name = input[index] + " ";
-      index += 1;
+      let professor_name = "";
       while (input[index] === input[index].toUpperCase()) {
         if (input[index].includes(",")) {
-          // one professor ended, next professor start
+          // found a professor
+          professor_name += input[index] + " " + input[index+1];
           section["professor"].push(professor_name.trim());
-          professor_name = input[index] + " ";
-          index += 1;
+          professor_name = "";
+          index += 2;
         } else {
-          professor_name += input[index] + " ";
           index += 1;
         }
       }
-      section["professor"].push(professor_name.trim());
+      // section["professor"].push(professor_name.trim());
 
       // push sections to general course
       new_course["sections"].push(section);
