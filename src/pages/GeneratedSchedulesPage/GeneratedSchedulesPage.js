@@ -12,6 +12,8 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
   const [selectedCourses2, setSelectedCourses2] = useState([]);
   const [deepCopyCourseNames, setDeepCopyCourseNames] = useState([]);
 
+  // console.log(allSchedules)
+
   function filteredSchedules() {
     let filtered_schedules = {};
     for (const key of Object.keys(allSchedules)) {

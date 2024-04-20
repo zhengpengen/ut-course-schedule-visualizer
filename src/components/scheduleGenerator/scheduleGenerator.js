@@ -96,10 +96,10 @@ function addClassesFromGroups(
   selectedClasses = [],
   groupIndex = 0
 ) {
+
   if (groupIndex >= GroupCards.length) {
     // If we've reached the end of GroupCards, add the current selectedClasses to the result
     overallResults.push([...selectedClasses]); // Make a copy of selectedClasses to avoid reference issues
-    // console.log([...selectedClasses])
     return;
   }
 
@@ -114,21 +114,22 @@ function addClassesFromGroups(
     // Recursively explore each section in the current class
     for (let sectionIndex = 0; sectionIndex < sectionCount; sectionIndex++) {
       const section = classObj.sections[sectionIndex];
-      if (!section.checked) {
-        // ignore this section
-        continue;
-      }
-      section.className = classObj.course_major + " " + classObj.course_number;
-      // +
-      // " " +
-      // classObj.course_name; // CONCATENATE CLASS PROPERTIES TO FORM CLASS NAME
       let overlap = false;
-
-      // Check if the section overlaps with any previously selected section
-      for (const selectedSection of selectedClasses) {
-        if (checkOverlap(section, selectedSection)) {
+      check:{
+        if (!section.checked) {
+          // ignore this section
           overlap = true;
-          break;
+          break check;
+        }
+        section.className = classObj.course_major + " " + classObj.course_number;
+        
+
+        // Check if the section overlaps with any previously selected section
+        for (const selectedSection of selectedClasses) {
+          if (checkOverlap(section, selectedSection)) {
+            overlap = true;
+            break;
+          } 
         }
       }
 
@@ -137,16 +138,29 @@ function addClassesFromGroups(
         selectedClasses.push(section);
         GroupCounts[groupCard.id] -= 1;
 
-        const subResult = addClassesFromGroups(
+        addClassesFromGroups(
           overallResults,
           GroupCards,
           GroupCounts,
           selectedClasses,
           groupIndex + (GroupCounts[groupCard.id] === 0 ? 1 : 0)
         );
-        // overallResults.push(subResult); // Merge sub-results into the result
         GroupCounts[groupCard.id] += 1; // Backtrack
         selectedClasses.pop(); // Backtrack: remove the last section added
+      }
+      else if (overlap && (sectionIndex===(sectionCount-1)) && (classIndex===(classCount-1))){ //reached the end of all classes, still haven't fulfilled quota
+        // console.log('i arrived');
+        const classesIgnored = GroupCounts[groupCard.id];
+        GroupCounts[groupCard.id] -= classesIgnored;
+
+        addClassesFromGroups(
+          overallResults,
+          GroupCards,
+          GroupCounts,
+          selectedClasses,
+          groupIndex + 1
+        );
+        GroupCounts[groupCard.id] += classesIgnored; // Backtrack
       }
     }
   }
@@ -208,11 +222,6 @@ function checkOverlap(section1, section2) {
           }`
         );
         if (!(end1 <= start2 || end2 <= start1)) {
-          // console.log('overlap')
-          // console.log(section1, section2)
-          // console.log(timeLoc1, timeLoc2)
-          // console.log(end1, start2)
-          // console.log(end2, start1)
           return true; // There's overlap
         }
       }

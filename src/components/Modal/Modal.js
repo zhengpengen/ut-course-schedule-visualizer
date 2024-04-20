@@ -54,18 +54,19 @@ function create_schedule(schedule) {
         });
 
         weekday.forEach((day) => {
-          console.log("day is: ", day);
-          console.log("formatted time is: ", new_schedule[formatted_time]);
-          console.log(
-            "what about specific day's professor: ",
-            new_schedule[formatted_time][day].professor
-          );
+          // console.log("day is: ", day);
+          // console.log("formatted time is: ", new_schedule[formatted_time]);
+          // console.log(
+          //   "what about specific day's professor: ",
+          //   new_schedule[formatted_time][day].professor
+          // );
           if (new_schedule[formatted_time][day] === null) {
-            console.log("crying");
+            // console.log("crying");
           }
+          // console.log(section)
           new_schedule[formatted_time][day] = {
             className: section.className,
-            professor: section.professor[0].split(",")[0],
+            professor: (section.professor.length===0) ? "" : section.professor[0].split(",")[0],
             location: meeting.location,
             section: section.id,
           };
