@@ -134,8 +134,8 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 2,
-      slidesToSlide: 2,
+      items: 4,
+      slidesToSlide: 4,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -234,19 +234,78 @@ const GeneratedSchedulesPage = ({ allSchedules }) => {
                   )
                 }
               >
-                {filtered_schedules[class_combo].map(
+                {/* {filtered_schedules[class_combo].map(
                   (classEntry, classIndex) => (
                     <div key={classIndex} className="mb-5">
                       <Modal schedule={classEntry} color={classEntry.color} />
                     </div>
                   )
-                )}
+                )} */}
+                {filtered_schedules[class_combo].map((schedule, classIndex) => (
+                <div className="schedule">
+                  {schedule.map((classEntry, classIndex) => (
+                    <div className="classEntry" key={classIndex}>
+                      <div className="class-name" style={{fontWeight: 'bold'}}>{classEntry.className}</div>
+                      <div style={{textDecoration: 'underline'}}>
+                        {classEntry.id} {classEntry.professor}
+                      </div>
+                      {classEntry.time_and_locations.map((time_and_locations, timeIndex) => (
+                        <div key={timeIndex}>
+                          {time_and_locations.location} |{" "}
+                          {time_and_locations.weekday
+                            ?.toString()
+                            .replaceAll(",", " ")}{" "}
+                          | {time_and_locations.start_time}
+                          {time_and_locations.start_time === "" ? "" : "-"}
+                          {time_and_locations.end_time}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              ))}
               </MultiCarousel>
             </div>
           </div>
         ))}
       </div>
+      {/* <div className="generated-schedules">
+        <BackButton />
+        <h1>Generated Schedules</h1>
+
+        {Object.keys(filtered_schedules).map((class_combo, index) => (
+          <div>
+            <div className="schedule" key={index}>
+              <h3>{index + 1} {class_combo.replaceAll(',',', ')}</h3>
+              {filtered_schedules[class_combo].map((schedule, classIndex) => (
+                <div className="schedule">
+                  {schedule.map((classEntry, classIndex) => (
+                    <div className="classEntry" key={classIndex}>
+                      <div className="class-name">{classEntry.className}</div>
+                      <div>
+                        {classEntry.id} {classEntry.professor}
+                      </div>
+                      {classEntry.time_and_locations.map((time_and_locations, timeIndex) => (
+                        <div key={timeIndex}>
+                          {time_and_locations.location} |{" "}
+                          {time_and_locations.weekday
+                            ?.toString()
+                            .replaceAll(",", " ")}{" "}
+                          | {time_and_locations.start_time}
+                          {time_and_locations.start_time === "" ? "" : "-"}
+                          {time_and_locations.end_time}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div> */}
     </div>
+      
   );
 };
 
