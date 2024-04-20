@@ -94,12 +94,14 @@ function addClassesFromGroups(
   GroupCards,
   GroupCounts,
   selectedClasses = [],
+  startingClassIndex = 0,
   groupIndex = 0
 ) {
 
   if (groupIndex >= GroupCards.length) {
     // If we've reached the end of GroupCards, add the current selectedClasses to the result
     overallResults.push([...selectedClasses]); // Make a copy of selectedClasses to avoid reference issues
+    // console.log([...selectedClasses])
     return;
   }
 
@@ -107,7 +109,7 @@ function addClassesFromGroups(
   const classCount = groupCard.classes.length;
 
   // Recursively explore each class in the current group
-  for (let classIndex = 0; classIndex < classCount; classIndex++) {
+  for (let classIndex = startingClassIndex; classIndex < classCount; classIndex++) {
     const classObj = groupCard.classes[classIndex];
     const sectionCount = classObj.sections.length;
 
@@ -115,53 +117,76 @@ function addClassesFromGroups(
     for (let sectionIndex = 0; sectionIndex < sectionCount; sectionIndex++) {
       const section = classObj.sections[sectionIndex];
       let overlap = false;
-      check:{
-        if (!section.checked) {
-          // ignore this section
-          overlap = true;
-          break check;
-        }
-        section.className = classObj.course_major + " " + classObj.course_number;
-        
-
-        // Check if the section overlaps with any previously selected section
-        for (const selectedSection of selectedClasses) {
-          if (checkOverlap(section, selectedSection)) {
-            overlap = true;
-            break;
-          } 
-        }
+      // check:{
+      if (!section.checked) {
+        // ignore this section
+        overlap = true;
+        // break check;
+        continue;
       }
+      section.className = classObj.course_major + " " + classObj.course_number;
+      
+      // Check if the section overlaps with any previously selected section
+      for (const selectedSection of selectedClasses) {
+        if (checkOverlap(section, selectedSection)) {
+          overlap = true;
+          break;
+        } 
+      }
+      // }
 
       // If no overlap, add the section to selectedClasses and continue exploring recursively
       if (!overlap && section.checked === true) {
         selectedClasses.push(section);
         GroupCounts[groupCard.id] -= 1;
 
-        addClassesFromGroups(
-          overallResults,
-          GroupCards,
-          GroupCounts,
-          selectedClasses,
-          groupIndex + (GroupCounts[groupCard.id] === 0 ? 1 : 0)
-        );
+        if(GroupCounts[groupCard.id] === 0){ //all classes for this group added, moving on to next group
+          // console.log('reached the end of group', groupIndex, section)
+          addClassesFromGroups(
+            overallResults,
+            GroupCards,
+            GroupCounts,
+            selectedClasses,
+            0,
+            groupIndex + 1
+          );
+        }
+        else { // more classes to be added in the current group
+          // console.log('still on group', groupIndex, GroupCounts[groupCard.id], 'classes left to go', section)
+          addClassesFromGroups(
+            overallResults,
+            GroupCards,
+            GroupCounts,
+            selectedClasses,
+            classIndex+1,
+            groupIndex
+          );
+        }
+
+        // addClassesFromGroups(
+        //   overallResults,
+        //   GroupCards,
+        //   GroupCounts,
+        //   selectedClasses,
+        //   groupIndex + (GroupCounts[groupCard.id] === 0 ? 1 : 0)
+        // );
         GroupCounts[groupCard.id] += 1; // Backtrack
         selectedClasses.pop(); // Backtrack: remove the last section added
       }
-      else if (overlap && (sectionIndex===(sectionCount-1)) && (classIndex===(classCount-1))){ //reached the end of all classes, still haven't fulfilled quota
-        // console.log('i arrived');
-        const classesIgnored = GroupCounts[groupCard.id];
-        GroupCounts[groupCard.id] -= classesIgnored;
+      // else if (overlap && (sectionIndex===(sectionCount-1)) && (classIndex===(classCount-1))){ //reached the end of all classes, still haven't fulfilled quota
+      //   // console.log('i arrived');
+      //   const classesIgnored = GroupCounts[groupCard.id];
+      //   GroupCounts[groupCard.id] -= classesIgnored;
 
-        addClassesFromGroups(
-          overallResults,
-          GroupCards,
-          GroupCounts,
-          selectedClasses,
-          groupIndex + 1
-        );
-        GroupCounts[groupCard.id] += classesIgnored; // Backtrack
-      }
+      //   addClassesFromGroups(
+      //     overallResults,
+      //     GroupCards,
+      //     GroupCounts,
+      //     selectedClasses,
+      //     groupIndex + 1
+      //   );
+      //   GroupCounts[groupCard.id] += classesIgnored; // Backtrack
+      // }
     }
   }
 
