@@ -39,7 +39,7 @@ function App() {
     index += 1;
 
     let title = "";
-    while (isNaN(input[index])) {
+    while (isNaN(input[index]) || input[index].length < 5) {
       title += input[index] + " ";
       index += 1;
     }
@@ -50,7 +50,7 @@ function App() {
     // iterate through each section
 
     section_loop: while (true) {
-      // console.log(input[index]);
+      console.log(input[index]);
       while (input[index] === "" || isNaN(input[index])) {
         //get to the beginning of the next section
         if (index >= input.length) {
