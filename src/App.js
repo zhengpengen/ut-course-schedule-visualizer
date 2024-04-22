@@ -39,7 +39,7 @@ function App() {
     index += 1;
 
     let title = "";
-    while (isNaN(input[index]) || input[index].length < 5) {
+    while (isNaN(parseInt(input[index])) || input[index].length < 5) {
       title += input[index] + " ";
       index += 1;
     }
@@ -51,7 +51,7 @@ function App() {
 
     section_loop: while (true) {
       console.log(input[index]);
-      while (input[index] === "" || isNaN(input[index])) {
+      while (isNaN(parseInt(input[index]))) {
         //get to the beginning of the next section
         if (index >= input.length) {
           break section_loop;
@@ -132,10 +132,17 @@ function App() {
       // get to professors
       section["professor"] = [];
 
+      // console.log(index, input[index])
+
       while (
-        input[index] !== input[index].toUpperCase() ||
+        !input[index].includes(",") ||
         input[index] === ""
       ) {
+        // console.log(index, input[index])
+        if(!isNaN(parseInt(input[index]))){ // reached new section
+          new_course["sections"].push(section);
+          continue section_loop;
+        }
         index += 1;
         if (index >= input.length) {
           // last section and no professor
@@ -144,14 +151,21 @@ function App() {
         }
       }
 
-      if (!input[index].includes(",") && !input[index+1].includes(",")) {
-        // no professor, go to next section
-        new_course["sections"].push(section);
-        continue section_loop;
-      }
+      // console.log(index, input[index])
+
+      // if (!input[index].includes(",") && !input[index+1].includes(",")) {
+      //   // no professor, go to next section
+      //   new_course["sections"].push(section);
+      //   continue section_loop;
+      // }
 
       let professor_name = "";
-      while (input[index] === input[index].toUpperCase()) {
+      while (isNaN(parseInt(input[index]))) {
+        if (index >= input.length) {
+          // last section and no professor
+          new_course["sections"].push(section);
+          break section_loop;
+        }
         if (input[index].includes(",")) {
           // found a professor
           professor_name += input[index] + " " + input[index+1];
