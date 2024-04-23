@@ -1,0 +1,22 @@
+.back-btn {
+  padding-left: 15px;
+}
+
+.help-title {
+  text-align: center;
+}
+
+.directions-container {
+  display: flex;
+  align-items: center;
+}
+
+.ex-img {
+  width: 500px;
+  height: auto;
+}
+
+.add-classes-img {
+  width: 900px;
+  height: auto;
+}
