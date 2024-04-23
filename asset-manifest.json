@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.css": "/ut-course-schedule-visualizer/static/css/main.e73d03e0.css",
-    "main.js": "/ut-course-schedule-visualizer/static/js/main.22f43834.js",
-    "static/js/453.ee502d0f.chunk.js": "/ut-course-schedule-visualizer/static/js/453.ee502d0f.chunk.js",
+    "main.css": "/ut-course-schedule-visualizer/static/css/main.bd052938.css",
+    "main.js": "/ut-course-schedule-visualizer/static/js/main.fc466605.js",
+    "static/js/453.2b09b4fd.chunk.js": "/ut-course-schedule-visualizer/static/js/453.2b09b4fd.chunk.js",
+    "static/media/addclasses.png": "/ut-course-schedule-visualizer/static/media/addclasses.7d5b2d52c27707e6c02b.png",
+    "static/media/example.png": "/ut-course-schedule-visualizer/static/media/example.2595fa93a3c416ed70ef.png",
     "static/media/revicons.eot": "/ut-course-schedule-visualizer/static/media/revicons.a77de540a38981833f9e.eot",
     "static/media/revicons.ttf": "/ut-course-schedule-visualizer/static/media/revicons.57fd05d4ae650374c8de.ttf",
     "static/media/revicons.woff": "/ut-course-schedule-visualizer/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/ut-course-schedule-visualizer/index.html",
-    "main.e73d03e0.css.map": "/ut-course-schedule-visualizer/static/css/main.e73d03e0.css.map",
-    "main.22f43834.js.map": "/ut-course-schedule-visualizer/static/js/main.22f43834.js.map",
-    "453.ee502d0f.chunk.js.map": "/ut-course-schedule-visualizer/static/js/453.ee502d0f.chunk.js.map"
+    "main.bd052938.css.map": "/ut-course-schedule-visualizer/static/css/main.bd052938.css.map",
+    "main.fc466605.js.map": "/ut-course-schedule-visualizer/static/js/main.fc466605.js.map",
+    "453.2b09b4fd.chunk.js.map": "/ut-course-schedule-visualizer/static/js/453.2b09b4fd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e73d03e0.css",
-    "static/js/main.22f43834.js"
+    "static/css/main.bd052938.css",
+    "static/js/main.fc466605.js"
   ]
 }
